@@ -2,6 +2,8 @@
 
 **In one line:** GA4 + GTM → **Fivetran** (+ Python/dlt) → **Snowflake** → **dbt** → **Dagster** → **Looker Studio** (or Tableau) → reverse ETL to CRM, versioned in GitHub with GitHub Actions.
 
+**Pattern: ELT, not ETL.** Fivetran (and Python/dlt) extract and load raw data untouched into Snowflake; all transformation happens inside the warehouse with dbt. Raw data stays available, logic is versioned and tested, and models can be rebuilt at any time.
+
 The academy teaches concepts that work with any tools, but every example, exercise and the capstone default to **one modern analytics engineering stack**: the most common setup in product companies hiring analytics engineers.
 
 | Layer | Reference tool | Why |

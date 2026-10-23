@@ -29,6 +29,9 @@ In BUILD mode, every pipeline must answer five questions before code is written:
 
 ## Core knowledge
 
+### ELT is the default
+In this academy (and in the modern analytics stack) pipelines are **ELT**: extract and load raw data as-is (Fivetran, dlt, native exports), then transform in the warehouse with dbt. Classic ETL, transforming before loading, is reserved for special cases such as removing personal data before it lands or legacy systems.
+
 ### Load patterns
 | Pattern | How | Pros | Cons |
 |---|---|---|---|

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="Claude Data Academy: learn data the way a mentor would teach it" width="100%">
+  <img src="assets/banner-v2.svg" alt="Claude Data Academy: learn data the way a mentor would teach it" width="100%">
 </p>
 
 <h1 align="center">Claude Data Academy</h1>
@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://github.com/andersvlindberg/claude-data-academy/actions/workflows/validate.yml"><img src="https://github.com/andersvlindberg/claude-data-academy/actions/workflows/validate.yml/badge.svg" alt="skills validated"></a>
-  <img src="https://img.shields.io/badge/skills-29-F26B1D" alt="29 skills">
+  <img src="https://img.shields.io/badge/skills-30-F26B1D" alt="30 skills">
   <img src="https://img.shields.io/badge/works%20with-Claude%20apps%20%C2%B7%20Claude%20Code-16181C" alt="works with Claude apps and Claude Code">
   <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license">
 </p>
@@ -19,7 +19,7 @@
 <p align="center">
   <a href="#install-in-60-seconds">Install</a> ·
   <a href="#see-the-difference">See the difference</a> ·
-  <a href="#the-29-skills">The 29 skills</a> ·
+  <a href="#the-30-skills">The 30 skills</a> ·
   <a href="CURRICULUM.md">Curriculum</a> ·
   <a href="projects/capstone">Capstone</a>
 </p>
@@ -28,7 +28,7 @@
 
 Ask a normal AI how a LEFT JOIN works and you get an essay you'll forget by tomorrow. Ask a Claude running **Claude Data Academy** and it finds out what you already know, teaches you one step at a time, makes you do the last step yourself, and checks that you can prove it.
 
-29 skills cover the **whole data chain**, not one tool:
+30 skills cover the **whole data chain**, not one tool:
 
 ```
  SOURCES ─► INGEST ─► STORE ─► TRANSFORM ─► SERVE ─► DECIDE
@@ -103,7 +103,7 @@ Then just ask. Skills load automatically when your question matches:
 "Build the staging model for orders in my project" → ae-dbt (build mode)
 ```
 
-## The 29 skills
+## The 30 skills
 
 **The focus is the core data career path: data engineer → analytics engineer → data analyst.** Around it sits breadth that every strong data person needs: CRM, marketing automation, MarTech, BI, design and business, taught from a business perspective, because the people who get hired understand why the data matters, not just how to move it.
 
@@ -133,7 +133,8 @@ Then just ask. Skills load automatically when your question matches:
 | 05 | [`ae-dbt`](skills/ae-dbt) | Layers, tests, docs, macros, incremental, snapshots, CI, GA4 in dbt, certification prep |
 | 11 | [`ae-bi-metrics`](skills/ae-bi-metrics) | Metric definitions, semantic layer, dashboards |
 | 12 | [`ae-governance-gdpr`](skills/ae-governance-gdpr) | GDPR, consent, PII, data ethics, data quality, data contracts |
-| 19 | [`ae-mcp-tooling`](skills/ae-mcp-tooling) | MCP, Claude Code, safe AI access to warehouses, dbt and GitHub |
+| 19 | [`ae-mcp-tooling`](skills/ae-mcp-tooling) | MCP, safe AI access to warehouses, dbt and GitHub |
+| 29 | [`ae-claude-code`](skills/ae-claude-code) | Claude Code for data work: CLAUDE.md, plan mode, skills, commands, subagents, hooks, CI |
 
 **Data analyst**
 | | Skill | Covers |
@@ -172,7 +173,7 @@ The [program map](docs/program-map.md) shows how the skills cover typical course
 
 ## The reference stack
 
-Concepts work with any tools, but examples and the capstone default to the most common analytics engineering stack: **GA4 + GTM → Fivetran (+ Python/dlt) → Snowflake → dbt → Dagster → Looker Studio (or Tableau) → reverse ETL to CRM**, versioned in GitHub with GitHub Actions,, with Claude and MCP on top and DuckDB for free local practice. **Adjust it freely:** this is a sensible default, not a rule. Tell the coach your stack once and it adapts, or fork the repo and change [STACK.md](STACK.md) to match the niche you're going for and the stack the companies you want to work for actually use.
+Concepts work with any tools, but examples and the capstone default to the most common analytics engineering stack, built on **ELT** (load raw, transform in the warehouse with dbt): **GA4 + GTM → Fivetran (+ Python/dlt) → Snowflake → dbt → Dagster → Looker Studio (or Tableau) → reverse ETL to CRM**, versioned in GitHub with GitHub Actions,, with Claude and MCP on top and DuckDB for free local practice. **Adjust it freely:** this is a sensible default, not a rule. Tell the coach your stack once and it adapts, or fork the repo and change [STACK.md](STACK.md) to match the niche you're going for and the stack the companies you want to work for actually use.
 
 ## The capstone
 

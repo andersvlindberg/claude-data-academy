@@ -32,3 +32,4 @@
 Many questions span two skills (for example "model GA4 sessions in dbt" = `ae-web-tracking` + `ae-dbt`). Load both.
 | Visual design of decks, dashboards, reports, web pages, UI | `ae-design` (+ `ae-presentation-design`) |
 | Excel, Google Sheets, pivots, XLOOKUP, Power Query | `ae-spreadsheets` |
+| Claude Code: CLAUDE.md, plan mode, commands, subagents, hooks, headless, CI | `ae-claude-code` |
