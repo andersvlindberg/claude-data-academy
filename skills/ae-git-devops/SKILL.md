@@ -95,7 +95,7 @@ profiles.yml
 
 ## Connects to
 
-`ae-dbt` (slim CI, environments), `ae-python-oop` (tests), `ae-project-method` (team workflow), `ae-career` (public portfolio), `ae-mcp-tooling` (GitHub MCP and Claude Code).
+`ae-dbt` (slim CI, environments), `ae-python` (tests), `ae-project-method` (team workflow), `ae-career` (public portfolio), `ae-mcp-tooling` (GitHub MCP and Claude Code).
 
 ## References
 

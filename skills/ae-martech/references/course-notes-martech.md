@@ -1,6 +1,6 @@
 # Course notes: MarTech and customer data (my summary)
 
-My own summary of the MarTech course material (lecture PDFs, e-book and podcast series) used at IHM. Course material itself is not reproduced here.
+My own summary of the MarTech course material (lecture PDFs, e-book and podcast series) from my studies. Course material itself is not reproduced here.
 
 ## The red thread
 **Follow the customer. Follow the data. Understand the ecosystem. Create effect.** Never start with "which system should we use?" Start with the customer, then the data. Data is not the goal; effect is.

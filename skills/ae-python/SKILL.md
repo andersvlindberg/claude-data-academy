@@ -1,9 +1,9 @@
 ---
-name: ae-python-oop
-description: Programming for data and object-oriented programming for the Analytics Engineering Academy. Use for questions about Python for data work, virtual environments and packages, functions and modules, pandas and polars, Jupyter notebooks versus scripts, object-oriented programming concepts such as classes, objects, encapsulation, inheritance, polymorphism, abstraction, interfaces and composition, dataclasses, SOLID principles, exceptions, type hints, logging, testing with pytest, project structure, and the object-oriented programming courses, including C# equivalents.
+name: ae-python
+description: Python and programming for data, including object-oriented programming, for the Analytics Engineering Academy. Use for questions about Python for data work, virtual environments and packages, functions and modules, pandas and polars, Jupyter notebooks versus scripts, object-oriented programming concepts such as classes, objects, encapsulation, inheritance, polymorphism, abstraction, interfaces and composition, dataclasses, SOLID principles, exceptions, type hints, logging, testing with pytest, project structure, and the object-oriented programming courses, including C# equivalents.
 ---
 
-# Module 14: Python and object-oriented programming
+# Module 14: Python for data
 
 Analytics engineers write mostly SQL, but Python glues the chain together: ingestion scripts, API clients, tests, automation and ML. Object-oriented programming is how larger code stays understandable.
 

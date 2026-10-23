@@ -86,7 +86,7 @@ BigQuery ML (`create model ... options(model_type='logistic_reg')`) and Snowflak
 
 ## Connects to
 
-`ae-dbt` (feature models, documentation), `ae-analytics` (segmentation, testing impact), `ae-bi-metrics` (semantic layer as grounding), `ae-mcp-tooling` (connecting tools), `ae-governance-gdpr` (personal data and AI Act), `ae-python-oop` (code).
+`ae-dbt` (feature models, documentation), `ae-analytics` (segmentation, testing impact), `ae-bi-metrics` (semantic layer as grounding), `ae-mcp-tooling` (connecting tools), `ae-governance-gdpr` (personal data and AI Act), `ae-python` (code).
 
 ## References
 

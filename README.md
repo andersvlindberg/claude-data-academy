@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://github.com/andersvlindberg/claude-data-academy/actions/workflows/validate.yml"><img src="https://github.com/andersvlindberg/claude-data-academy/actions/workflows/validate.yml/badge.svg" alt="skills validated"></a>
-  <img src="https://img.shields.io/badge/skills-27-F26B1D" alt="27 skills">
+  <img src="https://img.shields.io/badge/skills-28-F26B1D" alt="28 skills">
   <img src="https://img.shields.io/badge/works%20with-Claude%20apps%20%C2%B7%20Claude%20Code-16181C" alt="works with Claude apps and Claude Code">
   <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license">
 </p>
@@ -19,7 +19,7 @@
 <p align="center">
   <a href="#install-in-60-seconds">Install</a> ·
   <a href="#see-the-difference">See the difference</a> ·
-  <a href="#the-27-skills">The 27 skills</a> ·
+  <a href="#the-28-skills">The 28 skills</a> ·
   <a href="CURRICULUM.md">Curriculum</a> ·
   <a href="projects/capstone">Capstone</a>
 </p>
@@ -28,7 +28,7 @@
 
 Ask a normal AI how a LEFT JOIN works and you get an essay you'll forget by tomorrow. Ask a Claude running **Claude Data Academy** and it finds out what you already know, teaches you one step at a time, makes you do the last step yourself, and checks that you can prove it.
 
-27 skills cover the **whole data chain**, not one tool:
+28 skills cover the **whole data chain**, not one tool:
 
 ```
  SOURCES ─► INGEST ─► STORE ─► TRANSFORM ─► SERVE ─► DECIDE
@@ -103,7 +103,7 @@ Then just ask. Skills load automatically when your question matches:
 "Build the staging model for orders in my project" → ae-dbt (build mode)
 ```
 
-## The 27 skills
+## The 28 skills
 
 **The engine**
 | | Skill | What it does |
@@ -116,7 +116,7 @@ Then just ask. Skills load automatically when your question matches:
 | 04 | [`ae-data-engineering`](skills/ae-data-engineering) | Ingestion, ELT, batch vs streaming, idempotency, backfills, orchestration, Docker, migration |
 | 06 | [`ae-warehouses`](skills/ae-warehouses) | BigQuery, Snowflake, DuckDB, cloud platforms, cost control, roles, key pair auth |
 | 13 | [`ae-apis`](skills/ae-apis) | REST, auth, pagination, retries, webhooks, integration patterns, reverse ETL |
-| 14 | [`ae-python-oop`](skills/ae-python-oop) | Python for data, OOP, SOLID, testing with pytest, Python ↔ C# |
+| 14 | [`ae-python`](skills/ae-python) | Python for data, pandas, classes and OOP, testing with pytest, Python ↔ C# |
 | 16 | [`ae-git-devops`](skills/ae-git-devops) | Git, GitHub, pull requests, CI/CD for dbt, linting |
 | 26 | [`ae-systems-processes`](skills/ae-systems-processes) | ERP, OMS, WMS, PIM, CMS, order to cash, master data, migration |
 
@@ -146,7 +146,7 @@ Then just ask. Skills load automatically when your question matches:
 | 21 | [`ae-crm-automation`](skills/ae-crm-automation) | CRM, lifecycle, lead scoring, service data, automation flows, holdouts, golden records |
 | 22 | [`ae-customer-data-platforms`](skills/ae-customer-data-platforms) | Data flows, CDP, identity resolution, customer 360, activation, adtech |
 
-**Business, projects and career**
+**Business, design, projects and career**
 | | Skill | Covers |
 |---|---|---|
 | 09 | [`ae-business-journeys`](skills/ae-business-journeys) | Customer journeys, touchpoints, metric trees, business cases |
@@ -155,6 +155,7 @@ Then just ask. Skills load automatically when your question matches:
 | 18 | [`ae-presentation-design`](skills/ae-presentation-design) | Decks that look designed, data storytelling, presenting |
 | 19 | [`ae-mcp-tooling`](skills/ae-mcp-tooling) | MCP, Claude Code, safe AI access to warehouses, dbt and GitHub |
 | 20 | [`ae-career`](skills/ae-career) | Portfolio, CV, internships, interviews, your professional moat |
+| 27 | [`ae-design`](skills/ae-design) | Design direction for decks, dashboards, reports and UI: principles, references, checklist |
 
 Every topic skill has the same shape: **mastery ladder L1–L4**, core knowledge, **common misconceptions**, deep references, and `exercises.md` with two exercise sets, a quiz bank and interview questions.
 
@@ -165,7 +166,7 @@ Every topic skill has the same shape: **mastery ladder L1–L4**, core knowledge
 - **Working analysts** levelling up into dbt, warehouses and engineering practice.
 - **Teams** who want a shared standard for how their AI teaches and builds.
 
-The [course map](docs/ihm-course-map.md) shows how the skills cover the courses in five Swedish vocational data programs: customer data developer, data analyst, digital analyst, data analysis and data engineer.
+The [program map](docs/program-map.md) shows how the skills cover typical courses in five example data programs (customer data developer, digital analyst, data analyst, data analysis, data engineer) and where programs often fall short.
 
 ## The capstone
 

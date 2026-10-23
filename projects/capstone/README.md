@@ -31,7 +31,7 @@ Never use real personal data in a public repo.
 - Raw data in BigQuery, Snowflake or DuckDB with dev/prod separation and least-privilege roles.
 - One custom ingestion (API or file) written in Python with classes, tests, idempotent loads and backfill.
 - Star schema design document with grains and a bus matrix.
-**Skills:** `ae-warehouses`, `ae-data-engineering`, `ae-apis`, `ae-python-oop`, `ae-modeling`, `ae-sql`.
+**Skills:** `ae-warehouses`, `ae-data-engineering`, `ae-apis`, `ae-python`, `ae-modeling`, `ae-sql`.
 
 ### M4 · Trusted models (Phase 4)
 - dbt project: sources with freshness, staging, intermediate, marts (`fct_orders`, `fct_sessions`, `dim_customers`, `dim_products`).

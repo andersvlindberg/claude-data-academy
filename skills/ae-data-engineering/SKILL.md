@@ -95,7 +95,7 @@ Containers package an application with everything it needs. Use them to run Post
 
 ## Connects to
 
-`ae-apis` (extracting from APIs), `ae-warehouses` (destination), `ae-dbt` (transformation and sources), `ae-python-oop` (pipeline code), `ae-git-devops` (deploying pipelines).
+`ae-apis` (extracting from APIs), `ae-warehouses` (destination), `ae-dbt` (transformation and sources), `ae-python` (pipeline code), `ae-git-devops` (deploying pipelines).
 
 ## References
 

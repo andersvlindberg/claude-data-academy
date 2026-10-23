@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repository.
 
 ## What this repo is
 
-A training program packaged as Claude skills. `skills/` holds 27 skills (`ae-coach` plus 26 topic modules). `projects/capstone/` is the hands-on project that runs through the whole curriculum. `docs/` holds the course map, glossary and learning log template.
+A training program packaged as Claude skills. `skills/` holds 28 skills (`ae-coach` plus 27 topic modules). `projects/capstone/` is the hands-on project that runs through the whole curriculum. `docs/` holds the course map, glossary and learning log template.
 
 ## Conventions
 

@@ -83,7 +83,7 @@ With AI coding tools, small custom integrations are increasingly written as code
 
 ## Connects to
 
-`ae-data-engineering` (extract and load), `ae-python-oop` (client code), `ae-web-tracking` (HTTP in the browser), `ae-martech` (integrations), `ae-governance-gdpr` (personal data in transfers), `ae-mcp-tooling` (MCP servers wrap APIs for AI).
+`ae-data-engineering` (extract and load), `ae-python` (client code), `ae-web-tracking` (HTTP in the browser), `ae-martech` (integrations), `ae-governance-gdpr` (personal data in transfers), `ae-mcp-tooling` (MCP servers wrap APIs for AI).
 
 ## References
 

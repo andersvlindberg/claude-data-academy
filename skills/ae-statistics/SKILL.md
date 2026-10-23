@@ -86,7 +86,7 @@ A 95% confidence interval is a range produced by a method that captures the true
 
 ## Connects to
 
-`ae-analytics` (A/B, cohorts), `ae-digital-analytics` (CRO tests), `ae-ai-ml` (regression and classification), `ae-python-oop` (code), `ae-presentation-design` (communicating uncertainty).
+`ae-analytics` (A/B, cohorts), `ae-digital-analytics` (CRO tests), `ae-ai-ml` (regression and classification), `ae-python` (code), `ae-presentation-design` (communicating uncertainty).
 
 ## References
 

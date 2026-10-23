@@ -15,7 +15,7 @@
 | Metric definitions, semantic layer, dashboards, Looker Studio, Power BI | `ae-bi-metrics` |
 | GDPR, legal basis, PII, consent law, data quality, data contracts, ownership | `ae-governance-gdpr` |
 | REST APIs, JSON, auth, webhooks, pagination, integrations, reverse ETL | `ae-apis` |
-| Python, classes, OOP, testing, pandas | `ae-python-oop` |
+| Python, classes, OOP, testing, pandas | `ae-python` |
 | Machine learning, churn, CLV models, LLMs, RAG, agents | `ae-ai-ml` |
 | Git, GitHub, branches, PRs, CI/CD | `ae-git-devops` |
 | Project management, agile, requirements, troubleshooting method | `ae-project-method` |
@@ -30,3 +30,4 @@
 | ERP, OMS, WMS, PIM, CMS, business processes, master data, migration | `ae-systems-processes` |
 
 Many questions span two skills (for example "model GA4 sessions in dbt" = `ae-web-tracking` + `ae-dbt`). Load both.
+| Visual design of decks, dashboards, reports, web pages, UI | `ae-design` (+ `ae-presentation-design`) |

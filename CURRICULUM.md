@@ -52,7 +52,7 @@ Target for an analytics engineer internship: **L3 in modules 02, 03, 05, 06, 12,
 | 04 | `ae-data-engineering` | Build an idempotent ELT load from a file or API into a warehouse |
 | 06 | `ae-warehouses` | Set up BigQuery or Snowflake with roles, environments and cost control |
 | 13 | `ae-apis` | Pull paginated data from a REST API with auth and retries |
-| 14 | `ae-python-oop` | Write a small, tested Python ingestion module with classes |
+| 14 | `ae-python` | Write a small, tested Python ingestion module with classes |
 
 **Capstone milestone 3:** raw data loaded into the warehouse on a schedule.
 
