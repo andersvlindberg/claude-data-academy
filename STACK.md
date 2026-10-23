@@ -19,6 +19,10 @@ The academy teaches concepts that work with any tools, but every example, exerci
 
 GA4 exports to BigQuery. In the reference stack you either model the GA4 export where it lands (BigQuery) or move it into Snowflake as a data engineering exercise.
 
+## Adjust it to you
+
+The reference stack is a sensible, common default, not a rule. Adjust it as your interests and target companies become clearer.
+
 ## Use your own stack
 
 The coach defaults to the reference stack. If you work with something else, say so once ("I use Databricks and Power BI") and the coach adapts examples and code. To change the default for everyone, **fork the repo** and edit this file and the stack notes in the skills. Choose based on the niche you want and the companies you target:

@@ -2,6 +2,10 @@
 
 The academy is organised in five phases that follow the data chain. Each phase ends in a concrete capstone milestone, so learning and portfolio grow together.
 
+## Focus
+
+The core track is the career path **data engineer → analytics engineer → data analyst**. The breadth track (CRM, marketing automation, MarTech, business strategy, design, presentation, project method) is taught from a business perspective: enough to understand stakeholders, speak their language and connect data to decisions.
+
 ## Mastery levels
 
 Every module uses the same four levels. `ae-coach` assesses and logs them.

@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://github.com/andersvlindberg/claude-data-academy/actions/workflows/validate.yml"><img src="https://github.com/andersvlindberg/claude-data-academy/actions/workflows/validate.yml/badge.svg" alt="skills validated"></a>
-  <img src="https://img.shields.io/badge/skills-28-F26B1D" alt="28 skills">
+  <img src="https://img.shields.io/badge/skills-29-F26B1D" alt="29 skills">
   <img src="https://img.shields.io/badge/works%20with-Claude%20apps%20%C2%B7%20Claude%20Code-16181C" alt="works with Claude apps and Claude Code">
   <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license">
 </p>
@@ -19,7 +19,7 @@
 <p align="center">
   <a href="#install-in-60-seconds">Install</a> ·
   <a href="#see-the-difference">See the difference</a> ·
-  <a href="#the-28-skills">The 28 skills</a> ·
+  <a href="#the-29-skills">The 29 skills</a> ·
   <a href="CURRICULUM.md">Curriculum</a> ·
   <a href="projects/capstone">Capstone</a>
 </p>
@@ -28,7 +28,7 @@
 
 Ask a normal AI how a LEFT JOIN works and you get an essay you'll forget by tomorrow. Ask a Claude running **Claude Data Academy** and it finds out what you already know, teaches you one step at a time, makes you do the last step yourself, and checks that you can prove it.
 
-28 skills cover the **whole data chain**, not one tool:
+29 skills cover the **whole data chain**, not one tool:
 
 ```
  SOURCES ─► INGEST ─► STORE ─► TRANSFORM ─► SERVE ─► DECIDE
@@ -103,34 +103,39 @@ Then just ask. Skills load automatically when your question matches:
 "Build the staging model for orders in my project" → ae-dbt (build mode)
 ```
 
-## The 28 skills
+## The 29 skills
+
+**The focus is the core data career path: data engineer → analytics engineer → data analyst.** Around it sits breadth that every strong data person needs: CRM, marketing automation, MarTech, BI, design and business, taught from a business perspective, because the people who get hired understand why the data matters, not just how to move it.
 
 **The engine**
 | | Skill | What it does |
 |---|---|---|
 | 00 | [`ae-coach`](skills/ae-coach) | Learn, build, quiz, review and interview modes. Diagnosis, step-by-step scaffolding, learning log, academic integrity |
 
-**Data engineering**
+### Core track
+
+**Data engineer**
 | | Skill | Covers |
 |---|---|---|
-| 04 | [`ae-data-engineering`](skills/ae-data-engineering) | Ingestion, ELT, batch vs streaming, idempotency, backfills, orchestration, Docker, migration |
-| 06 | [`ae-warehouses`](skills/ae-warehouses) | BigQuery, Snowflake, DuckDB, cloud platforms, cost control, roles, key pair auth |
+| 04 | [`ae-data-engineering`](skills/ae-data-engineering) | Ingestion with Fivetran and Python, ELT, idempotency, backfills, Dagster/Airflow, Docker, migration |
+| 06 | [`ae-warehouses`](skills/ae-warehouses) | Snowflake, BigQuery, DuckDB, cloud platforms, cost control, roles, key pair auth |
 | 13 | [`ae-apis`](skills/ae-apis) | REST, auth, pagination, retries, webhooks, integration patterns, reverse ETL |
 | 14 | [`ae-python`](skills/ae-python) | Python for data, pandas, classes and OOP, testing with pytest, Python ↔ C# |
 | 16 | [`ae-git-devops`](skills/ae-git-devops) | Git, GitHub, pull requests, CI/CD for dbt, linting |
 | 26 | [`ae-systems-processes`](skills/ae-systems-processes) | ERP, OMS, WMS, PIM, CMS, order to cash, master data, migration |
 
-**Analytics engineering**
+**Analytics engineer**
 | | Skill | Covers |
 |---|---|---|
 | 01 | [`ae-foundations`](skills/ae-foundations) | The data lifecycle, roles, observation vs interpretation |
 | 02 | [`ae-sql`](skills/ae-sql) | SELECT to window functions, patterns, dialects |
 | 03 | [`ae-modeling`](skills/ae-modeling) | Grain, keys, star schemas, Kimball, SCD |
 | 05 | [`ae-dbt`](skills/ae-dbt) | Layers, tests, docs, macros, incremental, snapshots, CI, GA4 in dbt, certification prep |
-| 11 | [`ae-bi-metrics`](skills/ae-bi-metrics) | Metric definitions, semantic layer, dashboards, Looker Studio, Power BI |
+| 11 | [`ae-bi-metrics`](skills/ae-bi-metrics) | Metric definitions, semantic layer, dashboards |
 | 12 | [`ae-governance-gdpr`](skills/ae-governance-gdpr) | GDPR, consent, PII, data ethics, data quality, data contracts |
+| 19 | [`ae-mcp-tooling`](skills/ae-mcp-tooling) | MCP, Claude Code, safe AI access to warehouses, dbt and GitHub |
 
-**Analytics and digital analytics**
+**Data analyst**
 | | Skill | Covers |
 |---|---|---|
 | 07 | [`ae-web-tracking`](skills/ae-web-tracking) | Click to data: HTTP, DevTools, cookies, identity, data layer, GTM, consent, JavaScript |
@@ -138,24 +143,21 @@ Then just ask. Skills load automatically when your question matches:
 | 15 | [`ae-ai-ml`](skills/ae-ai-ml) | Churn and CLV models, leakage, LLMs, RAG, agents, company brain |
 | 23 | [`ae-digital-analytics`](skills/ae-digital-analytics) | Measurement plans, GA4, CRO, UTMs, attribution, GA certification |
 | 24 | [`ae-statistics`](skills/ae-statistics) | Inference, experiment design, power, regression, surveys |
+| 28 | [`ae-spreadsheets`](skills/ae-spreadsheets) | Excel and Google Sheets: XLOOKUP, SUMIFS, pivots, Power Query, when to move to dbt |
 
-**Customer data, CRM and MarTech**
+### Breadth track (business perspective)
+
 | | Skill | Covers |
 |---|---|---|
 | 08 | [`ae-martech`](skills/ae-martech) | The MarTech stack, KPI math, attribution, organisation, brand and CX |
 | 21 | [`ae-crm-automation`](skills/ae-crm-automation) | CRM, lifecycle, lead scoring, service data, automation flows, holdouts, golden records |
 | 22 | [`ae-customer-data-platforms`](skills/ae-customer-data-platforms) | Data flows, CDP, identity resolution, customer 360, activation, adtech |
-
-**Business, design, projects and career**
-| | Skill | Covers |
-|---|---|---|
 | 09 | [`ae-business-journeys`](skills/ae-business-journeys) | Customer journeys, touchpoints, metric trees, business cases |
 | 25 | [`ae-business-strategy`](skills/ae-business-strategy) | Business acumen, Business Model Canvas, SMART goals, KPIs, data maturity |
+| 27 | [`ae-design`](skills/ae-design) | Design direction for decks, dashboards, reports and UI |
+| 18 | [`ae-presentation-design`](skills/ae-presentation-design) | Data storytelling, decks, presenting |
 | 17 | [`ae-project-method`](skills/ae-project-method) | Agile, Scrum, RACI, leadership, troubleshooting, group work |
-| 18 | [`ae-presentation-design`](skills/ae-presentation-design) | Decks that look designed, data storytelling, presenting |
-| 19 | [`ae-mcp-tooling`](skills/ae-mcp-tooling) | MCP, Claude Code, safe AI access to warehouses, dbt and GitHub |
 | 20 | [`ae-career`](skills/ae-career) | Portfolio, CV, internships, interviews, your professional moat |
-| 27 | [`ae-design`](skills/ae-design) | Design direction for decks, dashboards, reports and UI: principles, references, checklist |
 
 Every topic skill has the same shape: **mastery ladder L1–L4**, core knowledge, **common misconceptions**, deep references, and `exercises.md` with two exercise sets, a quiz bank and interview questions.
 
@@ -170,7 +172,7 @@ The [program map](docs/program-map.md) shows how the skills cover typical course
 
 ## The reference stack
 
-Concepts work with any tools, but examples and the capstone default to the most common analytics engineering stack: **GA4 + GTM → Fivetran (+ Python/dlt) → Snowflake → dbt → Dagster → Looker Studio (or Tableau) → reverse ETL to CRM**, versioned in GitHub with GitHub Actions,, with Claude and MCP on top and DuckDB for free local practice. Using something else? Tell the coach once, or fork the repo and change [STACK.md](STACK.md) to match the niche and companies you're aiming for.
+Concepts work with any tools, but examples and the capstone default to the most common analytics engineering stack: **GA4 + GTM → Fivetran (+ Python/dlt) → Snowflake → dbt → Dagster → Looker Studio (or Tableau) → reverse ETL to CRM**, versioned in GitHub with GitHub Actions,, with Claude and MCP on top and DuckDB for free local practice. **Adjust it freely:** this is a sensible default, not a rule. Tell the coach your stack once and it adapts, or fork the repo and change [STACK.md](STACK.md) to match the niche you're going for and the stack the companies you want to work for actually use.
 
 ## The capstone
 
