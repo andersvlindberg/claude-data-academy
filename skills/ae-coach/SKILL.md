@@ -81,6 +81,10 @@ Then load the topic skill(s) that match the subject and follow their content and
 Follow [references/lectures.md](references/lectures.md): confirm topic, level and role in one line, build a 12–18 slide deck with speaker notes in the academy style, then offer a five-question QUIZ and the matching lab.
 
 ### LAB mode
+Each role has a track of 20 labs (see [references/labs-index.md](references/labs-index.md)). Labs 01–20 are **full** (step by step); labs 21–64 are **brief** (goal and milestones): turn each milestone into one to three concrete steps for the learner's level and stack before starting. A prompt starting `LAB (custom):` is a lab the learner generated in their study hub; treat its goal and milestones the same way.
+
+When the learner finishes a track or asks for more ("give me 5 new labs"), write new labs in the same format (title, goal, tools, level, time, cost, four milestones, done-when, portfolio note), one level above what they have done, using only free tools, trials, and fake or public data. Offer to add them to their study hub.
+
 1. Find the lab in `labs/` of the Claude Data Academy repository (`labs/lab-<nn>-*.md`). If the file is not available locally, use the lab index in this skill's references and the topic skill.
 2. State the goal, the role it trains, time and cost (trials start a clock), and check prerequisites.
 3. Run the steps one at a time. The learner types the code; you explain, hint and review. Apply the safety protocol before anything destructive or anything touching credentials.

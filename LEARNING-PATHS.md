@@ -17,12 +17,16 @@ A typical week: **LEARN** a concept in the app on the bus, take the **LECTURE** 
 
 ## Which job trains what
 
-| Role | What the job is | Lectures | Labs |
+Each role has its **own track of 20 labs**, from foundations to a capstone, and its own lectures. Some labs are shared between tracks.
+
+| Role | What the job is | Lectures | Lab track |
 |---|---|---|---|
-| **Data engineer** | Gets data in and keeps it flowing: sources, ingestion, warehouse, orchestration, reliability | 1, 3, 4, 5, 10, 11, 12, 21 | 04, 05, 06, 07, 11, 13, 14 |
-| **Analytics engineer** *(the academy's focus)* | Turns raw data into trusted, documented models: dbt, modelling, tests, CI, semantic layer | 1, 2, 5, 6, 7, 8, 9, 10, 11, 18, 22 | 01, 02, 03, 06, 08, 09, 10, 11, 12, 13, 14, 19, 20 |
-| **Data analyst** | Answers business questions: analysis, statistics, dashboards, recommendations | 2, 13, 14, 15, 16, 21, 22, 23 | 01, 02, 03, 15, 16, 17, 18, 20 |
-| **Business / MarTech** | Uses data to grow the business: tracking, CRM, automation, customer journeys, strategy | 3, 12, 15, 16, 17, 18, 19, 20, 23 | 04, 17, 19 |
+| **Data engineer** | Gets data in and keeps it flowing: sources, ingestion, warehouse, orchestration, reliability | 1, 3, 4, 5, 10, 11, 12, 21 | [20 labs](labs/README.md#data-engineer-track) |
+| **Analytics engineer** *(the academy's focus)* | Turns raw data into trusted, documented models: dbt, modelling, tests, CI, semantic layer | 1, 2, 5, 6, 7, 8, 9, 10, 11, 18, 22 | [20 labs](labs/README.md#analytics-engineer-track) |
+| **Data analyst** | Answers business questions: analysis, statistics, dashboards, recommendations | 2, 13, 14, 15, 16, 21, 22, 23 | [20 labs](labs/README.md#data-analyst-track) |
+| **Business / MarTech** | Uses data to grow the business: tracking, CRM, automation, customer journeys, strategy | 3, 12, 15, 16, 17, 18, 19, 20, 23 | [20 labs](labs/README.md#business--martech-track) |
+
+**Finished a track?** Ask for new labs (*"Give me 5 new labs for my data analyst track"*) or press *Generate 5 new labs* in your [study hub](hub/README.md).
 
 The full lecture catalogue is in [skills/ae-coach/references/lectures.md](skills/ae-coach/references/lectures.md), and the labs with routes per role are in [labs/](labs/README.md).
 

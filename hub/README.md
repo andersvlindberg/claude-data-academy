@@ -1,6 +1,6 @@
 # Your study hub
 
-`index.html` is a personal dashboard for the academy: the three ways to learn, all 20 labs and 24 lectures with the role each one trains, your progress through the data chain, and a learning log.
+`index.html` is a personal start page for the academy. Pick a role and the whole page follows it: your track of 20 labs with *Lecture first* and *Start lab* buttons, a progress ring, the lectures for that role, a learning log, and a button that generates five new labs when you finish the track.
 
 ## Make your own (Claude app)
 
@@ -8,7 +8,7 @@ Paste this in a chat with the Data Academy plugin installed:
 
 ```text
 Publish my Data Academy hub as an artifact from hub/index.html in
-github.com/andersvlindberg/claude-data-academy, with the db and user
+github.com/andersvlindberg/claude-data-academy, with the db, user and sample
 capabilities. Set my name to <your name> and my focus to <AE / DE / DA / BIZ>.
 ```
 

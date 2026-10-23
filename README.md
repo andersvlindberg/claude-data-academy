@@ -19,7 +19,7 @@
 <p align="center">
   <a href="START-HERE.md"><b>Start here</b></a> ·
   <a href="LEARNING-PATHS.md">Learn · Lecture · Lab</a> ·
-  <a href="labs">20 labs</a> ·
+  <a href="labs">Labs</a> ·
   <a href="#install-in-60-seconds">Install</a> ·
   <a href="#see-the-difference">See the difference</a> ·
   <a href="#the-30-skills">The 30 skills</a> ·
@@ -92,7 +92,7 @@ Ask a normal AI how a LEFT JOIN works and you get an essay you'll forget by tomo
 |---|---|---|
 | **LEARN** `LEARN: window functions` | Claude app | Step-by-step dialogue, diagrams and quizzes |
 | **LECTURE** `LECTURE: dbt fundamentals` | Claude app | A slide deck with speaker notes, downloadable as PDF or PowerPoint |
-| **LAB** `LAB 08` | Claude Code | Hands-on work in the real stack, one of [20 labs](labs) that become portfolio pieces |
+| **LAB** `LAB 08` | Claude Code | Hands-on work in the real stack, a track of [20 labs per role](labs) that become portfolio pieces |
 
 Every lecture and lab says which job it trains: data engineer, analytics engineer, data analyst or business / MarTech. See [LEARNING-PATHS.md](LEARNING-PATHS.md), and keep your progress in a personal [study hub](hub).
 
