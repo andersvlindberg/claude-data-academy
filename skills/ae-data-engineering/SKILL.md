@@ -89,6 +89,10 @@ Containers package an application with everything it needs. Use them to run Post
 - **Quality:** tests on values (see `ae-governance-gdpr`).
 - **Lineage:** what breaks downstream if this fails?
 
+## On the reference stack
+
+Fivetran loads standard sources (shop, CRM, ad platforms) and dlt/Python custom APIs into the `RAW` database in Snowflake, untouched (ELT). Dagster orchestrates: it triggers Fivetran syncs, waits for completion, then runs dbt, with retries and alerts. GA4 arrives through its native BigQuery export. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "Real-time is always better." It is more expensive; most decisions are daily.

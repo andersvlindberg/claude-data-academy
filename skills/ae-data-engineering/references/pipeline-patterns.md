@@ -40,6 +40,30 @@ when not matched then
 
 Load `where updated_at > (select max(updated_at) from target) - interval 3 day` and deduplicate on the key. The lookback catches late-arriving rows.
 
+## Dagster with dbt (reference stack sketch)
+
+```python
+# definitions.py — verify APIs against current Dagster docs
+from dagster import Definitions, ScheduleDefinition, define_asset_job
+from dagster_dbt import DbtCliResource, dbt_assets, DbtProject
+
+dbt_project = DbtProject(project_dir="dbt")
+
+@dbt_assets(manifest=dbt_project.manifest_path)
+def analytics_models(context, dbt: DbtCliResource):
+    yield from dbt.cli(["build"], context=context).stream()
+
+daily = define_asset_job("daily_analytics", selection="*")
+
+defs = Definitions(
+    assets=[analytics_models],          # add Fivetran assets via dagster-fivetran
+    jobs=[daily],
+    schedules=[ScheduleDefinition(job=daily, cron_schedule="0 5 * * *")],
+    resources={"dbt": DbtCliResource(project_dir=dbt_project)},
+)
+```
+Every dbt model becomes an asset with lineage in the Dagster UI; Fivetran connectors can be added as upstream assets so dbt runs only after fresh data arrives.
+
 ## Airflow DAG skeleton
 
 ```python

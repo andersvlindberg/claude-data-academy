@@ -82,6 +82,10 @@ dbt build -s state:modified+ --defer --state <prod-artifacts>   # slim CI
 | Test failure | During test | Query the failing rows (`--store-failures` or the test's compiled SQL) and decide: data problem or logic problem? |
 | Wrong results, no error | Only by checking | Reconcile against source: counts, sums, a known example row |
 
+## On the reference stack
+
+dbt (Cloud or Core) on Snowflake with the `dbt-snowflake` adapter; sources point at `RAW`, models build into `ANALYTICS` (dev schema per developer, prod via Dagster or dbt Cloud jobs); CI with GitHub Actions and slim CI. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "dbt extracts data." It does not.

@@ -95,6 +95,10 @@ Bad data quality (not a quick fix), silos and legacy systems, many identifiers, 
 ### The customer data developer's role here
 You work at the border between business, marketing, IT and data engineering. You need to discuss and analyse: which sources exist and what they collect; how data gets in and integrates; how the customer is identified and quality ensured; which profiles and segments are needed; where data is activated and what value it creates. You do not have to build all infrastructure yourself, but you must **understand, specify requirements and collaborate**.
 
+## On the reference stack
+
+Composable CDP: Fivetran/dlt in, identity resolution and profiles in dbt on Snowflake, activation by reverse ETL. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "A CDP gives us clean data." It amplifies whatever quality you put in.

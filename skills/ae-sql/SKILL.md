@@ -69,6 +69,10 @@ Joining a one-to-many table before aggregating multiplies rows. Summing `order_t
 - Qualify columns with table aliases when more than one table is involved.
 - Comment the **why**, not the what.
 
+## On the reference stack
+
+Examples use Snowflake syntax by default (`QUALIFY`, `DATEADD`, `DIV0`, `IFF`); see references/dialects.md for BigQuery (GA4) and DuckDB equivalents. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "SELECT runs first, so I can use my alias in WHERE." (It runs after WHERE.)

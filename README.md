@@ -31,11 +31,12 @@ Ask a normal AI how a LEFT JOIN works and you get an essay you'll forget by tomo
 30 skills cover the **whole data chain**, not one tool:
 
 ```
- SOURCES ─► INGEST ─► STORE ─► TRANSFORM ─► SERVE ─► DECIDE
- web, CRM,   APIs,     BigQuery,  dbt,        BI, AI,   business case,
- apps, POS   ELT       Snowflake  tests       CRM, ads  customer journey
- └─ data engineering ─┘└──── analytics engineering ────┘└─ analytics & business ─┘
-        governance · GDPR · Git · statistics · project method · communication
+ SOURCES ──► INGEST ──► STORE ──► TRANSFORM ──► SERVE ──► ANALYSE ──► DECIDE
+ shop, GA4,   Fivetran,   Snowflake   dbt (ELT),    BI, CRM,   stats, ML,   business case,
+ CRM, apps    dlt                     tests, docs   reverse    AI agents    customer journey
+                                                    ETL
+ └──── data engineer ────┘└──── analytics engineer ────┘└──── data analyst ────┘
+            orchestrated by Dagster · versioned in Git · governed by GDPR
 ```
 
 ## Why it's different
@@ -50,6 +51,8 @@ Ask a normal AI how a LEFT JOIN works and you get an essay you'll forget by tomo
 | Says "it depends" | **Opinionated conventions**: dbt layers, naming, tests, metric definitions, contact policies |
 | Confident about outdated facts | Flags fast-changing facts with **"verify in current docs"** |
 | Never asks for proof | Every answer ends with **how to verify it** |
+| Runs whatever you ask | **Safe by default**: explains and waits for your yes before anything touching personal data, production or anything irreversible |
+| Treats privacy as an afterthought | **Privacy first**: a GDPR handbook, a data collection checklist and cookie rules built in |
 
 ## See the difference
 
@@ -190,7 +193,9 @@ Learning lands in one project that becomes a portfolio: an e-commerce data platf
 3. **You do the last step.**
 4. **Prove it:** every answer ends with a way to verify it.
 5. **Business first:** every model, metric and chart traces back to a decision.
-6. **Ship it in public:** the capstone grows with commits, not in stealth.
+6. **Safe by default:** nothing consequential happens without your explicit yes.
+7. **Privacy first:** collect only what has a purpose and a legal basis.
+8. **Ship it in public:** the capstone grows with commits, not in stealth.
 
 ## Contributing
 

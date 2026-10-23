@@ -72,6 +72,10 @@ Free, connects natively to BigQuery and GA4. Data source → report → charts. 
 - **Import** (fast, scheduled refresh) versus **DirectQuery** (live, slower, warehouse cost).
 - Strong in Microsoft-centric companies; very common in Swedish industry.
 
+## On the reference stack
+
+Looker Studio is the default BI tool (free, native with Google data, connects to Snowflake via connectors); Tableau is the alternative. Core metric logic lives in dbt marts or the dbt semantic layer, not in the BI tool. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "The dashboard is the deliverable." The decision is.

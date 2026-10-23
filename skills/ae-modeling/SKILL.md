@@ -81,6 +81,10 @@ In dbt, type 2 is built with **snapshots**.
 - PII is isolated in as few tables as possible (see `ae-governance-gdpr`).
 - Names follow the dbt conventions in `ae-dbt` (`fct_`, `dim_`, `_id`, `_at`, `is_`).
 
+## On the reference stack
+
+Models are implemented as dbt models in Snowflake: staging views, intermediate views, marts as tables (incremental when large), SCD2 via dbt snapshots. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "Normalised is always better." Not for analytics reads.

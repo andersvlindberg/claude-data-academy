@@ -80,6 +80,10 @@ Row count and grain · nulls per column · distinct counts · min/max/percentile
 - **Regression to the mean:** extreme periods are followed by more normal ones.
 - **Averages of rates:** recompute from totals.
 
+## On the reference stack
+
+Analyses run in SQL on Snowflake marts (or in Python/notebooks reading them); results that become recurring move into dbt models and Looker Studio. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "Significant means important." Significant means unlikely to be noise; the effect can be tiny.

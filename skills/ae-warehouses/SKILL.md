@@ -80,6 +80,10 @@ prod        ← scheduled dbt builds; BI reads from here
 ```
 Separate service identities: one for ingestion (write raw), one for dbt (read raw, write dev/prod), one for BI (read prod marts only).
 
+## On the reference stack
+
+Snowflake is the default: databases `RAW`, `IDENTITY`, `ANALYTICS`; roles `LOADER`, `TRANSFORMER`, `REPORTER`; an XS warehouse with short auto-suspend for development; key pair auth for dbt and Dagster. DuckDB for free local practice. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "LIMIT 10 makes a BigQuery query cheap." It still scans the columns; bytes billed are the same.
@@ -93,5 +97,6 @@ Separate service identities: one for ingestion (write raw), one for dbt (read ra
 
 ## References
 
+- [references/privacy-architecture.md](references/privacy-architecture.md): zones in one warehouse (raw, identity vault, pseudonymised, marts, aggregated), roles, masking, PII tests.
 - [references/setup-guides.md](references/setup-guides.md): step lists for BigQuery and Snowflake projects with dbt, and DuckDB locally.
 - [references/exercises.md](references/exercises.md)

@@ -124,6 +124,10 @@ GA4 exports raw events daily to BigQuery (`events_YYYYMMDD`, nested `event_param
 
 One clear piece of evidence beats ten screenshots. Claims are either supported by observation or marked as interpretation.
 
+## On the reference stack
+
+GTM with a CMP and Consent Mode v2 in front of GA4; data layer events designed to match GA4 recommended events so the dbt models stay simple. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "200 means it was saved." It means the server responded OK to that request.

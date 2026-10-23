@@ -76,6 +76,10 @@ Use attribution for day-to-day optimisation, incrementality and MMM for budget d
 ### Sustainable and privacy-friendly collection
 Collect only what the measurement plan needs (minimisation), respect consent before tags fire, prefer first-party and server-side setups with clear purposes, avoid sending personal data to analytics tools, reduce third-party tags (performance and privacy), document everything. Lighter pages and fewer tags are also a sustainability gain.
 
+## On the reference stack
+
+GA4 + GTM collect; the GA4 export lands in BigQuery and is modeled with dbt (or moved into Snowflake); campaign cost data arrives via Fivetran from ad platforms. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "GA4 shows the truth." It shows consented, modeled, sampled measurement events.

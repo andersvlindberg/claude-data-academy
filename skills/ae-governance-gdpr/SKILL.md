@@ -83,6 +83,10 @@ Dimensions: **accuracy, completeness, consistency, timeliness, validity, uniquen
 - **Catalog and lineage:** dbt docs, or catalogs like DataHub, Atlan or Unity Catalog, so people can find data and see impact.
 - **Observability:** freshness, volume, schema and distribution monitoring (see `ae-data-engineering`).
 
+## On the reference stack
+
+Zones and roles in Snowflake (see privacy architecture), PII tagged in dbt `meta`, masking policies on identifiers, consent state modeled from the CMP, deletion runbook covering Fivetran-loaded raw tables and dbt snapshots. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "Hashed emails are anonymous." Pseudonymous, still personal data.
@@ -97,6 +101,7 @@ Dimensions: **accuracy, completeness, consistency, timeliness, validity, uniquen
 
 ## References
 
+- [../ae-warehouses/references/privacy-architecture.md](../ae-warehouses/references/privacy-architecture.md): privacy by architecture in the warehouse.
 - [references/gdpr-handbook.md](references/gdpr-handbook.md): the whole GDPR article by article with data-team implications, Swedish supplements (Data Protection Act, LEK, marketing law) and key cases.
 - [references/data-collection-checklist.md](references/data-collection-checklist.md): collecting data correctly, step by step, with red flags.
 - [references/cookies-and-tracking.md](references/cookies-and-tracking.md): cookies, consent banners, dark patterns, Consent Mode, server-side, DevTools audit procedure, Swedish cases.

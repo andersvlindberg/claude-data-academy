@@ -59,6 +59,14 @@ Golden rules for AI-assisted data work:
 | Quality gate | Hook that runs `sqlfluff lint` or `dbt parse` after edits |
 | CI review | Claude GitHub Action reviewing pull requests against your conventions |
 
+## Learning and building by voice
+Dictation tools (for example Wispr Flow or the operating system's built-in dictation) let you speak prompts, notes and explanations instead of typing. Spoken prompts tend to be longer and richer in context, which helps. Good habits:
+- Dictate the **why and context** freely, then read the transcript once before sending.
+- Say "plan first" for bigger tasks so nothing runs on a misheard instruction.
+- Dictate your explain-back answers to the coach: speaking an explanation is a strong test of understanding.
+- Dictate learning-log entries straight into `docs/learning-log.md`.
+- Never dictate secrets or personal data of others.
+
 ## Learning with Claude Code (not just shipping)
 - Ask for the plan and the **why** before the code.
 - Write the first version yourself, then ask Claude to review it.

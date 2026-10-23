@@ -77,6 +77,10 @@ BigQuery ML (`create model ... options(model_type='logistic_reg')`) and Snowflak
 - Bias: models learn from historical data, including its skew. Check performance across segments.
 - Do not over-automate: automate what is well understood and verifiable; keep judgement where errors are costly.
 
+## On the reference stack
+
+Features built as dbt models in Snowflake; models trained in Python (scikit-learn) or Snowflake ML functions; agents read marts through a read-only role and MCP. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "More features = better model." More leakage and noise, often.

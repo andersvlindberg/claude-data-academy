@@ -121,6 +121,10 @@ CRM: Salesforce, HubSpot, Microsoft Dynamics 365, Lime CRM, Pipedrive. B2C autom
 - Builds **measurement**: flow performance with holdouts, lifecycle movement, data quality dashboards.
 - Writes and enforces **definitions** (active customer, MQL, churn) shared by marketing, sales and service.
 
+## On the reference stack
+
+Customer models built in dbt on Snowflake and synced to CRM and automation tools by reverse ETL (Hightouch or Census), with consent and suppression flags travelling along. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "Buying a CRM gives us a CRM." Without process, ownership and data quality you get an expensive address book.

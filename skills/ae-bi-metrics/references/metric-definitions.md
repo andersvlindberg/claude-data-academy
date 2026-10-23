@@ -68,3 +68,14 @@ Revenue LY = CALCULATE ( [Revenue], SAMEPERIODLASTYEAR ( dim_date[date] ) )
 Revenue YoY % = DIVIDE ( [Revenue] - [Revenue LY], [Revenue LY] )
 ```
 Measures recalculate in the current filter context; that is why ratios stay correct at every level.
+
+## Tableau basics (alternative BI tool)
+- Connect live to Snowflake marts or use extracts for speed.
+- **Calculated fields** for simple logic: `SUM([Order Total]) / COUNTD([Order Id])` for AOV.
+- **LOD expressions** control the grain: `{ FIXED [Customer Id] : MIN([Ordered At]) }` gives each customer's first order date regardless of the view.
+- Keep official metric logic in dbt; Tableau calculations only for presentation.
+
+## Looker Studio basics (default BI tool)
+- Data sources: BigQuery and GA4 natively; Snowflake through a connector or by publishing marts to BigQuery/Sheets.
+- Calculated fields and blends are limited: join and aggregate in dbt, then visualise.
+- Control cost and speed with pre-aggregated marts and default date ranges.

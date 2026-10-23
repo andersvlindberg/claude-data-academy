@@ -86,6 +86,10 @@ profiles.yml
 - **Linting:** SQLFluff (dbt templater), ruff for Python, pre-commit hooks to run them before every commit.
 - Secrets live in GitHub Actions secrets or the CI tool, injected as environment variables.
 
+## On the reference stack
+
+GitHub for code, GitHub Actions for CI (lint + `dbt build` on changed models), Dagster or dbt Cloud for production runs. Using another stack? Tell the coach once and it adapts (see STACK.md).
+
 ## Common misconceptions
 
 - "Pull is the same as fetch." Pull also merges.
