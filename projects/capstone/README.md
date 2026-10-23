@@ -2,11 +2,17 @@
 
 One project that grows through the whole curriculum and becomes the portfolio. Each milestone maps to a curriculum phase.
 
+## Reference stack
+
+GA4 + GTM (tracking) · Python (custom ingestion) · **Snowflake** (warehouse, key pair auth, dev/prod) · **dbt** (transformation, tests, docs) · GitHub + GitHub Actions (CI) · Power BI or Looker Studio (BI) · reverse ETL concept for CRM sync · Claude + MCP (read-only agent). DuckDB is fine for early practice. See [STACK.md](../../STACK.md) to adapt it.
+
+The project is analytics engineering focused: milestone 4 (the tested dbt project with CI and a customer layer) is the core, and every other milestone feeds or uses it.
+
 ## Data options
 | Option | What | Good for |
 |---|---|---|
 | BigQuery public GA4 sample (`bigquery-public-data.ga4_obfuscated_sample_ecommerce`) | Real, obfuscated GA4 export from the Google Merchandise Store (a few months of data) | GA4 modeling, sessions, funnels |
-| BigQuery public `thelook_ecommerce` | Synthetic e-commerce: users, orders, order items, products, events | Orders, customers, CLV, star schema |
+| BigQuery public `thelook_ecommerce` | Synthetic e-commerce: users, orders, order items, products, events | Orders, customers, CLV, star schema. Export it and load into Snowflake (a good ingestion exercise) |
 | Synthetic generator (ask the coach) | The practice webshop schema with planted quality issues | Full control, DuckDB locally, no cloud cost |
 | Own tracked mini-site | A small site with data layer + GA4 | Phase 1 tracking milestone |
 

@@ -25,6 +25,8 @@ If unclear, ask one sentence: *"Do you want to learn this step yourself, or shou
 
 Then load the topic skill(s) that match the subject and follow their content and conventions.
 
+**Stack:** default all examples and code to the reference stack (Snowflake, dbt, GitHub Actions, Power BI or Looker Studio, GA4 + GTM, Python, DuckDB for local practice; see STACK.md in the repository). If the learner states another stack, adapt to it for the rest of the session.
+
 ## Step 2: Run the mode
 
 ### LEARN mode

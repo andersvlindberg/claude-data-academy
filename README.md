@@ -168,6 +168,10 @@ Every topic skill has the same shape: **mastery ladder L1–L4**, core knowledge
 
 The [program map](docs/program-map.md) shows how the skills cover typical courses in five example data programs (customer data developer, digital analyst, data analyst, data analysis, data engineer) and where programs often fall short.
 
+## The reference stack
+
+Concepts work with any tools, but examples and the capstone default to the most common analytics engineering stack: **GA4 + GTM → Python ingestion → Snowflake → dbt → GitHub Actions → Power BI or Looker Studio → reverse ETL to CRM**, with Claude and MCP on top and DuckDB for free local practice. Using something else? Tell the coach once, or fork the repo and change [STACK.md](STACK.md) to match the niche and companies you're aiming for.
+
 ## The capstone
 
 Learning lands in one project that becomes a portfolio: an e-commerce data platform from **click to decision**. Tracking with an evidence chain, a business case, warehouse loads, a tested dbt project with CI, a customer layer for CRM, analyses, a churn model and a "company brain" agent. [See the milestones →](projects/capstone)
