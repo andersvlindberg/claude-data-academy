@@ -10,6 +10,11 @@
       "name": "data-academy",
       "source": "./",
       "description": "30 learning skills across the data chain with a built-in learning coach."
+    },
+    {
+      "name": "academy-hud",
+      "source": "./mods/academy-hud",
+      "description": "Claude Code mod: a study heads-up display with mode, stack layer, streak and a study pane."
     }
   ]
 }

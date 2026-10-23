@@ -24,6 +24,10 @@ The academy teaches concepts that work with any tools, but every example, exerci
 
 GA4 exports to BigQuery. In the reference stack you either model the GA4 export where it lands (BigQuery) or move it into Snowflake as a data engineering exercise.
 
+## Start free on Google
+
+You can learn the whole chain at no cost before starting any trial: GA4 (demo account or the public sample `bigquery-public-data.ga4_obfuscated_sample_ecommerce`) → BigQuery sandbox (no card) → dbt → Looker Studio. Move to Snowflake, Fivetran and Dagster for the capstone. See [START-HERE.md](START-HERE.md#the-google-first-path-cheapest-way-to-start).
+
 ## Adjust it to you
 
 The reference stack is a sensible, common default, not a rule. Adjust it as your interests and target companies become clearer.

@@ -1,0 +1,12 @@
+{
+  "name": "academy-hud",
+  "version": "0.1.0",
+  "description": "Data Academy heads-up display: current mode, topic and stack layer above the prompt, plus a study pane with mode buttons, streak and session timer.",
+  "author": {
+    "name": "Anders Lindberg",
+    "url": "https://github.com/andersvlindberg"
+  },
+  "license": "MIT",
+  "types": "./types/index.d.ts",
+  "icon": ".claude-plugin/icon.png"
+}

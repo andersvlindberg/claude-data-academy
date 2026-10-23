@@ -17,6 +17,7 @@
 </p>
 
 <p align="center">
+  <a href="START-HERE.md"><b>Start here</b></a> ·
   <a href="#install-in-60-seconds">Install</a> ·
   <a href="#see-the-difference">See the difference</a> ·
   <a href="#the-30-skills">The 30 skills</a> ·
@@ -85,6 +86,8 @@ Ask a normal AI how a LEFT JOIN works and you get an essay you'll forget by tomo
 
 ## Install in 60 seconds
 
+> **New to all this?** Follow [START-HERE.md](START-HERE.md): create a Claude project, install the skills, learn the daily loop, and set up free accounts (with a bookmarks file for your browser).
+
 **Claude apps (claude.ai, desktop): all 30 skills at once**
 1. Go to **Customize → Plugins → Add → Add marketplace → Add from a repository**.
 2. Enter `andersvlindberg/claude-data-academy`.
@@ -95,6 +98,8 @@ Ask a normal AI how a LEFT JOIN works and you get an essay you'll forget by tomo
 claude plugin marketplace add andersvlindberg/claude-data-academy
 claude plugin install data-academy@data-academy
 ```
+
+**Want a study HUD in Claude Code?** Install the mod too: `claude plugin install academy-hud@data-academy`. It shows your mode, topic and place in the data chain above the prompt, and `/academy` opens a study pane. See [mods/academy-hud](mods/academy-hud).
 
 **Prefer single skills?** Download individual zips from the [latest release](https://github.com/andersvlindberg/claude-data-academy/releases/latest) and upload them under **Customize → Skills**, or copy folders from `skills/` into `~/.claude/skills/`.
 
