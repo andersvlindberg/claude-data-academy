@@ -2,17 +2,17 @@
 
 A Claude Code mod for Claude Data Academy. It turns your study sessions into a heads-up display.
 
-**Band above the prompt** (appears once you start a session):
-`DATA ACADEMY  LEARN  incremental models in dbt · ○○○●○○○ Transform · 24m · 6 turns · streak 3d`
+The practice side of Claude Data Academy. You start every step in your study hub (the artifact); this mod keeps you on track while you build it in Claude Code.
 
-**Study pane** (`/academy`):
-- Mode buttons: LEARN, LECTURE, LAB, BUILD, QUIZ, REVIEW, INTERVIEW (hotkeys 1–7) put the mode in your prompt
-- The data chain, Sources → Ingest → Store → Transform → Serve → Analyse → Decide, with the layer you're studying highlighted and the role it belongs to
-- Session timer, turns, daily streak and total sessions
-- **Close session + log** (hotkey `c`) and **Give me a hint** (hotkey `h`)
-- A rotating study tip
+**Band above the prompt** (appears when you type `LAB 08`):
+`◆ DA  LAB 08  Your first dbt project · · · ● · · ·  · git ✓commit ○push ○PR · 24m`
 
-The mod reads only your prompts' first words and keywords to set the mode and layer. It sends nothing anywhere and stores only your streak.
+**Practice pane** (`/academy`):
+- The lab you're on, with its title and where it sits in the stack (Sources → Ingest → Store → Transform → Serve → Analyse → Decide)
+- A checklist for the step: practice project set up, committed, pushed, pull request opened. It ticks itself when you run `git commit`, `git push` and `gh pr create`
+- Buttons: LAB, LEARN, BUILD, QUIZ, REVIEW, INTERVIEW (hotkeys 1–6), **Hint** (`h`), **Git next step** (`g`), **Close + log** (`c`)
+
+The mod reads only your prompts' first words and the git commands Claude runs. It sends nothing anywhere and stores only your streak.
 
 ## Install
 

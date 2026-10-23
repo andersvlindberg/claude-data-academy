@@ -18,7 +18,7 @@
 
 <p align="center">
   <a href="START-HERE.md"><b>Start here</b></a> ·
-  <a href="LEARNING-PATHS.md">Learn · Lecture · Lab</a> ·
+  <a href="LEARNING-PATHS.md">How it works</a> ·
   <a href="labs">Labs</a> ·
   <a href="#install-in-60-seconds">Install</a> ·
   <a href="#see-the-difference">See the difference</a> ·
@@ -86,15 +86,14 @@ Ask a normal AI how a LEFT JOIN works and you get an essay you'll forget by tomo
 
 </details>
 
-## Three ways to learn
+## How it works
 
-| | Where | You get |
-|---|---|---|
-| **LEARN** `LEARN: window functions` | Claude app | Step-by-step dialogue, diagrams and quizzes |
-| **LECTURE** `LECTURE: dbt fundamentals` | Claude app | A slide deck with speaker notes, downloadable as PDF or PowerPoint |
-| **LAB** `LAB 08` | Claude Code | Hands-on work in the real stack, a track of [20 labs per role](labs) that become portfolio pieces |
+```
+  HUB  ──►  LECTURE  ──►  CLAUDE CODE  ──►  GITHUB
+  start     the theory    the practice      your portfolio
+```
 
-Every lecture and lab says which job it trains: data engineer, analytics engineer, data analyst or business / MarTech. See [LEARNING-PATHS.md](LEARNING-PATHS.md), and keep your progress in a personal [study hub](hub).
+Start in your private [study hub](hub): pick a track (data engineer, analytics engineer, data analyst or business / MarTech) and walk its **20 steps**, from *what is the role?* to a capstone. Each step is a **lecture** in the Claude app (slides + PDF) that ends with a linked practice project, which you build in **Claude Code** in a real tool of the stack and commit to **your fork on GitHub**. Quiz yourself on what you've finished. See [LEARNING-PATHS.md](LEARNING-PATHS.md).
 
 ## Install in 60 seconds
 

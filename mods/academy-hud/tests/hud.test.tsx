@@ -7,7 +7,7 @@ const PANE = {
   props: { title: 'Data Academy', isFocused: false, bodyColumns: 48, placement: 'dock', scroll: { offset: 0, bodyRows: 40 }, view: {} },
 } as const
 
-test('a LEARN prompt sets mode, topic and stack layer on every surface', async ($, on) => {
+test('LAB 08 shows the lab, its stack layer and the git checklist on every surface', async ($, on) => {
   on('command.register', (_, e) => ({ value: { command: e.name } }))
   on('session.start', (_, e) => ({ cwd: e.cwd }))
   on('prompt.submit', (_, e) => ({ text: e.text }))
@@ -16,13 +16,13 @@ test('a LEARN prompt sets mode, topic and stack layer on every surface', async (
   on('store.set', () => ({ value: undefined }))
 
   await $.session.start({ cwd: '/', surface: 'desktop', isInteractive: true })
-  await $.prompt.submit({ text: 'LEARN: incremental models in dbt' })
+  await $.prompt.submit({ text: 'LAB 08' })
 
   for (const surface of ['terminal', 'desktop', 'vscode', 'mobile'] as const) {
     const ui = await $.ui.mount({ ...PANE, surface })
-    expect((await ui.find({ type: 'Text', text: /^LEARN$/ }))?.text).toBe('LEARN')
-    expect((await ui.find({ type: 'Text', text: /Topic:/ }))?.text).toBe('Topic: incremental models in dbt')
-    expect((await ui.find({ type: 'Text', text: /4 Transform/ }))?.text).toContain('Transform')
+    expect((await ui.find({ type: 'Text', text: /^LAB 08$/ }))?.text).toBe('LAB 08')
+    expect((await ui.find({ type: 'Text', text: /first dbt project/ }))?.text).toContain('Your first dbt project')
+    expect((await ui.find({ type: 'Text', text: /Committed/ }))?.text).toContain('Committed (0)')
     await ui.unmount()
   }
 })
@@ -30,6 +30,6 @@ test('a LEARN prompt sets mode, topic and stack layer on every surface', async (
 test('before any session the pane invites you to start', async ($, on) => {
   on('clock.now', () => ({ value: 1_800_000_000_000 }))
   const ui = await $.ui.mount({ ...PANE, surface: 'desktop' })
-  expect((await ui.find({ type: 'Text', text: /not started/ }))?.text).toBe('not started')
+  expect((await ui.find({ type: 'Text', text: /Nothing running/ }))?.text).toBe('Nothing running')
   await ui.unmount()
 })

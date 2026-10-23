@@ -13,19 +13,23 @@
 - Hashing with a salt vs encryption
 
 ## Setup
-- Fake customer data only (generate it with Faker)
+- Nordvik customers only (fictional); never real personal data
 
-## Run it with Claude Code
-Labs are hands-on, so do them in Claude Code inside your own repo, where Claude can see your files and errors:
+## How this lab works
+1. **Hub:** open this step in your study hub and take the lecture (*Lecture*), or skip it if you know the theory.
+2. **Claude Code:** the lecture ends with a practice project. Claude sets it up for you (a fictional scenario and generated data) and you build it in a real tool.
+3. **GitHub:** commit as you go and merge it into your fork. Then tick it off in the hub.
+
 ```bash
-mkdir lab-14-privacy-zones-masking && cd lab-14-privacy-zones-masking
-git init
+cd claude-data-academy        # your fork
+git checkout -b lab-14
+mkdir -p my-work/lab-14-privacy-zones-masking && cd my-work/lab-14-privacy-zones-masking
 claude
 ```
-Then type: `LAB 14`. The coach walks you through the steps below one at a time, you type the code, and it reviews.
+Type `LAB 14`. The coach walks you through the steps below one at a time; you write the code and it reviews.
 
 ## Steps
-1. Load fake customers with names, emails and phone numbers into a restricted RAW schema.
+1. Load Nordvik customers (names, emails) into a restricted RAW schema.
 2. Build an identity vault table (customer_id ↔ email) only IDENTITY_ADMIN can read.
 3. In dbt, build a pseudonymised staging layer with salted hashes; the salt lives in a secret, not in code.
 4. Create a masking policy: `CREATE MASKING POLICY email_mask AS (val STRING) RETURNS STRING -> CASE WHEN CURRENT_ROLE() IN ('IDENTITY_ADMIN') THEN val ELSE '***' END;` and apply it.
@@ -45,9 +49,17 @@ Then type: `LAB 14`. The coach walks you through the steps below one at a time, 
 - *"LEARN: pseudonymisation vs anonymisation under GDPR"*
 - *"REVIEW my privacy design"*
 
+## Save it to your portfolio
+```bash
+git add .
+git commit -m "lab 14: <what you built>"
+git push -u origin lab-14
+```
+Open a pull request in your fork, read your own diff like a reviewer, merge it, and mark the lab *Done* in your hub. Add a short `README.md` in the lab folder: what you built, how to run it, what you learned.
+
 ## Portfolio
 A diagram of your zones; a strong talking point in interviews.
 
-> Safety: use fake or public data, keep secrets in `.env` or the tool's secrets file (in `.gitignore`), and Claude asks before anything destructive.
+> Safety: use fictional or public data, keep secrets in `.env` or the tool's secrets file (in `.gitignore`), and Claude asks before anything destructive.
 
 [← All labs](README.md)

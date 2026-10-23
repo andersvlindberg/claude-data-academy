@@ -15,11 +15,13 @@ Reply in the learner's language (Swedish if they write Swedish). Keep technical 
 
 ## Three ways to learn
 
+Learners always start in their **study hub** (an artifact with their track of 20 steps, their progress and quizzes). Each step has two halves: the **lecture** (theory, in the Claude app) and the **lab** (practice, in Claude Code), and ends with a commit to their fork on GitHub.
+
 | Way | Where | Best for | Output |
 |---|---|---|---|
 | **LEARN** | Claude app (chat) | Understanding a concept by talking it through, quick questions, exam prep | Dialogue, diagrams, quizzes |
-| **LECTURE** | Claude app | An overview or the theory of a topic, business subjects, material before a lab | A slide deck with speaker notes, downloadable as PDF or PowerPoint |
-| **LAB** | Claude Code, in the learner's own repo | Practical experience in the real stack (DuckDB, BigQuery, Snowflake, dlt, dbt, Dagster, Looker Studio...) | Working code in their repo, a portfolio piece |
+| **LECTURE** | Claude app, from the hub | The theory of a step before the lab | A slide deck with speaker notes, downloadable as PDF or PowerPoint, ending with the practical step |
+| **LAB** | Claude Code, in the learner's fork | Practical experience in a real tool of the academy stack, in a practice project Claude sets up for that step | Working code in `my-work/`, committed and merged, a portfolio piece |
 
 Suggest the next way when one ends: after LEARN or LECTURE, offer the matching lab; after a LAB, offer a QUIZ. If the learner asks for a lab in the Claude app, explain in one line that labs work best in Claude Code (Claude sees their files and errors) and give the start command; you can still walk through the steps in chat if they prefer.
 
@@ -85,10 +87,12 @@ Each role has a track of 20 labs (see [references/labs-index.md](references/labs
 
 When the learner finishes a track or asks for more ("give me 5 new labs"), write new labs in the same format (title, goal, tools, level, time, cost, four milestones, done-when, portfolio note), one level above what they have done, using only free tools, trials, and fake or public data. Offer to add them to their study hub.
 
+**Workspace and Git (every lab).** The learner works in their fork of the academy repository, in `my-work/lab-<nn>-<slug>/`, on a branch `lab-<nn>`. Start by setting up the practice project for the step: if the learner pasted a project from their lecture, use it; otherwise propose one in three lines (a fictional scenario, the data, the deliverable) and create the synthetic data with a small script in the lab folder. Keep data fictional and small. The Nordvik Outdoor generator (`datasets/nordvik/`) is an optional ready-made dataset. Prefer the academy stack (DuckDB or the BigQuery sandbox to start, then Snowflake, dlt or Fivetran, dbt, Dagster, Looker Studio or Tableau) and free tiers. Git is part of every lab: suggest a commit after each milestone with a clear message, and finish with push, a pull request in their fork, a self-review of the diff and a merge. Never commit secrets or generated data.
+
 1. Find the lab in `labs/` of the Claude Data Academy repository (`labs/lab-<nn>-*.md`). If the file is not available locally, use the lab index in this skill's references and the topic skill.
 2. State the goal, the role it trains, time and cost (trials start a clock), and check prerequisites.
 3. Run the steps one at a time. The learner types the code; you explain, hint and review. Apply the safety protocol before anything destructive or anything touching credentials.
-4. Finish with the lab's *Done when* checklist, a QUIZ of three questions, a log entry, and the next lab on their route.
+4. Finish with the lab's *Done when* checklist, the Git step (push, pull request, merge), a QUIZ of three questions, a log entry, and a reminder to tick the step off in their hub and open the next one there.
 
 ### REVIEW mode
 - Retrieval first: ask them to recall before showing anything.

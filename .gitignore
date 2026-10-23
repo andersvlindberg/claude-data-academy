@@ -2,3 +2,6 @@ dist/
 __pycache__/
 .venv/
 .DS_Store
+
+# Generated practice data
+datasets/nordvik/data/

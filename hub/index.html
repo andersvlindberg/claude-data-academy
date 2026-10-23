@@ -1,335 +1,439 @@
 <title>Data Academy Hub</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
 <style>
-/* Graphite and Ember. Swiss grid, one orange accent. Hero = your track and a progress ring; below it the 20-lab path, lectures and log. */
+/* Night grid with one ember accent. Three views: choose a track, walk the 20 steps, check progress and quiz. */
 :root{
-  --bg:#F5F3F0; --surface:#FFFFFF; --ink:#1E1C1A; --ink-2:#4A4540; --muted:#7A736B; --line:#E2DDD7; --line-2:#EDE9E4;
-  --accent:#E8752A; --accent-ink:#1E1C1A; --accent-text:#B14E0E; --accent-soft:#FBE9DC;
-  --good:#2E7D4F; --good-soft:#E1F1E7; --hero:#1E1C1A; --hero-ink:#F3EFEA; --hero-muted:#ABA39A; --hero-line:#3A3632;
-  --display:"Archivo","Helvetica Neue",Arial,sans-serif; --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --bg:#09090A; --bg-2:#0F0F11; --surface:#131316; --raise:#1A1A1E; --line:#232328; --line-2:#2E2E35;
+  --ink:#F2F1EE; --ink-2:#B9B7B2; --muted:#7D7B77; --accent:#FF7A2F; --accent-2:#FFA266; --accent-ink:#140A04;
+  --accent-soft:rgba(255,122,47,.12); --good:#5BD18B; --good-soft:rgba(91,209,139,.12); --grid:rgba(255,255,255,.035);
+  --sans:"Geist","Helvetica Neue",Arial,sans-serif; --mono:"Geist Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#161514; --surface:#201E1C; --ink:#F1EDE8; --ink-2:#CFC8C0; --muted:#958D84; --line:#34302C; --line-2:#2A2724;
-  --accent:#F08A45; --accent-ink:#161514; --accent-text:#F4A06A; --accent-soft:#3A2617;
-  --good:#63C28A; --good-soft:#1C3125; --hero:#0F0E0D; --hero-ink:#F3EFEA; --hero-muted:#A39B92; --hero-line:#2E2B28; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#161514; --surface:#201E1C; --ink:#F1EDE8; --ink-2:#CFC8C0; --muted:#958D84; --line:#34302C; --line-2:#2A2724;
-  --accent:#F08A45; --accent-ink:#161514; --accent-text:#F4A06A; --accent-soft:#3A2617;
-  --good:#63C28A; --good-soft:#1C3125; --hero:#0F0E0D; --hero-ink:#F3EFEA; --hero-muted:#A39B92; --hero-line:#2E2B28; color-scheme:dark}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;margin:0}
-.band{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.in{max-width:1120px;margin:0 auto}
-h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
-.kicker{font:600 11.5px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-text)}
-button{font-family:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+html,body{background:var(--bg)}
+body{color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;margin:0;min-height:100%;
+  background-image:radial-gradient(900px 420px at 78% -120px,rgba(255,122,47,.16),transparent 70%),
+  linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:auto,64px 64px,64px 64px;background-attachment:fixed}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.mono{font-family:var(--mono)}
+.kicker{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kicker b{color:var(--accent);font-weight:500}
 
-/* hero */
-.hero{background:var(--hero);color:var(--hero-ink);padding-block:20px 48px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:36px}
-.mark{display:flex;align-items:center;gap:10px;font:700 15px var(--display)}
-.mark b{background:var(--accent);color:var(--accent-ink);padding:4px 8px;border-radius:5px;font-weight:800}
-.sync{font-size:12.5px;color:var(--hero-muted);text-align:right}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:48px;align-items:end}
-@media (max-width:820px){.hero-grid{grid-template-columns:1fr;gap:32px}}
-.hero .kicker{color:var(--accent)}
-.hero h1{font-size:clamp(40px,7vw,76px);font-weight:800;line-height:.98;margin:12px 0 14px}
-.hero p.desc{color:var(--hero-muted);font-size:16.5px;max-width:52ch;margin:0 0 26px}
-.seg{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;border:1px solid var(--hero-line);border-radius:10px}
-.seg button{background:none;border:0;color:var(--hero-muted);font:600 13.5px var(--body);padding:8px 14px;border-radius:7px;cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--hero-ink);color:var(--hero)}
-.seg button:hover:not([aria-pressed="true"]){color:var(--hero-ink)}
-.progress{display:flex;gap:24px;align-items:center}
-.ring{width:132px;height:132px;flex:none}
-@media (max-width:520px){.ring{width:104px;height:104px}}
-.ring circle{fill:none;stroke-width:10}
-.ring .track{stroke:var(--hero-line)}
-.ring .fill{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset .6s ease}
-.ring text{fill:var(--hero-ink);font-family:var(--display);font-weight:800}
-.next{display:flex;flex-direction:column;gap:8px;min-width:0}
-.next .lbl{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--hero-muted);font-weight:600}
-.next h3{font-size:21px;line-height:1.2}
-.next .meta{font-size:13px;color:var(--hero-muted)}
-.acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.btn{border:1px solid transparent;background:var(--accent);color:var(--accent-ink);font:600 13px var(--body);padding:7px 12px;border-radius:7px;cursor:pointer;white-space:nowrap}
-.btn:hover{filter:brightness(1.06)}
-.btn.line{background:transparent;border-color:var(--line);color:var(--ink)}
-.hero .btn.line{border-color:var(--hero-line);color:var(--hero-ink)}
-.btn.line:hover{border-color:var(--accent)}
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;backdrop-filter:blur(12px);background:rgba(9,9,10,.72);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:11;background:var(--bg)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;height:60px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+.logo i{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--accent);color:var(--accent-ink);font:700 12px var(--sans);font-style:normal}
+.tabs{display:flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--bg-2)}
+.tabs button{border:0;background:none;color:var(--muted);font:500 13.5px var(--sans);padding:6px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.tabs button[aria-current="page"]{background:var(--raise);color:var(--ink)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex:none}
+.dot.on{background:var(--good);box-shadow:0 0 0 4px var(--good-soft)}
+@media (max-width:560px){.logo span{display:none}.tabs button{padding:6px 10px;font-size:13px}}
 
-/* ways */
-.ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line)}
-@media (max-width:720px){.ways{grid-template-columns:1fr}}
-.way{padding:22px 20px 22px 0;display:flex;flex-direction:column;gap:6px;min-width:0}
-.way + .way{padding-left:20px;border-left:1px solid var(--line)}
-@media (max-width:720px){.way + .way{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
-.way h3{font-size:17px;font-weight:800;letter-spacing:.04em}
-.way .where{font-size:12.5px;color:var(--accent-text);font-weight:600}
-.way p{margin:0;font-size:14px;color:var(--ink-2)}
+main{padding-block:56px 96px}
+section+section{margin-top:72px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-2);background:var(--surface);font:500 13.5px var(--sans);padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:border-color .15s,background .15s}
+.btn:hover{border-color:var(--ink-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn.primary:hover{background:var(--accent-2);border-color:var(--accent-2)}
+.btn:disabled{opacity:.45;cursor:default}
 
-/* sections */
-main{padding-block:40px 64px;display:flex;flex-direction:column;gap:56px}
-.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px;margin-bottom:8px}
-.sec-head h2{font-size:28px;font-weight:800}
-.sec-head .note{font-size:13.5px;color:var(--muted)}
-.stage{display:flex;align-items:center;gap:12px;margin:26px 0 4px;font:600 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.stage::after{content:"";flex:1;height:1px;background:var(--line)}
-.lab{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:16px;align-items:start;padding:18px 0;border-bottom:1px solid var(--line-2)}
-.lab .n{font:600 26px/1 var(--mono);color:var(--muted);padding-top:2px;font-variant-numeric:tabular-nums}
-.lab.is-next .n{color:var(--accent-text)}
-.lab.is-done .n{color:var(--good)}
-.lab h3{font-size:17px;font-weight:700;line-height:1.3}
-.lab.is-done h3{color:var(--muted)}
-.lab .goal{margin:4px 0 6px;font-size:14px;color:var(--ink-2);max-width:68ch}
-.lab.is-done .goal{display:none}
-.meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted)}
-.tag{font:600 11px var(--body);letter-spacing:.04em;padding:1px 7px;border-radius:4px;background:var(--line-2);color:var(--ink-2)}
-.tag.next{background:var(--accent);color:var(--accent-ink)}
-.lab .acts{justify-content:flex-end;padding-top:2px}
-.status{border:1px solid var(--line);background:var(--surface);color:var(--muted);font:600 12px var(--body);border-radius:999px;padding:5px 12px;cursor:pointer;min-width:78px}
-.status[data-s="doing"]{background:var(--accent-soft);color:var(--accent-text);border-color:transparent}
-.status[data-s="done"]{background:var(--good-soft);color:var(--good);border-color:transparent}
-.status:disabled{cursor:default}
-@media (max-width:640px){.lab{grid-template-columns:44px minmax(0,1fr)}.lab .n{font-size:20px}.lab .acts{grid-column:2;justify-content:flex-start}}
-a{color:var(--accent-text)}
-a:hover{text-decoration-thickness:2px}
+/* view 1 */
+.hero h1{font-size:clamp(38px,6.4vw,68px);line-height:1.02;margin:16px 0 18px;max-width:14ch}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{color:var(--ink-2);font-size:17px;max-width:56ch}
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line)}
+.flow div{padding:18px 18px 0 0;display:flex;flex-direction:column;gap:6px;position:relative;min-width:0}
+.flow div::before{content:"";position:absolute;top:-4px;left:0;width:7px;height:7px;border-radius:50%;background:var(--line-2)}
+.flow div:first-child::before{background:var(--accent)}
+.flow b{font-weight:600}
+.flow span{color:var(--muted);font-size:13.5px}
+@media (max-width:720px){.flow{grid-template-columns:1fr 1fr;row-gap:20px}}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.sec-h h2{font-size:24px}
+.sec-h p{color:var(--muted);font-size:14px}
+.tracks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:720px){.tracks{grid-template-columns:1fr}}
+.track{border:1px solid var(--line);background:linear-gradient(180deg,var(--surface),var(--bg-2));border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px;cursor:pointer;text-align:left;transition:border-color .15s,transform .15s}
+.track:hover{border-color:var(--line-2);transform:translateY(-1px)}
+.track[aria-pressed="true"]{border-color:var(--accent)}
+.track .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.track h3{font-size:21px}
+.track p{color:var(--ink-2);font-size:14px}
+.track .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto}
+.bar{height:4px;border-radius:4px;background:var(--line);overflow:hidden;flex:none;width:100%}
+.track .foot .bar{flex:1;width:auto}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:4px;transition:width .5s}
+.chip{font:500 11.5px var(--mono);color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.chip.hot{color:var(--accent);border-color:rgba(255,122,47,.4)}
+.stack{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg-2)}
+.stack-row{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.layer{padding:16px 14px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px;min-width:0}
+.layer:last-child{border-right:0}
+.layer .kicker{font-size:11px}
+.layer b{font-weight:600;font-size:14px}
+.layer span{font-size:12.5px;color:var(--muted)}
+.layer.me{background:var(--accent-soft)}
+.layer.me .kicker{color:var(--accent)}
+.stack-foot{display:flex;flex-wrap:wrap;gap:8px 18px;padding:12px 14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.stack-foot b{color:var(--ink-2);font-weight:500}
+@media (max-width:820px){.stack-row{grid-template-columns:repeat(2,minmax(0,1fr))}.layer{border-bottom:1px solid var(--line)}.layer:nth-child(2n){border-right:0}}
+.callout{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1px dashed var(--line-2);border-radius:16px;padding:18px 20px}
+.callout p{color:var(--ink-2);font-size:14px;max-width:62ch}
+.callout b{color:var(--ink)}
+a{color:var(--accent-2);text-underline-offset:3px}
 
-/* more */
-.more{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:22px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
-@media (max-width:640px){.more{grid-template-columns:1fr}}
-.more h3{font-size:19px;font-weight:800}
-.more p{margin:4px 0 0;color:var(--ink-2);font-size:14px}
-.gen-status{font-size:13px;color:var(--muted);margin-top:10px}
+/* view 2 */
+.head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end}
+@media (max-width:720px){.head{grid-template-columns:1fr}}
+.head h1{font-size:clamp(32px,5vw,52px);line-height:1.05;margin-top:12px}
+.head p{color:var(--ink-2);margin-top:12px;max-width:60ch}
+.meter{display:flex;flex-direction:column;gap:10px;min-width:240px}
+.meter .num{font:500 13px var(--mono);color:var(--muted);display:flex;justify-content:space-between}
+.meter .num b{color:var(--ink);font-weight:500}
+.steps{margin-top:40px;border-top:1px solid var(--line)}
+.stage-lbl{display:flex;justify-content:space-between;align-items:center;padding:28px 0 10px}
+.step{border-bottom:1px solid var(--line)}
+.step > button{width:100%;display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:14px;align-items:center;padding:16px 0;background:none;border:0;cursor:pointer;text-align:left}
+.step .n{font:500 14px var(--mono);color:var(--muted)}
+.step .t{font-weight:500;font-size:15.5px}
+.step .t small{display:block;color:var(--muted);font-size:12.5px;font-weight:400;margin-top:2px}
+.state{font:500 11.5px var(--mono);padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.state.doing{color:var(--accent);border-color:rgba(255,122,47,.4)}
+.state.done{color:var(--good);border-color:rgba(91,209,139,.35)}
+.step.done .t{color:var(--ink-2)}
+.step.done .n{color:var(--good)}
+.step.next .n{color:var(--accent)}
+.detail{padding:4px 0 26px 62px;display:flex;flex-direction:column;gap:18px}
+@media (max-width:640px){.detail{padding-left:0}.step > button{grid-template-columns:36px minmax(0,1fr) auto}}
+.detail .goal{color:var(--ink-2);max-width:66ch}
+.tools{display:flex;flex-wrap:wrap;gap:6px}
+.do{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:820px){.do{grid-template-columns:1fr}}
+.do > div{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;background:var(--bg-2);min-width:0}
+.do .kicker{font-size:11px}
+.do p{font-size:13.5px;color:var(--ink-2)}
+.do code{font:12.5px var(--mono);background:var(--raise);border:1px solid var(--line);border-radius:6px;padding:6px 8px;display:block;overflow-x:auto;white-space:pre;color:var(--ink)}
+.do .btn{align-self:flex-start;margin-top:auto}
+.detail .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.more{margin-top:40px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--bg-2)}
+.more p{color:var(--ink-2);font-size:14px;max-width:60ch}
+.note{font-size:13px;color:var(--muted)}
 
-/* lectures */
-.lects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px}
-@media (max-width:760px){.lects{grid-template-columns:1fr}}
-.lect{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line-2)}
-.lect .n{font:500 14px var(--mono);color:var(--muted)}
-.lect .t{font-weight:600;font-size:14.5px;line-height:1.35}
-.lect .meta{margin-top:2px}
-
-/* log */
-.log{display:flex;flex-direction:column}
-.entry{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--line-2)}
-.entry .d{font:500 13px var(--mono);color:var(--muted)}
-.entry .t{font-weight:600}
-.entry p{margin:2px 0 0;font-size:14px;color:var(--ink-2)}
+/* view 3 */
+.areas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:40px}
+@media (max-width:820px){.areas{grid-template-columns:1fr}}
+.area{border:1px solid var(--line);border-radius:16px;padding:20px;background:linear-gradient(180deg,var(--surface),var(--bg-2));display:flex;flex-direction:column;gap:14px;min-width:0}
+.area .big{font:500 44px/1 var(--sans);letter-spacing:-.03em}
+.area .big small{font-size:16px;color:var(--muted);letter-spacing:0}
+.area ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13.5px}
+.area li{display:flex;gap:8px;color:var(--ink-2)}
+.area li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;margin-top:8px;background:var(--line-2)}
+.area li.ok{color:var(--ink)}
+.area li.ok::before{background:var(--good)}
+.score{font:500 12.5px var(--mono);color:var(--muted)}
+.area .score{margin-top:auto}
+.quiz{margin-top:16px;border:1px solid var(--line-2);border-radius:16px;padding:22px;background:var(--surface);display:flex;flex-direction:column;gap:16px}
+.quiz h3{font-size:19px;line-height:1.35}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{text-align:left;border:1px solid var(--line-2);background:var(--bg-2);border-radius:10px;padding:12px 14px;cursor:pointer;font-size:14.5px}
+.opts button:hover:not(:disabled){border-color:var(--ink-2)}
+.opts button.right{border-color:var(--good);background:var(--good-soft)}
+.opts button.wrong{border-color:var(--accent);background:var(--accent-soft)}
+.why{color:var(--ink-2);font-size:14px}
+.log{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.entry{display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.entry .d{font:500 12.5px var(--mono);color:var(--muted)}
+.entry p{color:var(--ink-2);font-size:14px;margin-top:2px}
 @media (max-width:560px){.entry{grid-template-columns:1fr;gap:4px}}
-.empty{padding:22px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:14px}
-footer{padding-block:24px 40px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line)}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:8px;font-size:13.5px;z-index:20;max-width:calc(100% - 32px)}
-@media (prefers-reduced-motion:reduce){.ring .fill{transition:none}html{scroll-behavior:auto}}
+.empty{border:1px dashed var(--line-2);border-radius:14px;padding:20px;color:var(--muted);font-size:14px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:13.5px;z-index:30;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
-<header class="hero band">
-  <div class="in">
-    <div class="top">
-      <div class="mark"><b>DA</b><span>Data Academy</span></div>
-      <div class="sync" id="sync">Connecting to your progress…</div>
-    </div>
-    <div class="hero-grid">
-      <div>
-        <div class="kicker" id="hello">Your track</div>
-        <h1 id="role-title">Analytics engineer</h1>
-        <p class="desc" id="role-desc"></p>
-        <div class="seg" role="group" aria-label="Choose your track">
-          <button data-role="DE" aria-pressed="false">Data engineer</button>
-          <button data-role="AE" aria-pressed="true">Analytics engineer</button>
-          <button data-role="DA" aria-pressed="false">Data analyst</button>
-          <button data-role="BIZ" aria-pressed="false">Business</button>
-        </div>
-      </div>
-      <div class="progress">
-        <svg class="ring" viewBox="0 0 132 132" role="img" aria-labelledby="ring-label">
-          <title id="ring-label">Track progress</title>
-          <circle class="track" cx="66" cy="66" r="56"></circle>
-          <circle class="fill" id="ring-fill" cx="66" cy="66" r="56" transform="rotate(-90 66 66)" stroke-dasharray="351.86" stroke-dashoffset="351.86"></circle>
-          <text id="ring-num" x="66" y="70" text-anchor="middle" font-size="34">0</text>
-          <text x="66" y="92" text-anchor="middle" font-size="12" style="font-family:var(--body);font-weight:500;fill:var(--hero-muted)">of 20 labs</text>
-        </svg>
-        <div class="next" id="next"></div>
-      </div>
-    </div>
+<nav><div class="wrap nav">
+  <div class="logo"><i>DA</i><span>Data Academy</span></div>
+  <div class="tabs" role="tablist" aria-label="Pages">
+    <button data-view="tracks">Tracks</button>
+    <button data-view="track">My track</button>
+    <button data-view="progress">Progress</button>
   </div>
-</header>
+  <span class="dot" id="dot" title="Saving status"></span>
+</div></nav>
 
-<div class="band"><div class="in">
-  <div class="ways">
-    <div class="way"><h3>LEARN</h3><div class="where">Claude app · chat</div><p>Talk a concept through, one step at a time. For questions, “I don’t get it” and exam prep.</p></div>
-    <div class="way"><h3>LECTURE</h3><div class="where">Claude app · slides + PDF</div><p>A full lecture with speaker notes, as PDF or PowerPoint. Take it before a lab when the topic is new.</p></div>
-    <div class="way"><h3>LAB</h3><div class="where">Claude Code · your repo</div><p>Hands-on in the real tools. You write the code, Claude reviews. Each lab is a portfolio piece.</p></div>
-  </div>
-</div></div>
+<main class="wrap">
+  <div id="v-tracks"></div>
+  <div id="v-track" hidden></div>
+  <div id="v-progress" hidden></div>
+</main>
 
-<main class="band"><div class="in" style="display:flex;flex-direction:column;gap:56px">
-  <section id="track" aria-labelledby="track-h">
-    <div class="sec-head"><h2 id="track-h">Your 20 labs</h2><span class="note">Lecture first if the topic is new, then start the lab in Claude Code</span></div>
-    <div id="labs"></div>
-  </section>
-
-  <section aria-labelledby="more-h">
-    <div class="more">
-      <div>
-        <h3 id="more-h">Finished the track? Get new labs.</h3>
-        <p id="more-desc">Claude writes five new labs for your track, one level above what you’ve done, and saves them here.</p>
-        <div class="gen-status" id="gen-status" hidden></div>
-      </div>
-      <div class="acts"><button class="btn" id="gen">Generate 5 new labs</button></div>
-    </div>
-    <div id="extra"></div>
-  </section>
-
-  <section id="lectures" aria-labelledby="lect-h">
-    <div class="sec-head"><h2 id="lect-h">Lectures for your track</h2><span class="note">Generate one in the Claude app; download it as PDF or PowerPoint</span></div>
-    <div class="lects" id="lects"></div>
-  </section>
-
-  <section id="log" aria-labelledby="log-h">
-    <div class="sec-head"><h2 id="log-h">Learning log</h2><span class="note">End a session with “add it to my hub”</span></div>
-    <div class="log" id="log-list"></div>
-  </section>
-</div></main>
-
-<footer class="band"><div class="in">Claude Data Academy · labs and lectures at <a href="https://github.com/andersvlindberg/claude-data-academy" target="_blank" rel="noopener">github.com/andersvlindberg/claude-data-academy</a></div></footer>
-
-<script id="catalog" type="application/json">{"labs": {"01": {"slug": "duckdb-sql-basics", "title": "Your first local warehouse with DuckDB", "roles": ["AE", "DA"], "level": "L1", "time": "1–2 h", "cost": "Free", "tools": "DuckDB, VS Code", "layer": "Store", "goal": "Load a CSV into a local warehouse and answer business questions with SQL, without any cloud account.", "brief": false}, "02": {"slug": "ga4-bigquery-explore", "title": "Explore real GA4 e-commerce data in BigQuery", "roles": ["DA", "AE"], "level": "L1–L2", "time": "2 h", "cost": "Free (sandbox, no card)", "tools": "BigQuery sandbox", "layer": "Sources", "goal": "Query the public GA4 sample export and understand its nested event schema.", "brief": false}, "03": {"slug": "ga4-funnel-window-functions", "title": "Sessions and a purchase funnel with window functions", "roles": ["AE", "DA"], "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "BigQuery sandbox", "layer": "Transform", "goal": "Build a session table and a four-step e-commerce funnel from raw GA4 events.", "brief": false}, "04": {"slug": "gtm-ga4-tracking", "title": "Track an e-commerce event with GTM and verify it in DevTools", "roles": ["DE", "BIZ"], "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Google Tag Manager, GA4, Chrome DevTools", "layer": "Sources", "goal": "Push a add_to_cart event to the dataLayer on a test page, send it to GA4 via GTM, and prove it arrives correctly.", "brief": false}, "05": {"slug": "dlt-api-ingestion", "title": "Ingest a REST API with dlt", "roles": ["DE"], "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Python, dlt, DuckDB", "layer": "Ingest", "goal": "Load data from a public API into DuckDB with schema inference and incremental loading.", "brief": false}, "06": {"slug": "snowflake-setup", "title": "Set up Snowflake like a team would", "roles": ["DE", "AE"], "level": "L2", "time": "2 h", "cost": "Trial (30 days)", "tools": "Snowflake", "layer": "Store", "goal": "Create databases, warehouses and roles for a dev/prod analytics setup with key-pair authentication.", "brief": false}, "07": {"slug": "fivetran-to-snowflake", "title": "Managed ingestion with Fivetran", "roles": ["DE"], "level": "L2", "time": "1–2 h", "cost": "Fivetran free plan / trial", "tools": "Fivetran, Snowflake, Google Sheets", "layer": "Ingest", "goal": "Sync a source into Snowflake RAW with Fivetran and understand what a managed connector does for you.", "brief": false}, "08": {"slug": "dbt-first-project", "title": "Your first dbt project: sources, staging and tests", "roles": ["AE"], "level": "L2", "time": "3 h", "cost": "Free", "tools": "dbt (Core or platform), BigQuery or Snowflake or DuckDB", "layer": "Transform", "goal": "Turn raw tables into clean, tested staging models with dbt.", "brief": false}, "09": {"slug": "dbt-dimensional-modeling", "title": "Dimensional modelling in dbt: facts and dimensions", "roles": ["AE"], "level": "L2–L3", "time": "3–4 h", "cost": "Free", "tools": "dbt", "layer": "Transform", "goal": "Build a star schema (fct_orders, dim_customers, dim_products) that BI tools can use directly.", "brief": false}, "10": {"slug": "dbt-incremental-snapshots", "title": "Incremental models and snapshots (SCD type 2)", "roles": ["AE"], "level": "L3", "time": "3 h", "cost": "Free", "tools": "dbt", "layer": "Transform", "goal": "Make large models cheap to rebuild and keep history of changing dimensions.", "brief": false}, "11": {"slug": "dbt-ci-github-actions", "title": "dbt CI with GitHub Actions and Slim CI", "roles": ["AE", "DE"], "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "dbt, GitHub Actions", "layer": "Transform", "goal": "Run dbt build automatically on every pull request so broken models never reach main.", "brief": false}, "12": {"slug": "data-quality-contracts", "title": "Data quality: contracts, freshness and anomaly checks", "roles": ["AE"], "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "dbt", "layer": "Transform", "goal": "Make your marts trustworthy with enforced contracts, freshness SLAs and volume checks.", "brief": false}, "13": {"slug": "dagster-orchestration", "title": "Orchestrate dlt and dbt with Dagster", "roles": ["DE", "AE"], "level": "L3", "time": "3–4 h", "cost": "Free (local)", "tools": "Dagster, dagster-dbt, dagster-dlt", "layer": "Ingest", "goal": "Run ingestion and transformation as one asset graph with a schedule and retries.", "brief": false}, "14": {"slug": "privacy-zones-masking", "title": "Privacy by design: zones, pseudonymisation and masking", "roles": ["DE", "AE"], "level": "L3", "time": "3 h", "cost": "Trial / free", "tools": "Snowflake (or BigQuery policy tags), dbt", "layer": "Store", "goal": "Separate personal data from analytics data so analysts never see identities they do not need.", "brief": false}, "15": {"slug": "looker-studio-dashboard", "title": "A decision-ready dashboard in Looker Studio", "roles": ["DA"], "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Looker Studio, BigQuery", "layer": "Serve", "goal": "Build a one-page e-commerce performance dashboard that answers a real question.", "brief": false}, "16": {"slug": "tableau-public-kpi", "title": "KPI story in Tableau Public", "roles": ["DA"], "level": "L2", "time": "3 h", "cost": "Free (public)", "tools": "Tableau Public", "layer": "Serve", "goal": "Tell a short data story with LOD expressions and a dashboard published to your profile.", "brief": false}, "17": {"slug": "rfm-clv-segmentation", "title": "Customer segmentation: RFM and lifetime value", "roles": ["DA", "BIZ"], "level": "L2–L3", "time": "3 h", "cost": "Free", "tools": "SQL (any warehouse), optional Python", "layer": "Analyse", "goal": "Segment customers by recency, frequency and monetary value and estimate CLV to guide marketing.", "brief": false}, "18": {"slug": "ab-test-analysis", "title": "Analyse an A/B test properly", "roles": ["DA"], "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Python (pandas, scipy) or SQL", "layer": "Analyse", "goal": "Decide whether a variant won, with the right test, confidence interval and caveats.", "brief": false}, "19": {"slug": "reverse-etl-crm", "title": "Activate segments in a CRM (reverse ETL)", "roles": ["AE", "BIZ"], "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "HubSpot (free CRM), Python or a reverse ETL tool", "layer": "Decide", "goal": "Sync a warehouse segment to CRM properties so marketing can use it in automation.", "brief": false}, "20": {"slug": "claude-mcp-warehouse", "title": "Safe AI on your marts: Claude + MCP, read-only", "roles": ["AE", "DA"], "level": "L3", "time": "2 h", "cost": "Free / trial", "tools": "Claude Code, an MCP server for your warehouse or dbt", "layer": "Analyse", "goal": "Let Claude answer business questions from documented marts without write access or personal data.", "brief": false}, "21": {"slug": "python-data-scripts", "title": "Python scripts that fetch data reliably", "roles": ["DE"], "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "Python, requests", "layer": "Ingest", "goal": "Write a small, well-behaved extractor: pagination, retries, rate limits and logging.", "brief": true}, "22": {"slug": "file-formats-parquet", "title": "CSV, JSON and Parquet: formats and partitioning", "roles": ["DE"], "level": "L1–L2", "time": "1–2 h", "cost": "Free", "tools": "DuckDB, Python", "layer": "Store", "goal": "Understand why columnar formats and partitions make analytics cheap and fast.", "brief": true}, "23": {"slug": "ga4-bigquery-to-snowflake", "title": "Move the GA4 export from BigQuery into Snowflake", "roles": ["DE"], "level": "L2–L3", "time": "3 h", "cost": "Free + trial", "tools": "BigQuery, Snowflake, Python or dlt", "layer": "Ingest", "goal": "Load GA4 export tables into Snowflake RAW so the reference stack has one warehouse.", "brief": true}, "24": {"slug": "docker-postgres-source", "title": "Docker and a Postgres source database", "roles": ["DE"], "level": "L2", "time": "2 h", "cost": "Free", "tools": "Docker, Postgres, dlt", "layer": "Sources", "goal": "Run an application database locally and ingest from it like a real company source.", "brief": true}, "25": {"slug": "cdc-incremental-extraction", "title": "Change data capture and incremental extraction", "roles": ["DE"], "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Postgres, dlt or Python", "layer": "Ingest", "goal": "Compare cursor-based incremental loads with log-based CDC, and handle deletes.", "brief": true}, "26": {"slug": "partitions-backfills", "title": "Partitions, backfills and idempotent pipelines", "roles": ["DE", "AE"], "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Dagster, dbt or Python", "layer": "Ingest", "goal": "Make pipelines safe to re-run for any day without duplicates.", "brief": true}, "27": {"slug": "data-observability", "title": "Data observability: freshness, volume and schema alerts", "roles": ["DE", "AE"], "level": "L3", "time": "2 h", "cost": "Free", "tools": "dbt, Dagster or Elementary", "layer": "Transform", "goal": "Detect broken data before stakeholders do.", "brief": true}, "28": {"slug": "terraform-snowflake", "title": "Infrastructure as code: Snowflake with Terraform", "roles": ["DE"], "level": "L3", "time": "3 h", "cost": "Trial", "tools": "Terraform, Snowflake", "layer": "Store", "goal": "Create warehouses, databases and roles from code instead of clicking.", "brief": true}, "29": {"slug": "warehouse-cost-control", "title": "Cost control: sizing, profiling and budgets", "roles": ["DE", "AE"], "level": "L2–L3", "time": "2 h", "cost": "Trial / free", "tools": "Snowflake or BigQuery", "layer": "Store", "goal": "Make queries cheaper and keep spend predictable.", "brief": true}, "30": {"slug": "streaming-intro", "title": "Streaming basics: events in micro-batches", "roles": ["DE"], "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Python, DuckDB (simulated queue)", "layer": "Ingest", "goal": "Understand streaming vs batch by simulating an event stream into the warehouse.", "brief": true}, "31": {"slug": "access-and-secrets", "title": "Access, secrets and least privilege audit", "roles": ["DE"], "level": "L2–L3", "time": "2 h", "cost": "Trial / free", "tools": "Snowflake or BigQuery, GitHub", "layer": "Store", "goal": "Review who can do what, rotate keys and remove standing access.", "brief": true}, "32": {"slug": "de-capstone", "title": "DE capstone: an end-to-end pipeline with a runbook", "roles": ["DE"], "level": "L3–L4", "time": "8–12 h", "cost": "Free + trials", "tools": "dlt or Fivetran, Snowflake, Dagster", "layer": "Ingest", "goal": "Ship a production-style pipeline: sources to warehouse, scheduled, monitored and documented.", "brief": true}, "33": {"slug": "dbt-jinja-macros", "title": "Jinja and macros in dbt", "roles": ["AE"], "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "dbt", "layer": "Transform", "goal": "Remove repetition with Jinja loops and write your own macros.", "brief": true}, "34": {"slug": "sql-style-refactoring", "title": "SQL style and refactoring", "roles": ["AE", "DA"], "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "SQL, sqlfluff", "layer": "Transform", "goal": "Turn a messy query into readable, reviewable SQL.", "brief": true}, "35": {"slug": "dbt-packages", "title": "dbt packages: dbt_utils, codegen and audit_helper", "roles": ["AE"], "level": "L2", "time": "2 h", "cost": "Free", "tools": "dbt", "layer": "Transform", "goal": "Use community packages instead of reinventing them.", "brief": true}, "36": {"slug": "ga4-in-dbt", "title": "GA4 in dbt: sessions and e-commerce marts", "roles": ["AE"], "level": "L3", "time": "3–4 h", "cost": "Free", "tools": "dbt, BigQuery", "layer": "Transform", "goal": "Model the raw GA4 export into tested session and purchase marts.", "brief": true}, "37": {"slug": "semantic-layer-metrics", "title": "Semantic layer and metrics with MetricFlow", "roles": ["AE"], "level": "L3", "time": "2–3 h", "cost": "Free (local)", "tools": "dbt Semantic Layer / MetricFlow", "layer": "Serve", "goal": "Define revenue and conversion once so every tool uses the same logic.", "brief": true}, "38": {"slug": "legacy-sql-to-dbt", "title": "Refactor a legacy SQL report into dbt", "roles": ["AE"], "level": "L3", "time": "3 h", "cost": "Free", "tools": "dbt, audit_helper", "layer": "Transform", "goal": "Migrate a long stored query into layered models without changing the numbers.", "brief": true}, "39": {"slug": "ae-capstone", "title": "AE capstone: the Nordvik analytics platform", "roles": ["AE"], "level": "L3–L4", "time": "10–15 h", "cost": "Free + trials", "tools": "Fivetran or dlt, Snowflake, dbt, Dagster, Looker Studio", "layer": "Transform", "goal": "Build the full reference stack for a fictional retailer and defend every design decision.", "brief": true}, "40": {"slug": "sheets-for-analysts", "title": "Spreadsheets for analysts: pivots, XLOOKUP and validation", "roles": ["DA", "BIZ"], "level": "L1", "time": "2 h", "cost": "Free", "tools": "Google Sheets or Excel", "layer": "Analyse", "goal": "Answer business questions fast in a spreadsheet, the tool every stakeholder knows.", "brief": true}, "41": {"slug": "pandas-eda", "title": "Exploratory analysis in Python with pandas", "roles": ["DA"], "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Python, pandas, Jupyter", "layer": "Analyse", "goal": "Profile, clean and explore a dataset and write down what you find.", "brief": true}, "42": {"slug": "kpi-metric-tree", "title": "KPI design: a metric tree for e-commerce", "roles": ["DA", "BIZ"], "level": "L2", "time": "2 h", "cost": "Free", "tools": "Sheets or whiteboard", "layer": "Decide", "goal": "Break revenue down into drivers so every team knows which number it moves.", "brief": true}, "43": {"slug": "cohort-retention", "title": "Cohort retention analysis in SQL", "roles": ["DA"], "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "SQL", "layer": "Analyse", "goal": "Measure how many customers come back, by first-purchase month.", "brief": true}, "44": {"slug": "marketing-attribution", "title": "Marketing attribution and channel ROI", "roles": ["DA", "BIZ"], "level": "L2–L3", "time": "3 h", "cost": "Free", "tools": "SQL, GA4 data", "layer": "Analyse", "goal": "Compare attribution models and what they mean for budget decisions.", "brief": true}, "45": {"slug": "forecasting-basics", "title": "Forecasting basics: trend and seasonality", "roles": ["DA"], "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Python (statsmodels) or Sheets", "layer": "Analyse", "goal": "Forecast next quarter's orders and explain how wrong it might be.", "brief": true}, "46": {"slug": "churn-prediction", "title": "Churn prediction with logistic regression", "roles": ["DA"], "level": "L3", "time": "3 h", "cost": "Free", "tools": "Python, scikit-learn", "layer": "Analyse", "goal": "Predict which customers are likely to churn and what drives it.", "brief": true}, "47": {"slug": "survey-analysis", "title": "Customer survey: design and analysis (GDPR-safe)", "roles": ["DA", "BIZ"], "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Google Forms, Sheets or Python", "layer": "Analyse", "goal": "Design a short survey, collect data lawfully and analyse it.", "brief": true}, "48": {"slug": "data-storytelling", "title": "Data storytelling: a 5-slide recommendation", "roles": ["DA", "BIZ"], "level": "L2", "time": "2 h", "cost": "Free", "tools": "Slides", "layer": "Decide", "goal": "Turn an analysis into a recommendation a manager acts on.", "brief": true}, "49": {"slug": "product-analytics", "title": "Product analytics: feature adoption and funnels", "roles": ["DA"], "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "SQL, GA4 data", "layer": "Analyse", "goal": "Measure whether a feature is used and whether it helps conversion.", "brief": true}, "50": {"slug": "reconcile-numbers", "title": "Reconcile numbers across sources", "roles": ["DA", "AE"], "level": "L2", "time": "2 h", "cost": "Free", "tools": "SQL, Sheets", "layer": "Analyse", "goal": "Explain why GA4, the shop and finance show different revenue.", "brief": true}, "51": {"slug": "da-capstone", "title": "DA capstone: quarterly business review for Nordvik", "roles": ["DA"], "level": "L3–L4", "time": "8–10 h", "cost": "Free", "tools": "SQL, Looker Studio or Tableau, Slides", "layer": "Decide", "goal": "Deliver a quarterly review: performance, customers, experiments and recommendations.", "brief": true}, "52": {"slug": "customer-journey-map", "title": "Map a customer journey with data touchpoints", "roles": ["BIZ"], "level": "L1", "time": "2 h", "cost": "Free", "tools": "Whiteboard or Slides", "layer": "Sources", "goal": "Map how a customer finds, buys and returns, and where data is created at each step.", "brief": true}, "53": {"slug": "tracking-plan", "title": "Write a tracking plan for a webshop", "roles": ["BIZ", "DE"], "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "Sheets", "layer": "Sources", "goal": "Define which events and properties to track, why, and who owns them.", "brief": true}, "54": {"slug": "consent-cookie-audit", "title": "Cookie and consent audit of a real site", "roles": ["BIZ", "DE"], "level": "L2", "time": "2 h", "cost": "Free", "tools": "Chrome DevTools", "layer": "Sources", "goal": "Check what a site sets and sends before and after consent.", "brief": true}, "55": {"slug": "crm-data-model", "title": "CRM data model in HubSpot", "roles": ["BIZ"], "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "HubSpot free CRM", "layer": "Sources", "goal": "Set up contacts, companies, deals and lifecycle stages that reporting can rely on.", "brief": true}, "56": {"slug": "email-automation-flow", "title": "Email automation: welcome and abandoned cart", "roles": ["BIZ"], "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "HubSpot or another free tool", "layer": "Decide", "goal": "Design segmented flows and decide how to measure them.", "brief": true}, "57": {"slug": "lead-scoring", "title": "Lead scoring: from rules to data", "roles": ["BIZ", "DA"], "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "Sheets or Python, CRM data", "layer": "Analyse", "goal": "Score leads so sales calls the right people first.", "brief": true}, "58": {"slug": "utm-campaign-report", "title": "UTM governance and a campaign report", "roles": ["BIZ", "DA"], "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "Sheets, GA4, Looker Studio", "layer": "Serve", "goal": "Make campaign data clean and report results per campaign.", "brief": true}, "59": {"slug": "martech-stack-audit", "title": "MarTech stack audit", "roles": ["BIZ"], "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Sheets or whiteboard, Wappalyzer", "layer": "Sources", "goal": "Map a company's marketing tools, data flows and overlaps.", "brief": true}, "60": {"slug": "cdp-business-case", "title": "CDP evaluation: composable vs packaged", "roles": ["BIZ", "AE"], "level": "L2–L3", "time": "3 h", "cost": "Free", "tools": "Slides, Sheets", "layer": "Decide", "goal": "Decide between a packaged CDP and a warehouse-first composable setup.", "brief": true}, "61": {"slug": "data-project-business-case", "title": "Business case for a data project", "roles": ["BIZ", "DA"], "level": "L2", "time": "2 h", "cost": "Free", "tools": "Slides, Sheets", "layer": "Decide", "goal": "Get a data initiative approved: value, cost, risks and stakeholders.", "brief": true}, "62": {"slug": "gdpr-for-marketing", "title": "GDPR for a marketing campaign", "roles": ["BIZ"], "level": "L2", "time": "2 h", "cost": "Free", "tools": "Docs", "layer": "Decide", "goal": "Check a campaign's lawful basis, consent and data minimisation before launch.", "brief": true}, "63": {"slug": "biz-capstone", "title": "Business capstone: a data-driven growth plan for Nordvik", "roles": ["BIZ"], "level": "L3", "time": "8–10 h", "cost": "Free", "tools": "Slides, Looker Studio, CRM", "layer": "Decide", "goal": "Present a 12-month growth plan grounded in customer and channel data.", "brief": true}, "64": {"slug": "claude-analysis-agent", "title": "Build a small AI analysis helper safely", "roles": ["DA", "AE"], "level": "L3", "time": "3 h", "cost": "Free / trial", "tools": "Claude, MCP, read-only warehouse", "layer": "Analyse", "goal": "Let Claude draft analyses from your marts while you verify every number.", "brief": true}}, "tracks": {"DE": ["01", "21", "05", "22", "04", "06", "07", "23", "24", "25", "11", "13", "26", "14", "27", "28", "29", "30", "31", "32"], "AE": ["01", "02", "03", "34", "06", "08", "09", "33", "35", "10", "12", "11", "36", "37", "13", "14", "38", "19", "20", "39"], "DA": ["01", "02", "40", "03", "41", "15", "16", "42", "17", "43", "18", "44", "45", "46", "47", "48", "49", "50", "64", "51"], "BIZ": ["52", "53", "04", "54", "02", "15", "42", "55", "56", "17", "44", "19", "57", "58", "59", "60", "61", "48", "62", "63"]}, "lectures": [{"id": "1", "title": "The modern data stack and ELT", "roles": ["DE", "AE", "DA", "BIZ"], "level": "L1"}, {"id": "2", "title": "SQL that analysts and engineers actually use", "roles": ["AE", "DA"], "level": "L1–L2"}, {"id": "3", "title": "GA4, GTM and the dataLayer", "roles": ["DE", "BIZ"], "level": "L1–L2"}, {"id": "4", "title": "Ingestion: connectors, APIs and dlt", "roles": ["DE"], "level": "L2"}, {"id": "5", "title": "Cloud warehouses: Snowflake and BigQuery", "roles": ["DE", "AE"], "level": "L2"}, {"id": "6", "title": "dbt fundamentals", "roles": ["AE"], "level": "L1–L2"}, {"id": "7", "title": "Dimensional modelling (Kimball)", "roles": ["AE"], "level": "L2"}, {"id": "8", "title": "Incremental models, snapshots and scale", "roles": ["AE"], "level": "L3"}, {"id": "9", "title": "Testing, contracts and data quality", "roles": ["AE"], "level": "L2–L3"}, {"id": "10", "title": "Git, CI/CD and working in a data team", "roles": ["DE", "AE"], "level": "L2"}, {"id": "11", "title": "Orchestration with Dagster", "roles": ["DE", "AE"], "level": "L2–L3"}, {"id": "12", "title": "GDPR, cookies and privacy by design", "roles": ["DE", "AE", "DA", "BIZ"], "level": "L1–L2"}, {"id": "13", "title": "Dashboards that drive decisions", "roles": ["DA"], "level": "L1–L2"}, {"id": "14", "title": "Statistics and A/B testing for analysts", "roles": ["DA"], "level": "L2"}, {"id": "15", "title": "Digital analytics: attribution and funnels", "roles": ["DA", "BIZ"], "level": "L2"}, {"id": "16", "title": "Customer value: RFM, CLV and segmentation", "roles": ["DA", "BIZ"], "level": "L2"}, {"id": "17", "title": "CRM and marketing automation data", "roles": ["AE", "BIZ"], "level": "L1–L2"}, {"id": "18", "title": "Customer data platforms and reverse ETL", "roles": ["AE", "BIZ"], "level": "L2"}, {"id": "19", "title": "MarTech landscape and customer journeys", "roles": ["BIZ"], "level": "L1"}, {"id": "20", "title": "Business strategy for data people", "roles": ["BIZ"], "level": "L1"}, {"id": "21", "title": "Python for data work", "roles": ["DE", "DA"], "level": "L1–L2"}, {"id": "22", "title": "AI, ML and MCP on your data", "roles": ["AE", "DA"], "level": "L2"}, {"id": "23", "title": "Presenting data to stakeholders", "roles": ["DE", "AE", "DA", "BIZ"], "level": "L1"}, {"id": "24", "title": "Your career as an analytics engineer", "roles": ["DE", "AE", "DA", "BIZ"], "level": "L1"}]}</script>
+<script id="catalog" type="application/json">{"labs": {"00": {"slug": "start-role-stack-workspace", "title": "Start here: the role, the stack and your workspace", "level": "L1", "time": "1–2 h", "cost": "Free", "tools": "GitHub, Git, Claude Code, Python, DuckDB", "goal": "Understand what your role does, see the whole stack, and set up the workspace you will use for every lab: your fork, Git and Claude Code.", "brief": false}, "01": {"slug": "duckdb-sql-basics", "title": "Your first local warehouse with DuckDB", "level": "L1", "time": "1–2 h", "cost": "Free", "tools": "DuckDB, VS Code", "goal": "Load a CSV into a local warehouse and answer business questions with SQL, without any cloud account.", "brief": false}, "02": {"slug": "ga4-bigquery-explore", "title": "Explore real GA4 e-commerce data in BigQuery", "level": "L1–L2", "time": "2 h", "cost": "Free (sandbox, no card)", "tools": "BigQuery sandbox", "goal": "Query the public GA4 sample export and understand its nested event schema.", "brief": false}, "03": {"slug": "ga4-funnel-window-functions", "title": "Sessions and a purchase funnel with window functions", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "BigQuery sandbox", "goal": "Build a session table and a four-step e-commerce funnel from raw GA4 events.", "brief": false}, "04": {"slug": "gtm-ga4-tracking", "title": "Track an e-commerce event with GTM and verify it in DevTools", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Google Tag Manager, GA4, Chrome DevTools", "goal": "Push a add_to_cart event to the dataLayer on a test page, send it to GA4 via GTM, and prove it arrives correctly.", "brief": false}, "05": {"slug": "dlt-api-ingestion", "title": "Ingest a REST API with dlt", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Python, dlt, DuckDB", "goal": "Load data from a public API into DuckDB with schema inference and incremental loading.", "brief": false}, "06": {"slug": "snowflake-setup", "title": "Set up Snowflake like a team would", "level": "L2", "time": "2 h", "cost": "Trial (30 days)", "tools": "Snowflake", "goal": "Create databases, warehouses and roles for a dev/prod analytics setup with key-pair authentication.", "brief": false}, "07": {"slug": "fivetran-to-snowflake", "title": "Managed ingestion with Fivetran", "level": "L2", "time": "1–2 h", "cost": "Fivetran free plan / trial", "tools": "Fivetran, Snowflake, Google Sheets", "goal": "Sync a source into Snowflake RAW with Fivetran and understand what a managed connector does for you.", "brief": false}, "08": {"slug": "dbt-first-project", "title": "Your first dbt project: sources, staging and tests", "level": "L2", "time": "3 h", "cost": "Free", "tools": "dbt (Core or platform), BigQuery or Snowflake or DuckDB", "goal": "Turn raw tables into clean, tested staging models with dbt.", "brief": false}, "09": {"slug": "dbt-dimensional-modeling", "title": "Dimensional modelling in dbt: facts and dimensions", "level": "L2–L3", "time": "3–4 h", "cost": "Free", "tools": "dbt", "goal": "Build a star schema (fct_orders, dim_customers, dim_products) that BI tools can use directly.", "brief": false}, "10": {"slug": "dbt-incremental-snapshots", "title": "Incremental models and snapshots (SCD type 2)", "level": "L3", "time": "3 h", "cost": "Free", "tools": "dbt", "goal": "Make large models cheap to rebuild and keep history of changing dimensions.", "brief": false}, "11": {"slug": "dbt-ci-github-actions", "title": "dbt CI with GitHub Actions and Slim CI", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "dbt, GitHub Actions", "goal": "Run dbt build automatically on every pull request so broken models never reach main.", "brief": false}, "12": {"slug": "data-quality-contracts", "title": "Data quality: contracts, freshness and anomaly checks", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "dbt", "goal": "Make your marts trustworthy with enforced contracts, freshness SLAs and volume checks.", "brief": false}, "13": {"slug": "dagster-orchestration", "title": "Orchestrate dlt and dbt with Dagster", "level": "L3", "time": "3–4 h", "cost": "Free (local)", "tools": "Dagster, dagster-dbt, dagster-dlt", "goal": "Run ingestion and transformation as one asset graph with a schedule and retries.", "brief": false}, "14": {"slug": "privacy-zones-masking", "title": "Privacy by design: zones, pseudonymisation and masking", "level": "L3", "time": "3 h", "cost": "Trial / free", "tools": "Snowflake (or BigQuery policy tags), dbt", "goal": "Separate personal data from analytics data so analysts never see identities they do not need.", "brief": false}, "15": {"slug": "looker-studio-dashboard", "title": "A decision-ready dashboard in Looker Studio", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Looker Studio, BigQuery", "goal": "Build a one-page e-commerce performance dashboard that answers a real question.", "brief": false}, "16": {"slug": "tableau-public-kpi", "title": "KPI story in Tableau Public", "level": "L2", "time": "3 h", "cost": "Free (public)", "tools": "Tableau Public", "goal": "Tell a short data story with LOD expressions and a dashboard published to your profile.", "brief": false}, "17": {"slug": "rfm-clv-segmentation", "title": "Customer segmentation: RFM and lifetime value", "level": "L2–L3", "time": "3 h", "cost": "Free", "tools": "SQL (any warehouse), optional Python", "goal": "Segment customers by recency, frequency and monetary value and estimate CLV to guide marketing.", "brief": false}, "18": {"slug": "ab-test-analysis", "title": "Analyse an A/B test properly", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Python (pandas, scipy) or SQL", "goal": "Decide whether a variant won, with the right test, confidence interval and caveats.", "brief": false}, "19": {"slug": "reverse-etl-crm", "title": "Activate segments in a CRM (reverse ETL)", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "HubSpot (free CRM), Python or a reverse ETL tool", "goal": "Sync a warehouse segment to CRM properties so marketing can use it in automation.", "brief": false}, "20": {"slug": "claude-mcp-warehouse", "title": "Safe AI on your marts: Claude + MCP, read-only", "level": "L3", "time": "2 h", "cost": "Free / trial", "tools": "Claude Code, an MCP server for your warehouse or dbt", "goal": "Let Claude answer business questions from documented marts without write access or personal data.", "brief": false}, "21": {"slug": "python-data-scripts", "title": "Python scripts that fetch data reliably", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "Python, requests", "goal": "Write a small, well-behaved extractor: pagination, retries, rate limits and logging.", "brief": true}, "22": {"slug": "file-formats-parquet", "title": "CSV, JSON and Parquet: formats and partitioning", "level": "L1–L2", "time": "1–2 h", "cost": "Free", "tools": "DuckDB, Python", "goal": "Understand why columnar formats and partitions make analytics cheap and fast.", "brief": true}, "23": {"slug": "ga4-bigquery-to-snowflake", "title": "Move the GA4 export from BigQuery into Snowflake", "level": "L2–L3", "time": "3 h", "cost": "Free + trial", "tools": "BigQuery, Snowflake, Python or dlt", "goal": "Load GA4 export tables into Snowflake RAW so the reference stack has one warehouse.", "brief": true}, "24": {"slug": "docker-postgres-source", "title": "Docker and a Postgres source database", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Docker, Postgres, dlt", "goal": "Run an application database locally and ingest from it like a real company source.", "brief": true}, "25": {"slug": "cdc-incremental-extraction", "title": "Change data capture and incremental extraction", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Postgres, dlt or Python", "goal": "Compare cursor-based incremental loads with log-based CDC, and handle deletes.", "brief": true}, "26": {"slug": "partitions-backfills", "title": "Partitions, backfills and idempotent pipelines", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Dagster, dbt or Python", "goal": "Make pipelines safe to re-run for any day without duplicates.", "brief": true}, "27": {"slug": "data-observability", "title": "Data observability: freshness, volume and schema alerts", "level": "L3", "time": "2 h", "cost": "Free", "tools": "dbt, Dagster or Elementary", "goal": "Detect broken data before stakeholders do.", "brief": true}, "28": {"slug": "terraform-snowflake", "title": "Infrastructure as code: Snowflake with Terraform", "level": "L3", "time": "3 h", "cost": "Trial", "tools": "Terraform, Snowflake", "goal": "Create warehouses, databases and roles from code instead of clicking.", "brief": true}, "29": {"slug": "warehouse-cost-control", "title": "Cost control: sizing, profiling and budgets", "level": "L2–L3", "time": "2 h", "cost": "Trial / free", "tools": "Snowflake or BigQuery", "goal": "Make queries cheaper and keep spend predictable.", "brief": true}, "30": {"slug": "streaming-intro", "title": "Streaming basics: events in micro-batches", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Python, DuckDB (simulated queue)", "goal": "Understand streaming vs batch by simulating an event stream into the warehouse.", "brief": true}, "31": {"slug": "access-and-secrets", "title": "Access, secrets and least privilege audit", "level": "L2–L3", "time": "2 h", "cost": "Trial / free", "tools": "Snowflake or BigQuery, GitHub", "goal": "Review who can do what, rotate keys and remove standing access.", "brief": true}, "32": {"slug": "de-capstone", "title": "DE capstone: an end-to-end pipeline with a runbook", "level": "L3–L4", "time": "8–12 h", "cost": "Free + trials", "tools": "dlt or Fivetran, Snowflake, Dagster", "goal": "Ship a production-style pipeline: sources to warehouse, scheduled, monitored and documented.", "brief": true}, "33": {"slug": "dbt-jinja-macros", "title": "Jinja and macros in dbt", "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "dbt", "goal": "Remove repetition with Jinja loops and write your own macros.", "brief": true}, "34": {"slug": "sql-style-refactoring", "title": "SQL style and refactoring", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "SQL, sqlfluff", "goal": "Turn a messy query into readable, reviewable SQL.", "brief": true}, "35": {"slug": "dbt-packages", "title": "dbt packages: dbt_utils, codegen and audit_helper", "level": "L2", "time": "2 h", "cost": "Free", "tools": "dbt", "goal": "Use community packages instead of reinventing them.", "brief": true}, "36": {"slug": "ga4-in-dbt", "title": "GA4 in dbt: sessions and e-commerce marts", "level": "L3", "time": "3–4 h", "cost": "Free", "tools": "dbt, BigQuery", "goal": "Model the raw GA4 export into tested session and purchase marts.", "brief": true}, "37": {"slug": "semantic-layer-metrics", "title": "Semantic layer and metrics with MetricFlow", "level": "L3", "time": "2–3 h", "cost": "Free (local)", "tools": "dbt Semantic Layer / MetricFlow", "goal": "Define revenue and conversion once so every tool uses the same logic.", "brief": true}, "38": {"slug": "legacy-sql-to-dbt", "title": "Refactor a legacy SQL report into dbt", "level": "L3", "time": "3 h", "cost": "Free", "tools": "dbt, audit_helper", "goal": "Migrate a long stored query into layered models without changing the numbers.", "brief": true}, "39": {"slug": "ae-capstone", "title": "AE capstone: the Nordvik analytics platform", "level": "L3–L4", "time": "10–15 h", "cost": "Free + trials", "tools": "Fivetran or dlt, Snowflake, dbt, Dagster, Looker Studio", "goal": "Build the full reference stack for a fictional retailer and defend every design decision.", "brief": true}, "40": {"slug": "sheets-for-analysts", "title": "Spreadsheets for analysts: pivots, XLOOKUP and validation", "level": "L1", "time": "2 h", "cost": "Free", "tools": "Google Sheets or Excel", "goal": "Answer business questions fast in a spreadsheet, the tool every stakeholder knows.", "brief": true}, "41": {"slug": "pandas-eda", "title": "Exploratory analysis in Python with pandas", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Python, pandas, Jupyter", "goal": "Profile, clean and explore a dataset and write down what you find.", "brief": true}, "42": {"slug": "kpi-metric-tree", "title": "KPI design: a metric tree for e-commerce", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Sheets or whiteboard", "goal": "Break revenue down into drivers so every team knows which number it moves.", "brief": true}, "43": {"slug": "cohort-retention", "title": "Cohort retention analysis in SQL", "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "SQL", "goal": "Measure how many customers come back, by first-purchase month.", "brief": true}, "44": {"slug": "marketing-attribution", "title": "Marketing attribution and channel ROI", "level": "L2–L3", "time": "3 h", "cost": "Free", "tools": "SQL, GA4 data", "goal": "Compare attribution models and what they mean for budget decisions.", "brief": true}, "45": {"slug": "forecasting-basics", "title": "Forecasting basics: trend and seasonality", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Python (statsmodels) or Sheets", "goal": "Forecast next quarter's orders and explain how wrong it might be.", "brief": true}, "46": {"slug": "churn-prediction", "title": "Churn prediction with logistic regression", "level": "L3", "time": "3 h", "cost": "Free", "tools": "Python, scikit-learn", "goal": "Predict which customers are likely to churn and what drives it.", "brief": true}, "47": {"slug": "survey-analysis", "title": "Customer survey: design and analysis (GDPR-safe)", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Google Forms, Sheets or Python", "goal": "Design a short survey, collect data lawfully and analyse it.", "brief": true}, "48": {"slug": "data-storytelling", "title": "Data storytelling: a 5-slide recommendation", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Slides", "goal": "Turn an analysis into a recommendation a manager acts on.", "brief": true}, "49": {"slug": "product-analytics", "title": "Product analytics: feature adoption and funnels", "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "SQL, GA4 data", "goal": "Measure whether a feature is used and whether it helps conversion.", "brief": true}, "50": {"slug": "reconcile-numbers", "title": "Reconcile numbers across sources", "level": "L2", "time": "2 h", "cost": "Free", "tools": "SQL, Sheets", "goal": "Explain why GA4, the shop and finance show different revenue.", "brief": true}, "51": {"slug": "da-capstone", "title": "DA capstone: quarterly business review for Nordvik", "level": "L3–L4", "time": "8–10 h", "cost": "Free", "tools": "SQL, Looker Studio or Tableau, Slides", "goal": "Deliver a quarterly review: performance, customers, experiments and recommendations.", "brief": true}, "52": {"slug": "customer-journey-map", "title": "Map a customer journey with data touchpoints", "level": "L1", "time": "2 h", "cost": "Free", "tools": "Whiteboard or Slides", "goal": "Map how a customer finds, buys and returns, and where data is created at each step.", "brief": true}, "53": {"slug": "tracking-plan", "title": "Write a tracking plan for a webshop", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "Sheets", "goal": "Define which events and properties to track, why, and who owns them.", "brief": true}, "54": {"slug": "consent-cookie-audit", "title": "Cookie and consent audit of a real site", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Chrome DevTools", "goal": "Check what a site sets and sends before and after consent.", "brief": true}, "55": {"slug": "crm-data-model", "title": "CRM data model in HubSpot", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "HubSpot free CRM", "goal": "Set up contacts, companies, deals and lifecycle stages that reporting can rely on.", "brief": true}, "56": {"slug": "email-automation-flow", "title": "Email automation: welcome and abandoned cart", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "HubSpot or another free tool", "goal": "Design segmented flows and decide how to measure them.", "brief": true}, "57": {"slug": "lead-scoring", "title": "Lead scoring: from rules to data", "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "Sheets or Python, CRM data", "goal": "Score leads so sales calls the right people first.", "brief": true}, "58": {"slug": "utm-campaign-report", "title": "UTM governance and a campaign report", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "Sheets, GA4, Looker Studio", "goal": "Make campaign data clean and report results per campaign.", "brief": true}, "59": {"slug": "martech-stack-audit", "title": "MarTech stack audit", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Sheets or whiteboard, Wappalyzer", "goal": "Map a company's marketing tools, data flows and overlaps.", "brief": true}, "60": {"slug": "cdp-business-case", "title": "CDP evaluation: composable vs packaged", "level": "L2–L3", "time": "3 h", "cost": "Free", "tools": "Slides, Sheets", "goal": "Decide between a packaged CDP and a warehouse-first composable setup.", "brief": true}, "61": {"slug": "data-project-business-case", "title": "Business case for a data project", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Slides, Sheets", "goal": "Get a data initiative approved: value, cost, risks and stakeholders.", "brief": true}, "62": {"slug": "gdpr-for-marketing", "title": "GDPR for a marketing campaign", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Docs", "goal": "Check a campaign's lawful basis, consent and data minimisation before launch.", "brief": true}, "63": {"slug": "biz-capstone", "title": "Business capstone: a data-driven growth plan for Nordvik", "level": "L3", "time": "8–10 h", "cost": "Free", "tools": "Slides, Looker Studio, CRM", "goal": "Present a 12-month growth plan grounded in customer and channel data.", "brief": true}, "64": {"slug": "claude-analysis-agent", "title": "Build a small AI analysis helper safely", "level": "L3", "time": "3 h", "cost": "Free / trial", "tools": "Claude, MCP, read-only warehouse", "goal": "Let Claude draft analyses from your marts while you verify every number.", "brief": true}}, "tracks": {"DE": ["00", "01", "21", "05", "22", "04", "06", "07", "23", "24", "25", "11", "13", "26", "14", "27", "28", "29", "30", "32"], "AE": ["00", "01", "02", "03", "06", "08", "09", "33", "35", "10", "12", "11", "36", "37", "13", "14", "38", "19", "20", "39"], "DA": ["00", "01", "02", "40", "03", "41", "15", "16", "42", "17", "43", "18", "44", "45", "46", "47", "48", "49", "50", "51"], "BIZ": ["00", "52", "53", "04", "54", "02", "15", "42", "55", "56", "17", "44", "19", "57", "58", "59", "60", "48", "62", "63"]}}</script>
 <script>
 const CAT = JSON.parse(document.getElementById('catalog').textContent);
-const REPO = 'https://github.com/andersvlindberg/claude-data-academy/blob/main/labs/';
+const REPO = 'https://github.com/andersvlindberg/claude-data-academy';
 const ROLES = {
-  DE:{name:'Data engineer', desc:'Get data in and keep it flowing: sources, ingestion with Python, dlt and Fivetran, the warehouse, orchestration and reliability.'},
-  AE:{name:'Analytics engineer', desc:'Turn raw data into trusted, documented models with SQL and dbt: modelling, tests, CI and the semantic layer. The academy’s focus.'},
-  DA:{name:'Data analyst', desc:'Answer business questions with data: analysis, statistics, experiments and dashboards that people act on.'},
-  BIZ:{name:'Business / MarTech', desc:'Use data to grow the business: tracking, CRM and automation, customer journeys, campaigns and strategy.'}
+  DE:{name:'Data engineer', short:'Get data in and keep it flowing.', desc:'Sources, ingestion with Python, dlt and Fivetran, the warehouse, orchestration with Dagster, reliability and privacy.', layers:[0,1,2,4]},
+  AE:{name:'Analytics engineer', short:'Turn raw data into trusted models.', desc:'SQL and dbt: staging, dimensional models, tests, CI and the semantic layer. The academy’s focus.', layers:[2,3,4]},
+  DA:{name:'Data analyst', short:'Answer business questions with data.', desc:'Analysis, statistics, experiments, dashboards in Looker Studio and Tableau, and recommendations people act on.', layers:[3,5,6]},
+  BIZ:{name:'Business / MarTech', short:'Use data to grow the business.', desc:'Tracking, CRM and automation, customer journeys, campaigns and strategy, with privacy built in.', layers:[0,5,6]}
 };
-const STAGES = [['Foundations',0,7],['Core',7,14],['Advanced',14,20]];
-const state = {focus:'AE', progress:{}, log:[], extra:[], name:'', canWrite:false};
+const STACK = [
+  ['Sources','Shop · GA4 + GTM · HubSpot','fictional data per project'],
+  ['Ingest','Fivetran · dlt','Python for custom APIs'],
+  ['Store','Snowflake','DuckDB and BigQuery sandbox to start'],
+  ['Transform','dbt','tests, docs, contracts'],
+  ['Orchestrate','Dagster','schedules, retries, lineage'],
+  ['Serve','Looker Studio · Tableau','reverse ETL to CRM'],
+  ['Decide','Analysis · strategy','the business question']
+];
+const AREAS = [['Foundations',0,7],['Core',7,14],['Advanced',14,20]];
+const state = {view:'tracks', focus:'AE', progress:{}, log:[], extra:[], quizzes:[], name:'', open:null, canWrite:false, quiz:null};
 let db = null, sample = null, busy = false;
 const $ = s => document.querySelector(s);
-function el(tag, props = {}, ...kids){ const n = document.createElement(tag); for (const [k,v] of Object.entries(props)) { if (v == null || v === false) continue; if (k === 'class') n.className = v; else if (k.startsWith('data-') || k.startsWith('aria-')) n.setAttribute(k, v); else n[k] = v; } for (const k of kids) if (k != null && k !== false) n.append(k); return n; }
-function toast(t){ const n = el('div',{class:'toast',textContent:t,role:'status'}); document.body.append(n); setTimeout(() => n.remove(), 2200); }
-async function copy(text, label){ try { await navigator.clipboard.writeText(text); toast((label || 'Copied') + '. Paste it in Claude.'); } catch { toast('Copy did not work. Type: ' + text); } }
+function el(tag, props = {}, ...kids){ const n = document.createElement(tag); for (const [k,v] of Object.entries(props)) { if (v == null || v === false) continue; if (k === 'class') n.className = v; else if (k === 'html') n.innerHTML = v; else if (k.startsWith('data-') || k.startsWith('aria-')) n.setAttribute(k, v); else n[k] = v; } for (const k of kids.flat()) if (k != null && k !== false) n.append(k); return n; }
+function toast(t){ const n = el('div',{class:'toast',textContent:t,role:'status'}); document.body.append(n); setTimeout(() => n.remove(), 2400); }
+async function copy(text, label){ try { await navigator.clipboard.writeText(text); toast(label); } catch { toast('Copy did not work. Type: ' + text); } }
 
+const track = () => CAT.tracks[state.focus];
 const statusOf = id => state.progress[id] || 'todo';
-const LABEL = {todo:'To do', doing:'Doing', done:'Done'};
-const NEXT = {todo:'doing', doing:'done', done:'todo'};
-async function cycle(id){
-  const prev = statusOf(id); state.progress[id] = NEXT[prev]; render();
+const doneCount = role => CAT.tracks[role].filter(id => statusOf(id) === 'done').length;
+const nextId = () => track().find(id => statusOf(id) !== 'done');
+const lab = id => CAT.labs[id];
+const STATE_LBL = {todo:'To do', doing:'In progress', done:'Done'};
+
+async function setStatus(id, s){
+  const prev = statusOf(id); state.progress[id] = s; render();
   if (!db) return;
-  try { await db.collection('progress').doc(id).set({status: state.progress[id], updatedAt: new Date().toISOString()}); }
+  try { await db.collection('progress').doc(id).set({status:s, updatedAt:new Date().toISOString()}); }
   catch { state.progress[id] = prev; render(); toast('Could not save. You may only have view access.'); }
 }
-async function setFocus(r){ state.focus = r; render(); if (db && state.canWrite) { try { await db.doc('hub/profile').update({focus:r, updatedAt:new Date().toISOString()}); } catch { try { await db.doc('hub/profile').set({focus:r, name:state.name, updatedAt:new Date().toISOString()}); } catch {} } } }
+async function setFocus(r){
+  state.focus = r; state.open = null; go('track');
+  if (db && state.canWrite) { try { await db.doc('hub/profile').update({focus:r, updatedAt:new Date().toISOString()}); } catch { try { await db.doc('hub/profile').set({focus:r, name:state.name, updatedAt:new Date().toISOString()}); } catch {} } }
+}
+function go(v){ state.view = v; render(); window.scrollTo({top:0}); }
 
-function statusBtn(id){ const s = statusOf(id); return el('button',{class:'status','data-s':s,textContent:LABEL[s],disabled:!!db && !state.canWrite,'aria-label':'Status: ' + LABEL[s] + '. Click to change',onclick:() => cycle(id)}); }
-function lecturePrompt(l, id){ return 'LECTURE: ' + l.title + ' (preparation for LAB ' + id + ', ' + ROLES[state.focus].name + ' track)'; }
+function lecturePrompt(id, n){
+  const r = ROLES[state.focus].name, l = lab(id);
+  if (id === '00') return 'LECTURE: What a ' + r.toLowerCase() + ' does: the job, the stack and how I will work (step 1 of the ' + r + ' track, before LAB 00). End with a linked practice project for Claude Code: a fictional scenario, the data to generate and what to build.';
+  return 'LECTURE: ' + l.title + ' (step ' + n + ' of the ' + r + ' track, before LAB ' + id + '). End with a linked practice project for Claude Code: a fictional scenario, the data to generate and what to build.';
+}
 
-function render(){
-  const role = ROLES[state.focus], track = CAT.tracks[state.focus];
-  document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.role === state.focus)));
-  $('#hello').textContent = state.name ? state.name + '’s track' : 'Your track';
-  $('#role-title').textContent = role.name;
-  $('#role-desc').textContent = role.desc;
-  const done = track.filter(id => statusOf(id) === 'done').length;
-  $('#ring-num').textContent = done;
-  $('#ring-fill').setAttribute('stroke-dashoffset', String(351.86 * (1 - done / track.length)));
-  const nextId = track.find(id => statusOf(id) !== 'done');
-  const nx = $('#next');
-  if (nextId) {
-    const l = CAT.labs[nextId], pos = track.indexOf(nextId) + 1;
-    nx.replaceChildren(el('div',{class:'lbl',textContent:'Up next · ' + pos + ' of 20'}), el('h3',{textContent:l.title}), el('div',{class:'meta',textContent:'LAB ' + nextId + ' · ' + l.level + ' · ' + l.time + ' · ' + l.cost}),
-      el('div',{class:'acts'}, el('button',{class:'btn line',textContent:'Lecture first',onclick:() => copy(lecturePrompt(l, nextId), 'Lecture prompt copied')}), el('button',{class:'btn',textContent:'Start LAB ' + nextId,onclick:() => copy('LAB ' + nextId, 'LAB ' + nextId + ' copied. Open Claude Code and paste it')})));
-  } else {
-    nx.replaceChildren(el('div',{class:'lbl',textContent:'Track complete'}), el('h3',{textContent:'All 20 labs done.'}), el('div',{class:'meta',textContent:'Generate new labs below, or try another track.'}));
+/* ---------- view 1: tracks ---------- */
+function viewTracks(){
+  const v = $('#v-tracks'); v.replaceChildren();
+  v.append(el('section',{class:'hero'},
+    el('div',{class:'kicker',html:'Claude Data Academy · <b>' + (state.name ? state.name + '’s hub' : 'your hub') + '</b>'}),
+    el('h1',{html:'Learn data by doing <em>the job.</em>'}),
+    el('p',{textContent:'Pick a track. Every step is a lecture here and a hands-on lab in Claude Code, built on a real stack and saved to your GitHub portfolio.'}),
+    el('div',{class:'flow'},
+      [['Hub','Start here. Pick the next step.'],['Lecture','The theory, as slides or PDF.'],['Claude Code','Do it in a real tool.'],['GitHub','Commit, merge, tick it off.']].map(([a,b]) => el('div',{}, el('b',{textContent:a}), el('span',{textContent:b}))))));
+
+  v.append(el('section',{},
+    el('div',{class:'sec-h'}, el('h2',{textContent:'Choose your track'}), el('p',{textContent:'20 steps each, from “what is the role?” to a capstone'})),
+    el('div',{class:'tracks'}, Object.entries(ROLES).map(([k, r]) => {
+      const d = doneCount(k);
+      return el('button',{class:'track','aria-pressed':String(k === state.focus),onclick:() => setFocus(k)},
+        el('div',{class:'top'}, el('span',{class:'kicker',textContent:k === 'AE' ? 'Focus track' : 'Track'}), k === state.focus ? el('span',{class:'chip hot',textContent:'Current'}) : null),
+        el('h3',{textContent:r.name}), el('p',{textContent:r.short + ' ' + r.desc}),
+        el('div',{class:'foot'}, el('div',{class:'bar'}, el('i',{style:'width:' + (d / 20 * 100) + '%'})), el('span',{class:'chip',textContent:d + ' / 20'})));
+    }))));
+
+  const me = ROLES[state.focus].layers;
+  v.append(el('section',{},
+    el('div',{class:'sec-h'}, el('h2',{textContent:'The stack you’ll work in'}), el('p',{textContent:'Highlighted: where the ' + ROLES[state.focus].name.toLowerCase() + ' spends the most time'})),
+    el('div',{class:'stack'},
+      el('div',{class:'stack-row'}, STACK.map(([a,b,c], i) => el('div',{class:'layer' + (me.includes(i) ? ' me' : '')}, el('span',{class:'kicker',textContent:String(i + 1).padStart(2,'0') + ' ' + a}), el('b',{textContent:b}), el('span',{textContent:c})))),
+      el('div',{class:'stack-foot'}, el('span',{html:'<b>Everywhere:</b> Git + GitHub Actions'}), el('span',{html:'<b>Your assistant:</b> Claude Code'}), el('span',{html:'<b>Practice data:</b> fictional, created by Claude for each project'}), el('span',{html:'<b>Pattern:</b> ELT'})))));
+
+  v.append(el('section',{},
+    el('div',{class:'callout'},
+      el('p',{html:'<b>Before step 1:</b> fork the academy repo on GitHub. Your fork is your workspace and your portfolio: every lab goes in <span class="mono">my-work/</span>, one branch and pull request per lab.'}),
+      el('a',{class:'btn',href:REPO + '/fork',target:'_blank',rel:'noopener',textContent:'Fork on GitHub ↗'}))));
+}
+
+/* ---------- view 2: my track ---------- */
+function viewTrack(){
+  const v = $('#v-track'); v.replaceChildren();
+  const r = ROLES[state.focus], ids = track(), d = doneCount(state.focus), nx = nextId();
+  if (state.open == null) state.open = nx || null;
+  v.append(el('section',{class:'head'},
+    el('div',{}, el('div',{class:'kicker',html:'My track · <b>' + d + ' of 20 done</b>'}), el('h1',{textContent:r.name}), el('p',{textContent:r.desc})),
+    el('div',{class:'meter'}, el('div',{class:'num'}, el('span',{textContent:'Progress'}), el('b',{textContent:Math.round(d / 20 * 100) + '%'})), el('div',{class:'bar'}, el('i',{style:'width:' + (d / 20 * 100) + '%'})),
+      nx ? el('button',{class:'btn primary',onclick:() => { state.open = nx; render(); document.getElementById('s-' + nx)?.scrollIntoView({block:'center'}); },textContent:'Continue · step ' + (ids.indexOf(nx) + 1) + ' →'}) : el('span',{class:'note',textContent:'Track complete. Generate new steps below.'}))));
+
+  const list = el('div',{class:'steps'});
+  for (const [name, a, b] of AREAS) {
+    const dd = ids.slice(a, b).filter(id => statusOf(id) === 'done').length;
+    list.append(el('div',{class:'stage-lbl'}, el('span',{class:'kicker',textContent:name}), el('span',{class:'note mono',textContent:dd + ' / ' + (b - a)})));
+    ids.slice(a, b).forEach((id, i) => list.append(stepRow(id, a + i + 1, id === nx)));
   }
-
-  const labs = $('#labs'); labs.replaceChildren();
-  for (const [name, a, b] of STAGES) {
-    labs.append(el('div',{class:'stage',textContent:name}));
-    track.slice(a, b).forEach((id, i) => {
-      const l = CAT.labs[id], s = statusOf(id), isNext = id === nextId;
-      labs.append(el('div',{class:'lab' + (s === 'done' ? ' is-done' : '') + (isNext ? ' is-next' : '')},
-        el('div',{class:'n',textContent:String(a + i + 1).padStart(2,'0')}),
-        el('div',{},
-          el('h3',{}, el('a',{href:REPO + 'lab-' + id + '-' + l.slug + '.md',target:'_blank',rel:'noopener',textContent:l.title,style:'color:inherit;text-decoration:none'})),
-          el('p',{class:'goal',textContent:l.goal}),
-          el('div',{class:'meta'}, isNext ? el('span',{class:'tag next',textContent:'Up next'}) : null, el('span',{textContent:'LAB ' + id}), el('span',{textContent:l.level}), el('span',{textContent:l.time}), el('span',{textContent:l.cost}), el('span',{textContent:l.tools}), l.brief ? el('span',{class:'tag',textContent:'Brief: coach builds the steps'}) : null)),
-        el('div',{class:'acts'},
-          el('button',{class:'btn line',textContent:'Lecture first',onclick:() => copy(lecturePrompt(l, id), 'Lecture prompt copied')}),
-          el('button',{class:'btn line',textContent:'Start LAB ' + id,onclick:() => copy('LAB ' + id, 'LAB ' + id + ' copied. Paste it in Claude Code')}),
-          statusBtn(id))));
-    });
-  }
+  v.append(list);
 
   const extra = state.extra.filter(x => x.role === state.focus);
-  $('#extra').replaceChildren(...(extra.length ? [el('div',{class:'stage',textContent:'Your extra labs'})] : []), ...extra.map((x, i) => {
-    const key = 'x-' + x.id, s = statusOf(key);
+  if (extra.length) {
+    const ex = el('div',{class:'steps'}, el('div',{class:'stage-lbl'}, el('span',{class:'kicker',textContent:'Your extra steps'})));
+    extra.forEach((x, i) => ex.append(extraRow(x, i)));
+    v.append(ex);
+  }
+  v.append(el('div',{class:'more'},
+    el('p',{html:'<b style="color:var(--ink)">Finished the track?</b> Claude writes five new steps one level up, based on what you’ve done, and adds them here.'}),
+    el('div',{class:'row'}, el('button',{class:'btn',id:'gen',onclick:generateSteps,textContent:sample ? 'Generate 5 new steps' : 'Copy request for Claude'}), el('span',{class:'note',id:'gen-status'}))));
+}
+function stepRow(id, n, isNext){
+  const l = lab(id), s = statusOf(id), open = state.open === id;
+  const title = id === '00' ? (/^[AEIOU]/.test(ROLES[state.focus].name) ? 'What is an ' : 'What is a ') + ROLES[state.focus].name.toLowerCase() + '? Your role, the stack and your workspace' : l.title;
+  const row = el('div',{class:'step' + (s === 'done' ? ' done' : '') + (isNext ? ' next' : ''),id:'s-' + id},
+    el('button',{'aria-expanded':String(open),onclick:() => { state.open = open ? '' : id; render(); }},
+      el('span',{class:'n',textContent:String(n).padStart(2,'0')}),
+      el('span',{class:'t'}, title, el('small',{textContent:'LAB ' + id + ' · ' + l.level + ' · ' + l.time + ' · ' + l.cost})),
+      el('span',{class:'state ' + s,textContent:isNext && s === 'todo' ? 'Up next' : STATE_LBL[s]})));
+  if (open) {
+    const folder = 'my-work/lab-' + id + '-' + l.slug;
+    row.append(el('div',{class:'detail'},
+      el('p',{class:'goal',textContent:l.goal}),
+      el('div',{class:'tools'}, l.tools.split(/,\s*/).map(t => el('span',{class:'chip',textContent:t})), l.brief ? el('span',{class:'chip',textContent:'brief lab: coach builds the steps'}) : null),
+      el('div',{class:'do'},
+        el('div',{}, el('span',{class:'kicker',html:'<b>1</b> · Lecture'}), el('p',{textContent:'The theory as slides with speaker notes (PDF or PowerPoint). It ends with your practice project.'}), el('button',{class:'btn',textContent:'Copy lecture request',onclick:() => copy(lecturePrompt(id, n), 'Copied. Paste it in the Claude app.')})),
+        el('div',{}, el('span',{class:'kicker',html:'<b>2</b> · Claude Code'}), el('p',{textContent:'Claude sets up a practice project for this step: fictional data, a real tool. You build it in your fork.'}), el('code',{textContent:'git checkout -b lab-' + id + '\nmkdir -p ' + folder + '\ncd ' + folder + ' && claude\n> LAB ' + id}), el('button',{class:'btn',textContent:'Copy LAB ' + id,onclick:() => copy('LAB ' + id, 'Copied. Paste it in Claude Code.')})),
+        el('div',{}, el('span',{class:'kicker',html:'<b>3</b> · GitHub'}), el('p',{textContent:'Commit, push, open a pull request, review your diff, merge.'}), el('code',{textContent:'git add .\ngit commit -m "lab ' + id + ': ..."\ngit push -u origin lab-' + id}), el('a',{class:'btn',href:REPO + '/blob/main/labs/lab-' + id + '-' + l.slug + '.md',target:'_blank',rel:'noopener',textContent:'Lab instructions ↗'}))),
+      el('div',{class:'row'},
+        s !== 'done' ? el('button',{class:'btn primary',textContent:'Mark as done',onclick:() => setStatus(id,'done'),disabled:!!db && !state.canWrite}) : el('button',{class:'btn',textContent:'Mark as not done',onclick:() => setStatus(id,'todo'),disabled:!!db && !state.canWrite}),
+        s === 'todo' ? el('button',{class:'btn',textContent:'I’ve started',onclick:() => setStatus(id,'doing'),disabled:!!db && !state.canWrite}) : null)));
+  }
+  return row;
+}
+function extraRow(x, i){
+  const key = 'x-' + x.id, s = statusOf(key), open = state.open === key;
+  const row = el('div',{class:'step' + (s === 'done' ? ' done' : '')},
+    el('button',{'aria-expanded':String(open),onclick:() => { state.open = open ? '' : key; render(); }},
+      el('span',{class:'n',textContent:'+' + (i + 1)}), el('span',{class:'t'}, x.title, el('small',{textContent:[x.level, x.time, x.tools].filter(Boolean).join(' · ')})), el('span',{class:'state ' + s,textContent:STATE_LBL[s]})));
+  if (open) {
     const prompt = 'LAB (custom): ' + x.title + '. Goal: ' + x.goal + ' Milestones: ' + (x.milestones || []).join('; ');
-    return el('div',{class:'lab' + (s === 'done' ? ' is-done' : '')},
-      el('div',{class:'n',textContent:'+' + (i + 1)}),
-      el('div',{}, el('h3',{textContent:x.title}), el('p',{class:'goal',textContent:x.goal}), el('div',{class:'meta'}, el('span',{textContent:x.level || ''}), el('span',{textContent:x.time || ''}), el('span',{textContent:x.tools || ''}))),
-      el('div',{class:'acts'}, el('button',{class:'btn line',textContent:'Lecture first',onclick:() => copy('LECTURE: ' + x.title, 'Lecture prompt copied')}), el('button',{class:'btn line',textContent:'Start lab',onclick:() => copy(prompt, 'Lab copied. Paste it in Claude Code')}), statusBtn(key)));
-  }));
-  $('#more-desc').textContent = 'Claude writes five new labs for the ' + role.name.toLowerCase() + ' track, building on what you’ve finished, and saves them here.';
-
-  const ls = CAT.lectures.filter(l => l.roles.includes(state.focus));
-  $('#lects').replaceChildren(...ls.map(l => el('div',{class:'lect'},
-    el('div',{class:'n',textContent:l.id.padStart(2,'0')}),
-    el('div',{}, el('div',{class:'t',textContent:l.title}), el('div',{class:'meta'}, el('span',{textContent:l.level}))),
-    el('div',{class:'acts'}, el('button',{class:'btn line',textContent:'Generate',onclick:() => copy('LECTURE: ' + l.title, 'Lecture prompt copied')}), statusBtn('lecture-' + l.id)))));
-
-  const log = $('#log-list');
-  if (!state.log.length) log.replaceChildren(el('div',{class:'empty',textContent:'No sessions yet. When you finish a LEARN, LECTURE or LAB session, say “add it to my hub” and Claude logs what you did, the result and when to review.'}));
-  else log.replaceChildren(...state.log.map(e => el('div',{class:'entry'},
-    el('div',{}, el('div',{class:'d',textContent:String(e.date || '').slice(0,10)}), el('span',{class:'tag',textContent:e.way || 'LEARN'})),
-    el('div',{}, el('div',{class:'t',textContent:e.topic || 'Session'}), e.result ? el('p',{textContent:e.result}) : null, e.unsure ? el('p',{textContent:'Still unsure: ' + e.unsure}) : null, e.review ? el('p',{textContent:'Next: ' + e.review}) : null))));
+    row.append(el('div',{class:'detail'}, el('p',{class:'goal',textContent:x.goal}),
+      el('div',{class:'row'}, el('button',{class:'btn',textContent:'Copy lecture request',onclick:() => copy('LECTURE: ' + x.title + ' (extra step on the ' + ROLES[state.focus].name + ' track). End with a linked practice project for Claude Code: a fictional scenario, the data to generate and what to build.', 'Copied. Paste it in the Claude app.')}), el('button',{class:'btn',textContent:'Copy lab for Claude Code',onclick:() => copy(prompt, 'Copied. Paste it in Claude Code.')}),
+        s !== 'done' ? el('button',{class:'btn primary',textContent:'Mark as done',onclick:() => setStatus(key,'done')}) : el('button',{class:'btn',textContent:'Mark as not done',onclick:() => setStatus(key,'todo')}))));
+  }
+  return row;
 }
 
-async function generate(){
-  if (busy) return;
-  const role = ROLES[state.focus], track = CAT.tracks[state.focus];
-  const doneTitles = track.filter(id => statusOf(id) === 'done').map(id => CAT.labs[id].title);
-  const existing = track.map(id => CAT.labs[id].title).concat(state.extra.filter(x => x.role === state.focus).map(x => x.title));
-  const prompt = 'You design hands-on labs for a student training to be a ' + role.name + '. The reference stack: GA4 + GTM, Fivetran and dlt, Snowflake or BigQuery, dbt, Dagster, GitHub Actions, Looker Studio or Tableau, DuckDB locally, HubSpot for CRM. Labs they have finished: ' + (doneTitles.join('; ') || 'none yet') + '. Labs that already exist (do not repeat): ' + existing.join('; ') + '. Write 5 new labs, each a step beyond what they have done, using only free tools, trials, fake or public data. Return only JSON: an array of 5 objects with keys title (max 70 chars), goal (one sentence), tools, level (L2, L3 or L4), time (like "2–3 h"), milestones (array of 4 short strings).';
-  if (!sample) { copy('Give me 5 new labs for my ' + role.name + ' track. I have finished: ' + (doneTitles.join('; ') || 'none yet') + '.', 'Request copied'); return; }
-  busy = true; const st = $('#gen-status'); st.hidden = false; st.textContent = 'Claude is writing five new labs…'; $('#gen').disabled = true;
+/* ---------- view 3: progress ---------- */
+function viewProgress(){
+  const v = $('#v-progress'); v.replaceChildren();
+  const r = ROLES[state.focus], ids = track(), d = doneCount(state.focus);
+  v.append(el('section',{class:'head'},
+    el('div',{}, el('div',{class:'kicker',html:'Progress · <b>' + r.name + '</b>'}), el('h1',{textContent:d ? 'You’ve done ' + d + ' of 20 steps.' : 'Nothing done yet.'}), el('p',{textContent:'Three areas per track. Quiz yourself on the steps you’ve finished to check that it stuck.'})),
+    el('div',{class:'meter'}, el('div',{class:'num'}, el('span',{textContent:'Track'}), el('b',{textContent:Math.round(d / 20 * 100) + '%'})), el('div',{class:'bar'}, el('i',{style:'width:' + (d / 20 * 100) + '%'})))));
+  const grid = el('div',{class:'areas'});
+  AREAS.forEach(([name, a, b]) => {
+    const part = ids.slice(a, b), done = part.filter(id => statusOf(id) === 'done');
+    const last = state.quizzes.filter(q => q.role === state.focus && q.area === name).sort((x, y) => String(y.date).localeCompare(String(x.date)))[0];
+    grid.append(el('div',{class:'area'},
+      el('span',{class:'kicker',textContent:name}),
+      el('div',{class:'big',html:done.length + ' <small>/ ' + part.length + ' steps</small>'}),
+      el('div',{class:'bar'}, el('i',{style:'width:' + (done.length / part.length * 100) + '%'})),
+      el('ul',{}, part.map(id => el('li',{class:statusOf(id) === 'done' ? 'ok' : '',textContent:id === '00' ? 'The role, the stack and your workspace' : lab(id).title}))),
+      el('div',{class:'score',textContent:last ? 'Last quiz: ' + last.score + ' / ' + last.total + ' · ' + String(last.date).slice(0,10) : 'No quiz yet'}),
+      el('button',{class:'btn' + (done.length ? ' primary' : ''),disabled:!done.length,textContent:done.length ? 'Quiz me on ' + name.toLowerCase() : 'Finish a step to unlock the quiz',onclick:() => startQuiz(name, done)})));
+  });
+  v.append(grid);
+  if (state.quiz) v.append(quizView());
+  v.append(el('section',{style:'margin-top:72px'},
+    el('div',{class:'sec-h'}, el('h2',{textContent:'Learning log'}), el('p',{textContent:'End a session with “add it to my hub”'})),
+    state.log.length ? el('div',{class:'log'}, state.log.map(e => el('div',{class:'entry'}, el('div',{}, el('div',{class:'d',textContent:String(e.date || '').slice(0,10)}), el('span',{class:'chip',textContent:e.way || 'LEARN'})), el('div',{}, el('b',{textContent:e.topic || 'Session',style:'font-weight:600'}), e.result ? el('p',{textContent:e.result}) : null, e.review ? el('p',{textContent:'Next: ' + e.review}) : null))))
+      : el('div',{class:'empty',textContent:'No sessions yet. When you finish a lecture or lab, say “add it to my hub” and Claude logs what you did and what to review.'})));
+}
+
+async function startQuiz(area, done){
+  const titles = done.map(id => id === '00' ? 'The ' + ROLES[state.focus].name + ' role, the modern data stack and the Git workflow' : lab(id).title + ': ' + lab(id).goal);
+  if (!sample) { copy('QUIZ me on: ' + titles.join('; '), 'Quiz request copied. Paste it in the Claude app.'); return; }
+  if (busy) return; busy = true;
+  state.quiz = {area, loading:true, i:0, score:0, picked:null, items:[]}; render();
   try {
+    const prompt = 'Write a 5-question multiple-choice quiz for a student on the ' + ROLES[state.focus].name + ' track who has just finished these hands-on labs: ' + titles.join(' | ') + '. Test understanding and application, not trivia; use the stack GA4, dlt, Fivetran, Snowflake or BigQuery, dbt, Dagster, Looker Studio, Git where relevant. Return only JSON: an array of 5 objects with keys q (the question), options (array of 4 short strings), answer (index 0-3 of the correct option), why (one sentence explaining the correct answer).';
+    let items = await sample.json(prompt, {modelTier:'default'});
+    if (!Array.isArray(items)) items = items && Array.isArray(items.questions) ? items.questions : [];
+    items = items.filter(x => x && x.q && Array.isArray(x.options) && x.options.length >= 2 && Number.isInteger(x.answer)).slice(0, 5);
+    if (!items.length) throw new Error('empty');
+    state.quiz = {area, loading:false, i:0, score:0, picked:null, items};
+  } catch (err) {
+    state.quiz = null;
+    toast(err && err.code === 'not_granted' ? 'The quiz needs your permission. Or ask Claude: “QUIZ me on my finished labs”.' : 'Could not make a quiz right now. Ask Claude: “QUIZ me on my finished labs”.');
+  } finally { busy = false; render(); }
+}
+function quizView(){
+  const q = state.quiz;
+  if (q.loading) return el('div',{class:'quiz'}, el('span',{class:'kicker',textContent:'Quiz · ' + q.area}), el('p',{class:'note',textContent:'Claude is writing five questions on what you’ve finished…'}));
+  if (q.i >= q.items.length) return el('div',{class:'quiz'}, el('span',{class:'kicker',textContent:'Quiz · ' + q.area}), el('h3',{textContent:'You scored ' + q.score + ' of ' + q.items.length + '.'}),
+    el('p',{class:'why',textContent:q.score / q.items.length >= 0.8 ? 'Solid. Move on to the next step.' : 'Worth a LEARN session on the questions you missed before moving on.'}),
+    el('div',{class:'detail row',style:'padding:0'}, el('button',{class:'btn',textContent:'Close',onclick:() => { state.quiz = null; render(); }})));
+  const it = q.items[q.i];
+  return el('div',{class:'quiz'},
+    el('span',{class:'kicker',textContent:'Quiz · ' + q.area + ' · ' + (q.i + 1) + ' / ' + q.items.length}),
+    el('h3',{textContent:it.q}),
+    el('div',{class:'opts'}, it.options.map((o, k) => el('button',{disabled:q.picked != null,class:q.picked == null ? '' : (k === it.answer ? 'right' : (k === q.picked ? 'wrong' : '')),textContent:o,onclick:() => { q.picked = k; if (k === it.answer) q.score++; render(); }}))),
+    q.picked != null ? el('p',{class:'why',textContent:(q.picked === it.answer ? 'Correct. ' : 'Not quite. ') + (it.why || '')}) : null,
+    q.picked != null ? el('div',{}, el('button',{class:'btn primary',textContent:q.i + 1 < q.items.length ? 'Next question' : 'See result',onclick:async () => { q.i++; q.picked = null; if (q.i >= q.items.length) await saveQuiz(q); render(); }})) : null);
+}
+async function saveQuiz(q){
+  const rec = {role:state.focus, area:q.area, score:q.score, total:q.items.length, date:new Date().toISOString()};
+  if (db && state.canWrite) { try { await db.collection('quizzes').add(rec); } catch { state.quizzes.push(rec); } } else state.quizzes.push(rec);
+}
+
+async function generateSteps(){
+  if (busy) return;
+  const r = ROLES[state.focus], ids = track();
+  const done = ids.filter(id => statusOf(id) === 'done').map(id => lab(id).title);
+  const existing = ids.map(id => lab(id).title).concat(state.extra.filter(x => x.role === state.focus).map(x => x.title));
+  if (!sample) { copy('Give me 5 new labs for my ' + r.name + ' track. I have finished: ' + (done.join('; ') || 'none yet') + '.', 'Request copied. Paste it in the Claude app.'); return; }
+  busy = true; const st = $('#gen-status'); if (st) st.textContent = 'Claude is writing five new steps…';
+  try {
+    const prompt = 'You design hands-on labs for a student on the ' + r.name + ' track. Stack: GA4 + GTM, Fivetran and dlt, Snowflake (DuckDB and BigQuery sandbox to start), dbt, Dagster, Looker Studio or Tableau, Git and GitHub Actions, HubSpot. Practice data: a fictional dataset Claude generates for each lab. Finished labs: ' + (done.join('; ') || 'none yet') + '. Existing labs (do not repeat): ' + existing.join('; ') + '. Write 5 new labs, each one step beyond what they have done, free tools or trials only. Return only JSON: an array of 5 objects with keys title (max 70 chars), goal (one sentence), tools, level (L2, L3 or L4), time (like "2–3 h"), milestones (array of 4 short strings).';
     let labs = await sample.json(prompt, {modelTier:'default'});
     if (!Array.isArray(labs)) labs = labs && Array.isArray(labs.labs) ? labs.labs : [];
-    labs = labs.slice(0, 5).filter(x => x && x.title && x.goal);
+    labs = labs.filter(x => x && x.title && x.goal).slice(0, 5);
     if (!labs.length) throw new Error('empty');
     for (const x of labs) {
-      const rec = {role: state.focus, title: String(x.title).slice(0,90), goal: String(x.goal).slice(0,300), tools: String(x.tools || '').slice(0,120), level: String(x.level || ''), time: String(x.time || ''), milestones: (Array.isArray(x.milestones) ? x.milestones : []).slice(0,6).map(m => String(m).slice(0,160)), createdAt: new Date().toISOString()};
-      if (db && state.canWrite) await db.collection('extraLabs').add(rec); else state.extra.push({id: String(Math.random()).slice(2,8), ...rec});
+      const rec = {role:state.focus, title:String(x.title).slice(0,90), goal:String(x.goal).slice(0,300), tools:String(x.tools || '').slice(0,120), level:String(x.level || ''), time:String(x.time || ''), milestones:(Array.isArray(x.milestones) ? x.milestones : []).slice(0,6).map(m => String(m).slice(0,160)), createdAt:new Date().toISOString()};
+      if (db && state.canWrite) await db.collection('extraLabs').add(rec); else state.extra.push({id:String(Math.random()).slice(2,8), ...rec});
     }
-    st.textContent = labs.length + ' new labs added below.'; render();
+    toast(labs.length + ' new steps added.'); render();
   } catch (err) {
-    const code = err && err.code;
-    st.textContent = code === 'not_granted' ? 'Generating needs your permission. You can also ask Claude in chat for new labs.' : code === 'rate_limited' ? 'Too many requests right now. Try again in a minute.' : 'Could not generate labs this time. Ask Claude in chat instead: “Give me 5 new labs for my track”.';
-  } finally { busy = false; $('#gen').disabled = false; }
+    const t = err && err.code === 'not_granted' ? 'Needs your permission. You can also ask Claude in chat.' : 'Could not generate right now. Ask Claude: “Give me 5 new labs for my track”.';
+    const s2 = $('#gen-status'); if (s2) s2.textContent = t; else toast(t);
+  } finally { busy = false; }
 }
 
-document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => setFocus(b.dataset.role)));
-$('#gen').addEventListener('click', generate);
+function render(){
+  document.querySelectorAll('.tabs button').forEach(b => { if (b.dataset.view === state.view) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
+  ['tracks','track','progress'].forEach(x => { $('#v-' + x).hidden = x !== state.view; });
+  if (state.view === 'tracks') viewTracks(); else if (state.view === 'track') viewTrack(); else viewProgress();
+}
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => go(b.dataset.view)));
+const h = location.hash.slice(1); if (['tracks','track','progress'].includes(h)) state.view = h;
 render();
 
 (async () => {
-  if (!window.claude?.use) { $('#sync').textContent = 'Progress saving is not available in this view.'; return; }
+  if (!window.claude?.use) return;
   const [d, u, s] = await Promise.all([window.claude.use('db'), window.claude.use('user'), window.claude.use('sample')]);
   db = d; sample = s;
-  if (!sample) $('#gen').textContent = 'Copy request for Claude';
-  if (!db) { $('#sync').textContent = 'Sign in to save your progress.'; render(); return; }
+  if (!db) { render(); return; }
   state.canWrite = u ? (u.can('data.write') !== false) : true;
+  $('#dot').classList.add('on'); $('#dot').title = state.canWrite ? 'Progress saves automatically' : 'View only';
+  let first = true;
+  db.doc('hub/profile').onSnapshot(snap => { const p = snap.data() || {}; if (p.focus && ROLES[p.focus]) state.focus = p.focus; state.name = p.name || ''; if (first && p.focus && !h) { state.view = 'track'; } first = false; render(); }, () => {});
   db.collection('progress').onSnapshot(snap => { state.progress = {}; snap.docs.forEach(x => { state.progress[x.id] = x.data()?.status || 'todo'; }); render(); }, () => {});
-  db.doc('hub/profile').onSnapshot(snap => { const p = snap.data() || {}; if (p.focus && ROLES[p.focus]) state.focus = p.focus; state.name = p.name || ''; render(); }, () => {});
   db.collection('log').orderBy('date','desc').limit(50).onSnapshot(snap => { state.log = snap.docs.map(x => x.data() || {}); render(); }, () => {});
   db.collection('extraLabs').orderBy('createdAt','asc').onSnapshot(snap => { state.extra = snap.docs.map(x => ({id:x.id, ...(x.data() || {})})); render(); }, () => {});
-  $('#sync').textContent = state.canWrite ? 'Progress saves automatically' : 'View only';
-  render();
+  db.collection('quizzes').onSnapshot(snap => { state.quizzes = snap.docs.map(x => x.data() || {}); render(); }, () => {});
 })();
 </script>

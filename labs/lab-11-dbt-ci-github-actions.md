@@ -15,14 +15,18 @@
 - Your dbt project in a GitHub repo
 - Warehouse credentials stored as GitHub Actions secrets
 
-## Run it with Claude Code
-Labs are hands-on, so do them in Claude Code inside your own repo, where Claude can see your files and errors:
+## How this lab works
+1. **Hub:** open this step in your study hub and take the lecture (*Lecture*), or skip it if you know the theory.
+2. **Claude Code:** the lecture ends with a practice project. Claude sets it up for you (a fictional scenario and generated data) and you build it in a real tool.
+3. **GitHub:** commit as you go and merge it into your fork. Then tick it off in the hub.
+
 ```bash
-mkdir lab-11-dbt-ci-github-actions && cd lab-11-dbt-ci-github-actions
-git init
+cd claude-data-academy        # your fork
+git checkout -b lab-11
+mkdir -p my-work/lab-11-dbt-ci-github-actions && cd my-work/lab-11-dbt-ci-github-actions
 claude
 ```
-Then type: `LAB 11`. The coach walks you through the steps below one at a time, you type the code, and it reviews.
+Type `LAB 11`. The coach walks you through the steps below one at a time; you write the code and it reviews.
 
 ## Steps
 1. Write `.github/workflows/dbt-ci.yml` that installs dbt and runs `dbt build` against a CI schema.
@@ -45,9 +49,17 @@ Then type: `LAB 11`. The coach walks you through the steps below one at a time, 
 - *"LEARN: how GitHub Actions works"*
 - *"BUILD: my CI cannot find profiles.yml"*
 
+## Save it to your portfolio
+```bash
+git add .
+git commit -m "lab 11: <what you built>"
+git push -u origin lab-11
+```
+Open a pull request in your fork, read your own diff like a reviewer, merge it, and mark the lab *Done* in your hub. Add a short `README.md` in the lab folder: what you built, how to run it, what you learned.
+
 ## Portfolio
 Green CI badge on your capstone README.
 
-> Safety: use fake or public data, keep secrets in `.env` or the tool's secrets file (in `.gitignore`), and Claude asks before anything destructive.
+> Safety: use fictional or public data, keep secrets in `.env` or the tool's secrets file (in `.gitignore`), and Claude asks before anything destructive.
 
 [← All labs](README.md)

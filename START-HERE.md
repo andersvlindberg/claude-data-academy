@@ -9,6 +9,10 @@ A step-by-step setup for students. Follow it once (about an hour), and you'll ha
 
 ---
 
+## Step 0: Fork the repo
+
+Fork [`andersvlindberg/claude-data-academy`](https://github.com/andersvlindberg/claude-data-academy/fork) to your own GitHub account and clone it. Your fork is your workspace and your portfolio: every lab goes in `my-work/`, one branch and one pull request per lab. Use *Sync fork* on GitHub now and then to get new labs and fixes.
+
 ## Step 1: Create a Claude project
 
 A project is your classroom. It keeps your chats, files and instructions about studying in one place, separate from everything else.
@@ -54,7 +58,7 @@ claude plugin install data-academy@data-academy
 
 ## Step 3: How to work
 
-There are three ways to learn: **LEARN** (talk it through in the app), **LECTURE** (a slide deck with notes, as PDF or PowerPoint) and **LAB** (hands-on in Claude Code). See [LEARNING-PATHS.md](LEARNING-PATHS.md) for which to use when and which job each one trains. Want a dashboard of your progress? Set up your [study hub](hub/README.md).
+**Always start in your [study hub](hub/README.md).** Pick a track, open the next step, take the lecture in the Claude app, then do the practice project in Claude Code and commit it to your fork. See [LEARNING-PATHS.md](LEARNING-PATHS.md) for the whole loop.
 
 ### The daily loop (30–90 minutes)
 

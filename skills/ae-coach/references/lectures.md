@@ -2,6 +2,10 @@
 
 A lecture is the academy's third way to learn, next to LEARN (dialogue) and LAB (hands-on). Use it when the learner wants an overview, a structured walk-through of a topic, business theory, or material to read before a lab or exam.
 
+## Where lectures come from
+
+Learners start every step in their study hub. Each of the 20 steps on their track has a *Lecture* button that asks for the lecture belonging to that lab (for example "LECTURE: Your first dbt project (step 9 of the analytics engineer track, before LAB 08)"). Build the lecture for exactly that step: the theory the lab needs, at the track's level, ending with the practical step.
+
 ## When to offer one
 
 - The learner says "lecture", "föreläsning", "presentation", "slides", "give me an overview", "teach me the theory".
@@ -31,7 +35,9 @@ Always produce **speaker notes** on every content slide: what a lecturer would s
 7. **In the job:** what this looks like on a Tuesday at work; which job ads mention it; interview question.
 8. **Check yourself:** three questions (answers in the notes).
 9. **Summary:** five bullets maximum.
-10. **Next steps:** the matching lab (`LAB nn`), the topic skill, and two reliable sources (official docs first).
+10. **Your practice project (always the last slide):** a linked project the learner does next in Claude Code. Make it fit the topic: a short fictional scenario (a company and its problem), the data to generate (Claude Code creates it, synthetic and free of personal data), the real tool to use from the academy stack (or a free equivalent), the one deliverable, and the Git step (branch `lab-nn`, commit, push, pull request in their fork). Then two reliable sources (official docs first).
+
+Every lecture is the theory half of a step; the practice project is the other half. If the lecture is about extracting data from a platform into a warehouse, the project is doing exactly that, for free (for example a small fake API or CSV export loaded with dlt into DuckDB or the BigQuery sandbox). Nothing needs to exist in advance: the learner's own Claude creates the scenario and data when they start the lab. The repository's Nordvik Outdoor generator (`datasets/nordvik/`) is an optional ready-made example.
 
 ## Style
 
@@ -45,6 +51,7 @@ Always produce **speaker notes** on every content slide: what a lecturer would s
 
 | # | Lecture | Role | Level | Matching labs | Topic skill |
 |---|---|---|---|---|---|
+| 0 | What the role does: the job, the stack and how you'll work (one version per role) | All | L1 | 00 | ae-career, ae-foundations |
 | 1 | The modern data stack and ELT | All | L1 | 01, 05, 08 | ae-foundations |
 | 2 | SQL that analysts and engineers actually use | AE, DA | L1–L2 | 01, 03 | ae-sql |
 | 3 | GA4, GTM and the dataLayer | DE, Business | L1–L2 | 02, 04 | ae-web-tracking |

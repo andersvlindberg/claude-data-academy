@@ -2,7 +2,7 @@
 
 | Role | Level | Time | Tools | Cost | Builds on |
 |---|---|---|---|---|---|
-| Analytics engineer | L2 | 3 h | dbt (Core or platform), BigQuery or Snowflake or DuckDB | Free | Lab 02 or 05 |
+| Analytics engineer | L2 | 3 h | dbt (Core or platform), BigQuery or Snowflake or DuckDB | Free | Lab 01 |
 
 **Goal:** Turn raw tables into clean, tested staging models with dbt.
 
@@ -14,16 +14,20 @@
 
 ## Setup
 - `pip install dbt-duckdb` (or dbt-bigquery / dbt-snowflake), or a dbt platform Developer account
-- `dbt init` a new project and configure `profiles.yml`
+- `dbt init nordvik` and point `profiles.yml` at your `nordvik.duckdb` from Lab 01 (raw Nordvik tables loaded)
 
-## Run it with Claude Code
-Labs are hands-on, so do them in Claude Code inside your own repo, where Claude can see your files and errors:
+## How this lab works
+1. **Hub:** open this step in your study hub and take the lecture (*Lecture*), or skip it if you know the theory.
+2. **Claude Code:** the lecture ends with a practice project. Claude sets it up for you (a fictional scenario and generated data) and you build it in a real tool.
+3. **GitHub:** commit as you go and merge it into your fork. Then tick it off in the hub.
+
 ```bash
-mkdir lab-08-dbt-first-project && cd lab-08-dbt-first-project
-git init
+cd claude-data-academy        # your fork
+git checkout -b lab-08
+mkdir -p my-work/lab-08-dbt-first-project && cd my-work/lab-08-dbt-first-project
 claude
 ```
-Then type: `LAB 08`. The coach walks you through the steps below one at a time, you type the code, and it reviews.
+Type `LAB 08`. The coach walks you through the steps below one at a time; you write the code and it reviews.
 
 ## Steps
 1. Declare your raw tables in `models/staging/<source>/_sources.yml`.
@@ -46,9 +50,17 @@ Then type: `LAB 08`. The coach walks you through the steps below one at a time, 
 - *"LEARN: ref and source in dbt"*
 - *"BUILD: my profiles.yml does not connect (error without password)"*
 
+## Save it to your portfolio
+```bash
+git add .
+git commit -m "lab 08: <what you built>"
+git push -u origin lab-08
+```
+Open a pull request in your fork, read your own diff like a reviewer, merge it, and mark the lab *Done* in your hub. Add a short `README.md` in the lab folder: what you built, how to run it, what you learned.
+
 ## Portfolio
 The start of your capstone repo.
 
-> Safety: use fake or public data, keep secrets in `.env` or the tool's secrets file (in `.gitignore`), and Claude asks before anything destructive.
+> Safety: use fictional or public data, keep secrets in `.env` or the tool's secrets file (in `.gitignore`), and Claude asks before anything destructive.
 
 [← All labs](README.md)
