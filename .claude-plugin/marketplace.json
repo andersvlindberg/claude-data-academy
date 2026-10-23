@@ -1,5 +1,5 @@
 {
-  "name": "claude-data-academy",
+  "name": "data-academy",
   "description": "Complete Claude skills for learning data, from your first SELECT to the boardroom.",
   "owner": {
     "name": "Anders Lindberg",
@@ -7,7 +7,7 @@
   },
   "plugins": [
     {
-      "name": "claude-data-academy",
+      "name": "data-academy",
       "source": "./",
       "description": "30 learning skills across the data chain with a built-in learning coach."
     }

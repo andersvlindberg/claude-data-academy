@@ -1,5 +1,5 @@
 {
-  "name": "claude-data-academy",
+  "name": "data-academy",
   "version": "1.5.0",
   "description": "30 learning skills for data engineers, analytics engineers and data analysts, plus CRM, marketing automation, MarTech, GDPR, design and business, with a built-in learning coach.",
   "author": {
@@ -9,5 +9,6 @@
   "homepage": "https://github.com/andersvlindberg/claude-data-academy",
   "repository": "https://github.com/andersvlindberg/claude-data-academy",
   "license": "MIT",
+  "icon": ".claude-plugin/icon.png",
   "keywords": ["data", "analytics-engineering", "dbt", "snowflake", "sql", "gdpr", "crm", "learning"]
 }
