@@ -29,6 +29,7 @@ test('LAB 08 shows the lab, its stack layer and the git checklist on every surfa
 
 test('before any session the pane invites you to start', async ($, on) => {
   on('clock.now', () => ({ value: 1_800_000_000_000 }))
+  on('store.get', () => ({ value: undefined }))
   const ui = await $.ui.mount({ ...PANE, surface: 'desktop' })
   expect((await ui.find({ type: 'Text', text: /Nothing running/ }))?.text).toBe('Nothing running')
   await ui.unmount()

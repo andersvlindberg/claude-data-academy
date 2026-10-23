@@ -74,28 +74,46 @@ function check(done: boolean, label: string, Text: any) {
   )
 }
 
+const HUB_RE = /^https:\/\/claude\.ai\/(code\/)?artifact\/[A-Za-z0-9-]+\/?$/
+
+async function openUrl($: EngineInterface, url: string): Promise<boolean> {
+  const tries: string[][] = [['cmd', '/c', 'start', '', url], ['open', url], ['xdg-open', url]]
+  for (const argv of tries) {
+    try {
+      const r = await $.process.run(argv, { timeoutMs: 5000 })
+      if (r.exitCode === 0) return true
+    } catch {}
+  }
+  return false
+}
+
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
-    await $.command.register({ name: 'academy', description: 'Open the Data Academy practice pane' })
+    await $.command.register({ name: 'academy', description: 'Open your Data Academy hub and the practice pane. First time: /academy <your hub link>' })
     await $.command.register({ name: 'academy-band', description: 'Show or hide the Data Academy band above the prompt' })
     const saved = (await $.store.get('streak')) as Streak | undefined
     if (saved) await update($, streak, () => saved)
     return next(e)
   })
 
-  on('command.run', { command: 'academy' }, async $ => {
+  on('command.run', { command: 'academy' }, async ($, e) => {
+    const arg = typeof e.args === 'string' ? e.args.trim() : ''
+    if (HUB_RE.test(arg)) {
+      await $.store.set('hubUrl', arg)
+      await openUrl($, arg)
+      return { text: `Hub saved. /academy now opens it: ${arg}` }
+    }
+    const hub = (await $.store.get('hubUrl')) as string | undefined
+    const opened = hub ? await openUrl($, hub) : false
     const { isPlaced } = await $.ui.open({ id: PANE, title: 'Data Academy' })
-    if (isPlaced) return { text: 'Data Academy pane opened.' }
     const s = await read($, study)
     const lab = s.labId ? LABS[s.labId] : undefined
-    return {
-      text: [
-        'DATA ACADEMY · practice (this view has no side panes, so here is the text version)',
-        lab ? `LAB ${s.labId} · ${lab[0]}` : 'No lab running. Pick the next step in your hub, then type LAB <number>.',
-        `Git: ${s.commits} commit(s) · ${s.pushed ? 'pushed' : 'not pushed'} · ${s.prOpened ? 'pull request opened' : 'no pull request yet'}`,
-        'Loop: hub → lecture → build here → commit, push, pull request → tick it off in the hub',
-      ].join('\n'),
-    }
+    const lines = [
+      hub ? (opened ? `Opening your hub: ${hub}` : `Your hub: ${hub}`) : 'No hub linked yet. Copy your hub link (the Data Academy artifact) and run: /academy <link>',
+      lab ? `Now: LAB ${s.labId} · ${lab[0]} · git ${s.commits} commit(s), ${s.pushed ? 'pushed' : 'not pushed'}, ${s.prOpened ? 'PR open' : 'no PR yet'}` : 'No lab running. Pick the next step in your hub, then type LAB <number> here.',
+    ]
+    if (!isPlaced) lines.push('Loop: hub → lecture → build here → commit, push, pull request → tick it off in the hub')
+    return { text: lines.join('\n') }
   })
 
   on('command.run', { command: 'academy-band' }, async $ => {
@@ -132,7 +150,7 @@ export const register: Register = on => {
   on('tool.call', { tool: 'Bash' }, async ($, e, next) => {
     const ran = await next(e)
     const cmd = typeof e.command === 'string' ? e.command : ''
-    const ok = ran.deny === undefined && ran.isError !== true
+    const ok = ran.deny === undefined && ran.isError !== true && (await read($, study)).mode === 'LAB'
     if (ok && /\bgit\s+commit\b/.test(cmd)) await update($, study, s => ({ ...s, commits: s.commits + 1 }))
     if (ok && /\bgit\s+push\b/.test(cmd)) await update($, study, s => ({ ...s, pushed: true }))
     if (ok && /\bgh\s+pr\s+create\b/.test(cmd)) await update($, study, s => ({ ...s, prOpened: true }))
@@ -167,7 +185,8 @@ export const register: Register = on => {
   })
 
   on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e) => {
-    const { Box, Text, Button } = $.ui.resolve(e)
+    const { Box, Text, Button, Link } = $.ui.resolve(e)
+    const hub = (await $.store.get('hubUrl')) as string | undefined
     const s = await read($, study)
     const st = await read($, streak)
     const now = await $.clock.now()
@@ -183,6 +202,7 @@ export const register: Register = on => {
           <Text weight="bold">Data Academy</Text>
           <Text dimColor>· practice</Text>
         </Box>
+        {hub ? <Link href={hub} label="Open your hub ↗" /> : <Text dimColor>Link your hub: /academy &lt;hub link&gt;</Text>}
 
         <Box flexDirection="column">
           <Text dimColor size="caption">NOW</Text>
