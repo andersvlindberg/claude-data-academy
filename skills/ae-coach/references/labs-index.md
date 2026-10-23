@@ -4,7 +4,7 @@ Every role has its own track of **20 labs**, from foundations to a capstone. Som
 
 **How to run a lab:** open Claude Code in an empty folder or your capstone repo and type `LAB 08` (any number). You write the code; Claude explains, reviews and debugs with you. Want the theory first? Ask for `LECTURE: <topic>` in the Claude app.
 
-**Always start in your [study hub](https://github.com/andersvlindberg/claude-data-academy/tree/main/hub)**: take the lecture, then do the practical step in Claude Code, then commit it to your fork on GitHub. Every lab uses the fictional [Nordvik Outdoor](https://github.com/andersvlindberg/claude-data-academy/tree/main/datasets/nordvik) webshop data unless it says otherwise.
+**Always start in your [study hub](https://github.com/andersvlindberg/claude-data-academy/tree/main/hub)**: take the lecture, then do the practical step in Claude Code, then commit it to your fork on GitHub. Each lecture ends with a practice project that your own Claude creates for that step: a fictional scenario, generated data and a real tool. Nothing has to exist in advance; [Nordvik Outdoor](https://github.com/andersvlindberg/claude-data-academy/tree/main/datasets/nordvik) is a ready-made example dataset if you want one.
 
 **Full labs** (00–20) have step-by-step instructions. **Brief labs** (21–64) have milestones, and the coach turns them into steps for your level.
 
@@ -123,7 +123,7 @@ Every role has its own track of **20 labs**, from foundations to a capstone. Som
 | 19 | [Lab 50: Reconcile numbers across sources](https://github.com/andersvlindberg/claude-data-academy/blob/main/labs/lab-50-reconcile-numbers.md) | L2 | 2 h | Free |
 | 20 | [Lab 51: DA capstone: quarterly business review for Nordvik](https://github.com/andersvlindberg/claude-data-academy/blob/main/labs/lab-51-da-capstone.md) | L3–L4 | 8–10 h | Free |
 
-## Business / MarTech track
+## Business & MarTech track
 
 **Foundations**
 

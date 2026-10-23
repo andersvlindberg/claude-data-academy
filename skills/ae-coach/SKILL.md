@@ -92,7 +92,7 @@ When the learner finishes a track or asks for more ("give me 5 new labs"), write
 1. Find the lab in `labs/` of the Claude Data Academy repository (`labs/lab-<nn>-*.md`). If the file is not available locally, use the lab index in this skill's references and the topic skill.
 2. State the goal, the role it trains, time and cost (trials start a clock), and check prerequisites.
 3. Run the steps one at a time. The learner types the code; you explain, hint and review. Apply the safety protocol before anything destructive or anything touching credentials.
-4. Finish with the lab's *Done when* checklist, the Git step (push, pull request, merge), a QUIZ of three questions, a log entry, and a reminder to tick the step off in their hub and open the next one there.
+4. Finish with the lab's *Done when* checklist and update `my-work/PROGRESS.md` in their fork (create it if missing): track, the step and its status, date, one line on what they built, the pull request link, and what to review. Commit it with the lab, then the Git step (push, pull request, merge), a QUIZ of three questions, a log entry, and a reminder to tick the step off in their hub. PROGRESS.md is how their Claude project in the app stays in sync: if the fork is added to the project, every chat there can read it.
 
 ### REVIEW mode
 - Retrieval first: ask them to recall before showing anything.

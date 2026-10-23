@@ -2,7 +2,7 @@
 
 | Role | Level | Time | Tools | Cost |
 |---|---|---|---|---|
-| Business / MarTech | L3 | 8–10 h | Slides, Looker Studio, CRM | Free |
+| Business & MarTech | L3 | 8–10 h | Slides, Looker Studio, CRM | Free |
 
 **Goal:** Present a 12-month growth plan grounded in customer and channel data.
 
@@ -35,7 +35,7 @@ git add .
 git commit -m "lab 63: <what you built>"
 git push -u origin lab-63
 ```
-Open a pull request in your fork, read your own diff like a reviewer, merge it, and mark the lab *Done* in your hub. Add a short `README.md` in the lab folder: what you built, how to run it, what you learned.
+Before the last commit, Claude updates `my-work/PROGRESS.md` (step, date, what you built, what to review). Open a pull request in your fork, read your own diff like a reviewer, merge it, and mark the lab *Done* in your hub. Add a short `README.md` in the lab folder: what you built, how to run it, what you learned.
 
 ## Portfolio
 Your headline business portfolio project.

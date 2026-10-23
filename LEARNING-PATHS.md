@@ -26,7 +26,7 @@ Each track has 20 steps in three areas (Foundations, Core, Advanced). Step 1 is 
 | **Data engineer** | Gets data in and keeps it flowing: sources, ingestion, warehouse, orchestration, reliability | [20 labs](labs/README.md#data-engineer-track) |
 | **Analytics engineer** *(the academy's focus)* | Turns raw data into trusted, documented models: dbt, modelling, tests, CI, semantic layer | [20 labs](labs/README.md#analytics-engineer-track) |
 | **Data analyst** | Answers business questions: analysis, statistics, dashboards, recommendations | [20 labs](labs/README.md#data-analyst-track) |
-| **Business / MarTech** | Uses data to grow the business: tracking, CRM, automation, customer journeys, strategy | [20 labs](labs/README.md#business--martech-track) |
+| **Business & MarTech** | Uses data to grow the business: tracking, CRM, automation, customer journeys, strategy | [20 labs](labs/README.md#business--martech-track) |
 
 **Finished a track?** Press *Generate 5 new steps* in the hub, or ask Claude: *"Give me 5 new labs for my data analyst track"*.
 

@@ -2,7 +2,7 @@
 
 | Role | Level | Time | Tools | Cost |
 |---|---|---|---|---|
-| Business / MarTech | L1 | 2 h | Whiteboard or Slides | Free |
+| Business & MarTech | L1 | 2 h | Whiteboard or Slides | Free |
 
 **Goal:** Map how a customer finds, buys and returns, and where data is created at each step.
 
@@ -35,7 +35,7 @@ git add .
 git commit -m "lab 52: <what you built>"
 git push -u origin lab-52
 ```
-Open a pull request in your fork, read your own diff like a reviewer, merge it, and mark the lab *Done* in your hub. Add a short `README.md` in the lab folder: what you built, how to run it, what you learned.
+Before the last commit, Claude updates `my-work/PROGRESS.md` (step, date, what you built, what to review). Open a pull request in your fork, read your own diff like a reviewer, merge it, and mark the lab *Done* in your hub. Add a short `README.md` in the lab folder: what you built, how to run it, what you learned.
 
 ## Portfolio
 A one-page journey map.

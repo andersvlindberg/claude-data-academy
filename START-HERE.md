@@ -33,6 +33,8 @@ Ask before doing anything I can't undo. Never write graded assignments for me.
 4. Upload your own course notes and the syllabus as project files (your summaries, not the school's copyrighted material).
 5. Add a copy of [docs/learning-log-template.md](docs/learning-log-template.md) as a project file. The coach updates it at the end of each session.
 
+6. **Keep the project in sync:** add your fork to the project (*Add content → GitHub*). Claude Code updates `my-work/PROGRESS.md` after every lab, so every chat in the project knows where you are.
+
 > **Projects vs skills vs memory.** Skills are *how* Claude teaches (shared across all your chats). The project is *what* you're studying right now. Memory is *who you are*. You need all three.
 
 ---

@@ -141,7 +141,6 @@ a{color:var(--accent-2);text-underline-offset:3px}
 .area li.ok{color:var(--ink)}
 .area li.ok::before{background:var(--good)}
 .score{font:500 12.5px var(--mono);color:var(--muted)}
-.area .score{margin-top:auto}
 .quiz{margin-top:16px;border:1px solid var(--line-2);border-radius:16px;padding:22px;background:var(--surface);display:flex;flex-direction:column;gap:16px}
 .quiz h3{font-size:19px;line-height:1.35}
 .opts{display:flex;flex-direction:column;gap:8px}
@@ -158,250 +157,343 @@ a{color:var(--accent-2);text-underline-offset:3px}
 .empty{border:1px dashed var(--line-2);border-radius:14px;padding:20px;color:var(--muted);font-size:14px}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:13.5px;z-index:30;max-width:calc(100% - 32px)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.tabs{overflow-x:auto;scrollbar-width:none;max-width:100%}
+.tabs::-webkit-scrollbar{display:none}
+.nav-r{display:flex;align-items:center;gap:10px}
+.lang{border:1px solid var(--line);background:var(--bg-2);border-radius:999px;font:500 12px var(--mono);padding:5px 9px;cursor:pointer;color:var(--ink-2)}
+@media (max-width:700px){.logo span{display:none}.tabs button{padding:6px 9px;font-size:12.5px}}
+.prose{max-width:68ch;display:flex;flex-direction:column;gap:14px;color:var(--ink-2);font-size:15.5px}
+.prose b{color:var(--ink);font-weight:600}
+.me{display:grid;grid-template-columns:72px minmax(0,1fr);gap:20px;align-items:start;border:1px solid var(--line);border-radius:16px;padding:22px;background:linear-gradient(180deg,var(--surface),var(--bg-2))}
+.avatar{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font:600 26px var(--sans);border:1px solid rgba(255,122,47,.35)}
+@media (max-width:560px){.me{grid-template-columns:1fr}}
+.pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:820px){.pillars{grid-template-columns:1fr}}
+.pillar{border-top:1px solid var(--line-2);padding-top:14px;display:flex;flex-direction:column;gap:6px}
+.pillar b{font-weight:600}
+.pillar p{color:var(--muted);font-size:14px}
+.guide{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.g-step{display:grid;grid-template-columns:48px minmax(0,1fr);gap:14px;padding:22px 0;border-bottom:1px solid var(--line)}
+.g-step .n{font:500 14px var(--mono);color:var(--accent);padding-top:3px}
+.g-step h3{font-size:17px;margin-bottom:6px}
+.g-step p{color:var(--ink-2);font-size:14.5px;max-width:70ch}
+.g-step code{display:block;margin-top:10px;font:12.5px var(--mono);background:var(--raise);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto;white-space:pre;color:var(--ink)}
+.g-step .row{margin-top:10px}
 </style>
 
 <nav><div class="wrap nav">
   <div class="logo"><i>DA</i><span>Data Academy</span></div>
-  <div class="tabs" role="tablist" aria-label="Pages">
-    <button data-view="tracks">Tracks</button>
-    <button data-view="track">My track</button>
-    <button data-view="progress">Progress</button>
-  </div>
-  <span class="dot" id="dot" title="Saving status"></span>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="nav-r"><button class="lang" id="lang" aria-label="Language"></button><span class="dot" id="dot"></span></div>
 </div></nav>
 
 <main class="wrap">
   <div id="v-tracks"></div>
   <div id="v-track" hidden></div>
   <div id="v-progress" hidden></div>
+  <div id="v-guide" hidden></div>
+  <div id="v-about" hidden></div>
 </main>
 
-<script id="catalog" type="application/json">{"labs": {"00": {"slug": "start-role-stack-workspace", "title": "Start here: the role, the stack and your workspace", "level": "L1", "time": "1–2 h", "cost": "Free", "tools": "GitHub, Git, Claude Code, Python, DuckDB", "goal": "Understand what your role does, see the whole stack, and set up the workspace you will use for every lab: your fork, Git and Claude Code.", "brief": false}, "01": {"slug": "duckdb-sql-basics", "title": "Your first local warehouse with DuckDB", "level": "L1", "time": "1–2 h", "cost": "Free", "tools": "DuckDB, VS Code", "goal": "Load a CSV into a local warehouse and answer business questions with SQL, without any cloud account.", "brief": false}, "02": {"slug": "ga4-bigquery-explore", "title": "Explore real GA4 e-commerce data in BigQuery", "level": "L1–L2", "time": "2 h", "cost": "Free (sandbox, no card)", "tools": "BigQuery sandbox", "goal": "Query the public GA4 sample export and understand its nested event schema.", "brief": false}, "03": {"slug": "ga4-funnel-window-functions", "title": "Sessions and a purchase funnel with window functions", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "BigQuery sandbox", "goal": "Build a session table and a four-step e-commerce funnel from raw GA4 events.", "brief": false}, "04": {"slug": "gtm-ga4-tracking", "title": "Track an e-commerce event with GTM and verify it in DevTools", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Google Tag Manager, GA4, Chrome DevTools", "goal": "Push a add_to_cart event to the dataLayer on a test page, send it to GA4 via GTM, and prove it arrives correctly.", "brief": false}, "05": {"slug": "dlt-api-ingestion", "title": "Ingest a REST API with dlt", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Python, dlt, DuckDB", "goal": "Load data from a public API into DuckDB with schema inference and incremental loading.", "brief": false}, "06": {"slug": "snowflake-setup", "title": "Set up Snowflake like a team would", "level": "L2", "time": "2 h", "cost": "Trial (30 days)", "tools": "Snowflake", "goal": "Create databases, warehouses and roles for a dev/prod analytics setup with key-pair authentication.", "brief": false}, "07": {"slug": "fivetran-to-snowflake", "title": "Managed ingestion with Fivetran", "level": "L2", "time": "1–2 h", "cost": "Fivetran free plan / trial", "tools": "Fivetran, Snowflake, Google Sheets", "goal": "Sync a source into Snowflake RAW with Fivetran and understand what a managed connector does for you.", "brief": false}, "08": {"slug": "dbt-first-project", "title": "Your first dbt project: sources, staging and tests", "level": "L2", "time": "3 h", "cost": "Free", "tools": "dbt (Core or platform), BigQuery or Snowflake or DuckDB", "goal": "Turn raw tables into clean, tested staging models with dbt.", "brief": false}, "09": {"slug": "dbt-dimensional-modeling", "title": "Dimensional modelling in dbt: facts and dimensions", "level": "L2–L3", "time": "3–4 h", "cost": "Free", "tools": "dbt", "goal": "Build a star schema (fct_orders, dim_customers, dim_products) that BI tools can use directly.", "brief": false}, "10": {"slug": "dbt-incremental-snapshots", "title": "Incremental models and snapshots (SCD type 2)", "level": "L3", "time": "3 h", "cost": "Free", "tools": "dbt", "goal": "Make large models cheap to rebuild and keep history of changing dimensions.", "brief": false}, "11": {"slug": "dbt-ci-github-actions", "title": "dbt CI with GitHub Actions and Slim CI", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "dbt, GitHub Actions", "goal": "Run dbt build automatically on every pull request so broken models never reach main.", "brief": false}, "12": {"slug": "data-quality-contracts", "title": "Data quality: contracts, freshness and anomaly checks", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "dbt", "goal": "Make your marts trustworthy with enforced contracts, freshness SLAs and volume checks.", "brief": false}, "13": {"slug": "dagster-orchestration", "title": "Orchestrate dlt and dbt with Dagster", "level": "L3", "time": "3–4 h", "cost": "Free (local)", "tools": "Dagster, dagster-dbt, dagster-dlt", "goal": "Run ingestion and transformation as one asset graph with a schedule and retries.", "brief": false}, "14": {"slug": "privacy-zones-masking", "title": "Privacy by design: zones, pseudonymisation and masking", "level": "L3", "time": "3 h", "cost": "Trial / free", "tools": "Snowflake (or BigQuery policy tags), dbt", "goal": "Separate personal data from analytics data so analysts never see identities they do not need.", "brief": false}, "15": {"slug": "looker-studio-dashboard", "title": "A decision-ready dashboard in Looker Studio", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Looker Studio, BigQuery", "goal": "Build a one-page e-commerce performance dashboard that answers a real question.", "brief": false}, "16": {"slug": "tableau-public-kpi", "title": "KPI story in Tableau Public", "level": "L2", "time": "3 h", "cost": "Free (public)", "tools": "Tableau Public", "goal": "Tell a short data story with LOD expressions and a dashboard published to your profile.", "brief": false}, "17": {"slug": "rfm-clv-segmentation", "title": "Customer segmentation: RFM and lifetime value", "level": "L2–L3", "time": "3 h", "cost": "Free", "tools": "SQL (any warehouse), optional Python", "goal": "Segment customers by recency, frequency and monetary value and estimate CLV to guide marketing.", "brief": false}, "18": {"slug": "ab-test-analysis", "title": "Analyse an A/B test properly", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Python (pandas, scipy) or SQL", "goal": "Decide whether a variant won, with the right test, confidence interval and caveats.", "brief": false}, "19": {"slug": "reverse-etl-crm", "title": "Activate segments in a CRM (reverse ETL)", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "HubSpot (free CRM), Python or a reverse ETL tool", "goal": "Sync a warehouse segment to CRM properties so marketing can use it in automation.", "brief": false}, "20": {"slug": "claude-mcp-warehouse", "title": "Safe AI on your marts: Claude + MCP, read-only", "level": "L3", "time": "2 h", "cost": "Free / trial", "tools": "Claude Code, an MCP server for your warehouse or dbt", "goal": "Let Claude answer business questions from documented marts without write access or personal data.", "brief": false}, "21": {"slug": "python-data-scripts", "title": "Python scripts that fetch data reliably", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "Python, requests", "goal": "Write a small, well-behaved extractor: pagination, retries, rate limits and logging.", "brief": true}, "22": {"slug": "file-formats-parquet", "title": "CSV, JSON and Parquet: formats and partitioning", "level": "L1–L2", "time": "1–2 h", "cost": "Free", "tools": "DuckDB, Python", "goal": "Understand why columnar formats and partitions make analytics cheap and fast.", "brief": true}, "23": {"slug": "ga4-bigquery-to-snowflake", "title": "Move the GA4 export from BigQuery into Snowflake", "level": "L2–L3", "time": "3 h", "cost": "Free + trial", "tools": "BigQuery, Snowflake, Python or dlt", "goal": "Load GA4 export tables into Snowflake RAW so the reference stack has one warehouse.", "brief": true}, "24": {"slug": "docker-postgres-source", "title": "Docker and a Postgres source database", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Docker, Postgres, dlt", "goal": "Run an application database locally and ingest from it like a real company source.", "brief": true}, "25": {"slug": "cdc-incremental-extraction", "title": "Change data capture and incremental extraction", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Postgres, dlt or Python", "goal": "Compare cursor-based incremental loads with log-based CDC, and handle deletes.", "brief": true}, "26": {"slug": "partitions-backfills", "title": "Partitions, backfills and idempotent pipelines", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Dagster, dbt or Python", "goal": "Make pipelines safe to re-run for any day without duplicates.", "brief": true}, "27": {"slug": "data-observability", "title": "Data observability: freshness, volume and schema alerts", "level": "L3", "time": "2 h", "cost": "Free", "tools": "dbt, Dagster or Elementary", "goal": "Detect broken data before stakeholders do.", "brief": true}, "28": {"slug": "terraform-snowflake", "title": "Infrastructure as code: Snowflake with Terraform", "level": "L3", "time": "3 h", "cost": "Trial", "tools": "Terraform, Snowflake", "goal": "Create warehouses, databases and roles from code instead of clicking.", "brief": true}, "29": {"slug": "warehouse-cost-control", "title": "Cost control: sizing, profiling and budgets", "level": "L2–L3", "time": "2 h", "cost": "Trial / free", "tools": "Snowflake or BigQuery", "goal": "Make queries cheaper and keep spend predictable.", "brief": true}, "30": {"slug": "streaming-intro", "title": "Streaming basics: events in micro-batches", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Python, DuckDB (simulated queue)", "goal": "Understand streaming vs batch by simulating an event stream into the warehouse.", "brief": true}, "31": {"slug": "access-and-secrets", "title": "Access, secrets and least privilege audit", "level": "L2–L3", "time": "2 h", "cost": "Trial / free", "tools": "Snowflake or BigQuery, GitHub", "goal": "Review who can do what, rotate keys and remove standing access.", "brief": true}, "32": {"slug": "de-capstone", "title": "DE capstone: an end-to-end pipeline with a runbook", "level": "L3–L4", "time": "8–12 h", "cost": "Free + trials", "tools": "dlt or Fivetran, Snowflake, Dagster", "goal": "Ship a production-style pipeline: sources to warehouse, scheduled, monitored and documented.", "brief": true}, "33": {"slug": "dbt-jinja-macros", "title": "Jinja and macros in dbt", "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "dbt", "goal": "Remove repetition with Jinja loops and write your own macros.", "brief": true}, "34": {"slug": "sql-style-refactoring", "title": "SQL style and refactoring", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "SQL, sqlfluff", "goal": "Turn a messy query into readable, reviewable SQL.", "brief": true}, "35": {"slug": "dbt-packages", "title": "dbt packages: dbt_utils, codegen and audit_helper", "level": "L2", "time": "2 h", "cost": "Free", "tools": "dbt", "goal": "Use community packages instead of reinventing them.", "brief": true}, "36": {"slug": "ga4-in-dbt", "title": "GA4 in dbt: sessions and e-commerce marts", "level": "L3", "time": "3–4 h", "cost": "Free", "tools": "dbt, BigQuery", "goal": "Model the raw GA4 export into tested session and purchase marts.", "brief": true}, "37": {"slug": "semantic-layer-metrics", "title": "Semantic layer and metrics with MetricFlow", "level": "L3", "time": "2–3 h", "cost": "Free (local)", "tools": "dbt Semantic Layer / MetricFlow", "goal": "Define revenue and conversion once so every tool uses the same logic.", "brief": true}, "38": {"slug": "legacy-sql-to-dbt", "title": "Refactor a legacy SQL report into dbt", "level": "L3", "time": "3 h", "cost": "Free", "tools": "dbt, audit_helper", "goal": "Migrate a long stored query into layered models without changing the numbers.", "brief": true}, "39": {"slug": "ae-capstone", "title": "AE capstone: the Nordvik analytics platform", "level": "L3–L4", "time": "10–15 h", "cost": "Free + trials", "tools": "Fivetran or dlt, Snowflake, dbt, Dagster, Looker Studio", "goal": "Build the full reference stack for a fictional retailer and defend every design decision.", "brief": true}, "40": {"slug": "sheets-for-analysts", "title": "Spreadsheets for analysts: pivots, XLOOKUP and validation", "level": "L1", "time": "2 h", "cost": "Free", "tools": "Google Sheets or Excel", "goal": "Answer business questions fast in a spreadsheet, the tool every stakeholder knows.", "brief": true}, "41": {"slug": "pandas-eda", "title": "Exploratory analysis in Python with pandas", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Python, pandas, Jupyter", "goal": "Profile, clean and explore a dataset and write down what you find.", "brief": true}, "42": {"slug": "kpi-metric-tree", "title": "KPI design: a metric tree for e-commerce", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Sheets or whiteboard", "goal": "Break revenue down into drivers so every team knows which number it moves.", "brief": true}, "43": {"slug": "cohort-retention", "title": "Cohort retention analysis in SQL", "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "SQL", "goal": "Measure how many customers come back, by first-purchase month.", "brief": true}, "44": {"slug": "marketing-attribution", "title": "Marketing attribution and channel ROI", "level": "L2–L3", "time": "3 h", "cost": "Free", "tools": "SQL, GA4 data", "goal": "Compare attribution models and what they mean for budget decisions.", "brief": true}, "45": {"slug": "forecasting-basics", "title": "Forecasting basics: trend and seasonality", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Python (statsmodels) or Sheets", "goal": "Forecast next quarter's orders and explain how wrong it might be.", "brief": true}, "46": {"slug": "churn-prediction", "title": "Churn prediction with logistic regression", "level": "L3", "time": "3 h", "cost": "Free", "tools": "Python, scikit-learn", "goal": "Predict which customers are likely to churn and what drives it.", "brief": true}, "47": {"slug": "survey-analysis", "title": "Customer survey: design and analysis (GDPR-safe)", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Google Forms, Sheets or Python", "goal": "Design a short survey, collect data lawfully and analyse it.", "brief": true}, "48": {"slug": "data-storytelling", "title": "Data storytelling: a 5-slide recommendation", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Slides", "goal": "Turn an analysis into a recommendation a manager acts on.", "brief": true}, "49": {"slug": "product-analytics", "title": "Product analytics: feature adoption and funnels", "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "SQL, GA4 data", "goal": "Measure whether a feature is used and whether it helps conversion.", "brief": true}, "50": {"slug": "reconcile-numbers", "title": "Reconcile numbers across sources", "level": "L2", "time": "2 h", "cost": "Free", "tools": "SQL, Sheets", "goal": "Explain why GA4, the shop and finance show different revenue.", "brief": true}, "51": {"slug": "da-capstone", "title": "DA capstone: quarterly business review for Nordvik", "level": "L3–L4", "time": "8–10 h", "cost": "Free", "tools": "SQL, Looker Studio or Tableau, Slides", "goal": "Deliver a quarterly review: performance, customers, experiments and recommendations.", "brief": true}, "52": {"slug": "customer-journey-map", "title": "Map a customer journey with data touchpoints", "level": "L1", "time": "2 h", "cost": "Free", "tools": "Whiteboard or Slides", "goal": "Map how a customer finds, buys and returns, and where data is created at each step.", "brief": true}, "53": {"slug": "tracking-plan", "title": "Write a tracking plan for a webshop", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "Sheets", "goal": "Define which events and properties to track, why, and who owns them.", "brief": true}, "54": {"slug": "consent-cookie-audit", "title": "Cookie and consent audit of a real site", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Chrome DevTools", "goal": "Check what a site sets and sends before and after consent.", "brief": true}, "55": {"slug": "crm-data-model", "title": "CRM data model in HubSpot", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "HubSpot free CRM", "goal": "Set up contacts, companies, deals and lifecycle stages that reporting can rely on.", "brief": true}, "56": {"slug": "email-automation-flow", "title": "Email automation: welcome and abandoned cart", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "HubSpot or another free tool", "goal": "Design segmented flows and decide how to measure them.", "brief": true}, "57": {"slug": "lead-scoring", "title": "Lead scoring: from rules to data", "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "Sheets or Python, CRM data", "goal": "Score leads so sales calls the right people first.", "brief": true}, "58": {"slug": "utm-campaign-report", "title": "UTM governance and a campaign report", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "Sheets, GA4, Looker Studio", "goal": "Make campaign data clean and report results per campaign.", "brief": true}, "59": {"slug": "martech-stack-audit", "title": "MarTech stack audit", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Sheets or whiteboard, Wappalyzer", "goal": "Map a company's marketing tools, data flows and overlaps.", "brief": true}, "60": {"slug": "cdp-business-case", "title": "CDP evaluation: composable vs packaged", "level": "L2–L3", "time": "3 h", "cost": "Free", "tools": "Slides, Sheets", "goal": "Decide between a packaged CDP and a warehouse-first composable setup.", "brief": true}, "61": {"slug": "data-project-business-case", "title": "Business case for a data project", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Slides, Sheets", "goal": "Get a data initiative approved: value, cost, risks and stakeholders.", "brief": true}, "62": {"slug": "gdpr-for-marketing", "title": "GDPR for a marketing campaign", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Docs", "goal": "Check a campaign's lawful basis, consent and data minimisation before launch.", "brief": true}, "63": {"slug": "biz-capstone", "title": "Business capstone: a data-driven growth plan for Nordvik", "level": "L3", "time": "8–10 h", "cost": "Free", "tools": "Slides, Looker Studio, CRM", "goal": "Present a 12-month growth plan grounded in customer and channel data.", "brief": true}, "64": {"slug": "claude-analysis-agent", "title": "Build a small AI analysis helper safely", "level": "L3", "time": "3 h", "cost": "Free / trial", "tools": "Claude, MCP, read-only warehouse", "goal": "Let Claude draft analyses from your marts while you verify every number.", "brief": true}}, "tracks": {"DE": ["00", "01", "21", "05", "22", "04", "06", "07", "23", "24", "25", "11", "13", "26", "14", "27", "28", "29", "30", "32"], "AE": ["00", "01", "02", "03", "06", "08", "09", "33", "35", "10", "12", "11", "36", "37", "13", "14", "38", "19", "20", "39"], "DA": ["00", "01", "02", "40", "03", "41", "15", "16", "42", "17", "43", "18", "44", "45", "46", "47", "48", "49", "50", "51"], "BIZ": ["00", "52", "53", "04", "54", "02", "15", "42", "55", "56", "17", "44", "19", "57", "58", "59", "60", "48", "62", "63"]}}</script>
+<script id="catalog" type="application/json">{"labs": {"00": {"slug": "start-role-stack-workspace", "title": "Start here: the role, the stack and your workspace", "level": "L1", "time": "1–2 h", "cost": "Free", "tools": "GitHub, Git, Claude Code, Python, DuckDB", "goal": "Understand what your role does, see the whole stack, and set up the workspace you will use for every lab: your fork, Git and Claude Code.", "brief": false}, "01": {"slug": "duckdb-sql-basics", "title": "Your first local warehouse with DuckDB", "level": "L1", "time": "1–2 h", "cost": "Free", "tools": "DuckDB, VS Code", "goal": "Load a CSV into a local warehouse and answer business questions with SQL, without any cloud account.", "brief": false}, "02": {"slug": "ga4-bigquery-explore", "title": "Explore real GA4 e-commerce data in BigQuery", "level": "L1–L2", "time": "2 h", "cost": "Free (sandbox, no card)", "tools": "BigQuery sandbox", "goal": "Query the public GA4 sample export and understand its nested event schema.", "brief": false}, "03": {"slug": "ga4-funnel-window-functions", "title": "Sessions and a purchase funnel with window functions", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "BigQuery sandbox", "goal": "Build a session table and a four-step e-commerce funnel from raw GA4 events.", "brief": false}, "04": {"slug": "gtm-ga4-tracking", "title": "Track an e-commerce event with GTM and verify it in DevTools", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Google Tag Manager, GA4, Chrome DevTools", "goal": "Push a add_to_cart event to the dataLayer on a test page, send it to GA4 via GTM, and prove it arrives correctly.", "brief": false}, "05": {"slug": "dlt-api-ingestion", "title": "Ingest a REST API with dlt", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Python, dlt, DuckDB", "goal": "Load data from a public API into DuckDB with schema inference and incremental loading.", "brief": false}, "06": {"slug": "snowflake-setup", "title": "Set up Snowflake like a team would", "level": "L2", "time": "2 h", "cost": "Trial (30 days)", "tools": "Snowflake", "goal": "Create databases, warehouses and roles for a dev/prod analytics setup with key-pair authentication.", "brief": false}, "07": {"slug": "fivetran-to-snowflake", "title": "Managed ingestion with Fivetran", "level": "L2", "time": "1–2 h", "cost": "Fivetran free plan / trial", "tools": "Fivetran, Snowflake, Google Sheets", "goal": "Sync a source into Snowflake RAW with Fivetran and understand what a managed connector does for you.", "brief": false}, "08": {"slug": "dbt-first-project", "title": "Your first dbt project: sources, staging and tests", "level": "L2", "time": "3 h", "cost": "Free", "tools": "dbt (Core or platform), BigQuery or Snowflake or DuckDB", "goal": "Turn raw tables into clean, tested staging models with dbt.", "brief": false}, "09": {"slug": "dbt-dimensional-modeling", "title": "Dimensional modelling in dbt: facts and dimensions", "level": "L2–L3", "time": "3–4 h", "cost": "Free", "tools": "dbt", "goal": "Build a star schema (fct_orders, dim_customers, dim_products) that BI tools can use directly.", "brief": false}, "10": {"slug": "dbt-incremental-snapshots", "title": "Incremental models and snapshots (SCD type 2)", "level": "L3", "time": "3 h", "cost": "Free", "tools": "dbt", "goal": "Make large models cheap to rebuild and keep history of changing dimensions.", "brief": false}, "11": {"slug": "dbt-ci-github-actions", "title": "dbt CI with GitHub Actions and Slim CI", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "dbt, GitHub Actions", "goal": "Run dbt build automatically on every pull request so broken models never reach main.", "brief": false}, "12": {"slug": "data-quality-contracts", "title": "Data quality: contracts, freshness and anomaly checks", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "dbt", "goal": "Make your marts trustworthy with enforced contracts, freshness SLAs and volume checks.", "brief": false}, "13": {"slug": "dagster-orchestration", "title": "Orchestrate dlt and dbt with Dagster", "level": "L3", "time": "3–4 h", "cost": "Free (local)", "tools": "Dagster, dagster-dbt, dagster-dlt", "goal": "Run ingestion and transformation as one asset graph with a schedule and retries.", "brief": false}, "14": {"slug": "privacy-zones-masking", "title": "Privacy by design: zones, pseudonymisation and masking", "level": "L3", "time": "3 h", "cost": "Trial / free", "tools": "Snowflake (or BigQuery policy tags), dbt", "goal": "Separate personal data from analytics data so analysts never see identities they do not need.", "brief": false}, "15": {"slug": "looker-studio-dashboard", "title": "A decision-ready dashboard in Looker Studio", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Looker Studio, BigQuery", "goal": "Build a one-page e-commerce performance dashboard that answers a real question.", "brief": false}, "16": {"slug": "tableau-public-kpi", "title": "KPI story in Tableau Public", "level": "L2", "time": "3 h", "cost": "Free (public)", "tools": "Tableau Public", "goal": "Tell a short data story with LOD expressions and a dashboard published to your profile.", "brief": false}, "17": {"slug": "rfm-clv-segmentation", "title": "Customer segmentation: RFM and lifetime value", "level": "L2–L3", "time": "3 h", "cost": "Free", "tools": "SQL (any warehouse), optional Python", "goal": "Segment customers by recency, frequency and monetary value and estimate CLV to guide marketing.", "brief": false}, "18": {"slug": "ab-test-analysis", "title": "Analyse an A/B test properly", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Python (pandas, scipy) or SQL", "goal": "Decide whether a variant won, with the right test, confidence interval and caveats.", "brief": false}, "19": {"slug": "reverse-etl-crm", "title": "Activate segments in a CRM (reverse ETL)", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "HubSpot (free CRM), Python or a reverse ETL tool", "goal": "Sync a warehouse segment to CRM properties so marketing can use it in automation.", "brief": false}, "20": {"slug": "claude-mcp-warehouse", "title": "Safe AI on your marts: Claude + MCP, read-only", "level": "L3", "time": "2 h", "cost": "Free / trial", "tools": "Claude Code, an MCP server for your warehouse or dbt", "goal": "Let Claude answer business questions from documented marts without write access or personal data.", "brief": false}, "21": {"slug": "python-data-scripts", "title": "Python scripts that fetch data reliably", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "Python, requests", "goal": "Write a small, well-behaved extractor: pagination, retries, rate limits and logging.", "brief": true}, "22": {"slug": "file-formats-parquet", "title": "CSV, JSON and Parquet: formats and partitioning", "level": "L1–L2", "time": "1–2 h", "cost": "Free", "tools": "DuckDB, Python", "goal": "Understand why columnar formats and partitions make analytics cheap and fast.", "brief": true}, "23": {"slug": "ga4-bigquery-to-snowflake", "title": "Move the GA4 export from BigQuery into Snowflake", "level": "L2–L3", "time": "3 h", "cost": "Free + trial", "tools": "BigQuery, Snowflake, Python or dlt", "goal": "Load GA4 export tables into Snowflake RAW so the reference stack has one warehouse.", "brief": true}, "24": {"slug": "docker-postgres-source", "title": "Docker and a Postgres source database", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Docker, Postgres, dlt", "goal": "Run an application database locally and ingest from it like a real company source.", "brief": true}, "25": {"slug": "cdc-incremental-extraction", "title": "Change data capture and incremental extraction", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Postgres, dlt or Python", "goal": "Compare cursor-based incremental loads with log-based CDC, and handle deletes.", "brief": true}, "26": {"slug": "partitions-backfills", "title": "Partitions, backfills and idempotent pipelines", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Dagster, dbt or Python", "goal": "Make pipelines safe to re-run for any day without duplicates.", "brief": true}, "27": {"slug": "data-observability", "title": "Data observability: freshness, volume and schema alerts", "level": "L3", "time": "2 h", "cost": "Free", "tools": "dbt, Dagster or Elementary", "goal": "Detect broken data before stakeholders do.", "brief": true}, "28": {"slug": "terraform-snowflake", "title": "Infrastructure as code: Snowflake with Terraform", "level": "L3", "time": "3 h", "cost": "Trial", "tools": "Terraform, Snowflake", "goal": "Create warehouses, databases and roles from code instead of clicking.", "brief": true}, "29": {"slug": "warehouse-cost-control", "title": "Cost control: sizing, profiling and budgets", "level": "L2–L3", "time": "2 h", "cost": "Trial / free", "tools": "Snowflake or BigQuery", "goal": "Make queries cheaper and keep spend predictable.", "brief": true}, "30": {"slug": "streaming-intro", "title": "Streaming basics: events in micro-batches", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Python, DuckDB (simulated queue)", "goal": "Understand streaming vs batch by simulating an event stream into the warehouse.", "brief": true}, "31": {"slug": "access-and-secrets", "title": "Access, secrets and least privilege audit", "level": "L2–L3", "time": "2 h", "cost": "Trial / free", "tools": "Snowflake or BigQuery, GitHub", "goal": "Review who can do what, rotate keys and remove standing access.", "brief": true}, "32": {"slug": "de-capstone", "title": "DE capstone: an end-to-end pipeline with a runbook", "level": "L3–L4", "time": "8–12 h", "cost": "Free + trials", "tools": "dlt or Fivetran, Snowflake, Dagster", "goal": "Ship a production-style pipeline: sources to warehouse, scheduled, monitored and documented.", "brief": true}, "33": {"slug": "dbt-jinja-macros", "title": "Jinja and macros in dbt", "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "dbt", "goal": "Remove repetition with Jinja loops and write your own macros.", "brief": true}, "34": {"slug": "sql-style-refactoring", "title": "SQL style and refactoring", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "SQL, sqlfluff", "goal": "Turn a messy query into readable, reviewable SQL.", "brief": true}, "35": {"slug": "dbt-packages", "title": "dbt packages: dbt_utils, codegen and audit_helper", "level": "L2", "time": "2 h", "cost": "Free", "tools": "dbt", "goal": "Use community packages instead of reinventing them.", "brief": true}, "36": {"slug": "ga4-in-dbt", "title": "GA4 in dbt: sessions and e-commerce marts", "level": "L3", "time": "3–4 h", "cost": "Free", "tools": "dbt, BigQuery", "goal": "Model the raw GA4 export into tested session and purchase marts.", "brief": true}, "37": {"slug": "semantic-layer-metrics", "title": "Semantic layer and metrics with MetricFlow", "level": "L3", "time": "2–3 h", "cost": "Free (local)", "tools": "dbt Semantic Layer / MetricFlow", "goal": "Define revenue and conversion once so every tool uses the same logic.", "brief": true}, "38": {"slug": "legacy-sql-to-dbt", "title": "Refactor a legacy SQL report into dbt", "level": "L3", "time": "3 h", "cost": "Free", "tools": "dbt, audit_helper", "goal": "Migrate a long stored query into layered models without changing the numbers.", "brief": true}, "39": {"slug": "ae-capstone", "title": "AE capstone: the Nordvik analytics platform", "level": "L3–L4", "time": "10–15 h", "cost": "Free + trials", "tools": "Fivetran or dlt, Snowflake, dbt, Dagster, Looker Studio", "goal": "Build the full reference stack for a fictional retailer and defend every design decision.", "brief": true}, "40": {"slug": "sheets-for-analysts", "title": "Spreadsheets for analysts: pivots, XLOOKUP and validation", "level": "L1", "time": "2 h", "cost": "Free", "tools": "Google Sheets or Excel", "goal": "Answer business questions fast in a spreadsheet, the tool every stakeholder knows.", "brief": true}, "41": {"slug": "pandas-eda", "title": "Exploratory analysis in Python with pandas", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Python, pandas, Jupyter", "goal": "Profile, clean and explore a dataset and write down what you find.", "brief": true}, "42": {"slug": "kpi-metric-tree", "title": "KPI design: a metric tree for e-commerce", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Sheets or whiteboard", "goal": "Break revenue down into drivers so every team knows which number it moves.", "brief": true}, "43": {"slug": "cohort-retention", "title": "Cohort retention analysis in SQL", "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "SQL", "goal": "Measure how many customers come back, by first-purchase month.", "brief": true}, "44": {"slug": "marketing-attribution", "title": "Marketing attribution and channel ROI", "level": "L2–L3", "time": "3 h", "cost": "Free", "tools": "SQL, GA4 data", "goal": "Compare attribution models and what they mean for budget decisions.", "brief": true}, "45": {"slug": "forecasting-basics", "title": "Forecasting basics: trend and seasonality", "level": "L3", "time": "2–3 h", "cost": "Free", "tools": "Python (statsmodels) or Sheets", "goal": "Forecast next quarter's orders and explain how wrong it might be.", "brief": true}, "46": {"slug": "churn-prediction", "title": "Churn prediction with logistic regression", "level": "L3", "time": "3 h", "cost": "Free", "tools": "Python, scikit-learn", "goal": "Predict which customers are likely to churn and what drives it.", "brief": true}, "47": {"slug": "survey-analysis", "title": "Customer survey: design and analysis (GDPR-safe)", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Google Forms, Sheets or Python", "goal": "Design a short survey, collect data lawfully and analyse it.", "brief": true}, "48": {"slug": "data-storytelling", "title": "Data storytelling: a 5-slide recommendation", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Slides", "goal": "Turn an analysis into a recommendation a manager acts on.", "brief": true}, "49": {"slug": "product-analytics", "title": "Product analytics: feature adoption and funnels", "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "SQL, GA4 data", "goal": "Measure whether a feature is used and whether it helps conversion.", "brief": true}, "50": {"slug": "reconcile-numbers", "title": "Reconcile numbers across sources", "level": "L2", "time": "2 h", "cost": "Free", "tools": "SQL, Sheets", "goal": "Explain why GA4, the shop and finance show different revenue.", "brief": true}, "51": {"slug": "da-capstone", "title": "DA capstone: quarterly business review for Nordvik", "level": "L3–L4", "time": "8–10 h", "cost": "Free", "tools": "SQL, Looker Studio or Tableau, Slides", "goal": "Deliver a quarterly review: performance, customers, experiments and recommendations.", "brief": true}, "52": {"slug": "customer-journey-map", "title": "Map a customer journey with data touchpoints", "level": "L1", "time": "2 h", "cost": "Free", "tools": "Whiteboard or Slides", "goal": "Map how a customer finds, buys and returns, and where data is created at each step.", "brief": true}, "53": {"slug": "tracking-plan", "title": "Write a tracking plan for a webshop", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "Sheets", "goal": "Define which events and properties to track, why, and who owns them.", "brief": true}, "54": {"slug": "consent-cookie-audit", "title": "Cookie and consent audit of a real site", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Chrome DevTools", "goal": "Check what a site sets and sends before and after consent.", "brief": true}, "55": {"slug": "crm-data-model", "title": "CRM data model in HubSpot", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "HubSpot free CRM", "goal": "Set up contacts, companies, deals and lifecycle stages that reporting can rely on.", "brief": true}, "56": {"slug": "email-automation-flow", "title": "Email automation: welcome and abandoned cart", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "HubSpot or another free tool", "goal": "Design segmented flows and decide how to measure them.", "brief": true}, "57": {"slug": "lead-scoring", "title": "Lead scoring: from rules to data", "level": "L2–L3", "time": "2–3 h", "cost": "Free", "tools": "Sheets or Python, CRM data", "goal": "Score leads so sales calls the right people first.", "brief": true}, "58": {"slug": "utm-campaign-report", "title": "UTM governance and a campaign report", "level": "L1–L2", "time": "2 h", "cost": "Free", "tools": "Sheets, GA4, Looker Studio", "goal": "Make campaign data clean and report results per campaign.", "brief": true}, "59": {"slug": "martech-stack-audit", "title": "MarTech stack audit", "level": "L2", "time": "2–3 h", "cost": "Free", "tools": "Sheets or whiteboard, Wappalyzer", "goal": "Map a company's marketing tools, data flows and overlaps.", "brief": true}, "60": {"slug": "cdp-business-case", "title": "CDP evaluation: composable vs packaged", "level": "L2–L3", "time": "3 h", "cost": "Free", "tools": "Slides, Sheets", "goal": "Decide between a packaged CDP and a warehouse-first composable setup.", "brief": true}, "61": {"slug": "data-project-business-case", "title": "Business case for a data project", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Slides, Sheets", "goal": "Get a data initiative approved: value, cost, risks and stakeholders.", "brief": true}, "62": {"slug": "gdpr-for-marketing", "title": "GDPR for a marketing campaign", "level": "L2", "time": "2 h", "cost": "Free", "tools": "Docs", "goal": "Check a campaign's lawful basis, consent and data minimisation before launch.", "brief": true}, "63": {"slug": "biz-capstone", "title": "Business capstone: a data-driven growth plan for Nordvik", "level": "L3", "time": "8–10 h", "cost": "Free", "tools": "Slides, Looker Studio, CRM", "goal": "Present a 12-month growth plan grounded in customer and channel data.", "brief": true}, "64": {"slug": "claude-analysis-agent", "title": "Build a small AI analysis helper safely", "level": "L3", "time": "3 h", "cost": "Free / trial", "tools": "Claude, MCP, read-only warehouse", "goal": "Let Claude draft analyses from your marts while you verify every number.", "brief": true}}, "tracks": {"DE": ["00", "01", "21", "05", "22", "04", "06", "07", "23", "24", "25", "11", "13", "26", "14", "27", "28", "29", "30", "32"], "AE": ["00", "01", "02", "03", "06", "08", "09", "33", "35", "10", "12", "11", "36", "37", "13", "14", "38", "19", "20", "39"], "DA": ["00", "01", "02", "40", "03", "41", "15", "16", "42", "17", "43", "18", "44", "45", "46", "47", "48", "49", "50", "51"], "BIZ": ["00", "52", "53", "04", "54", "02", "15", "42", "55", "56", "17", "44", "19", "57", "58", "59", "60", "48", "62", "63"]}, "sv": {"00": ["Börja här: rollen, stacken och din arbetsmiljö", "Förstå vad din roll gör, se hela stacken och sätt upp arbetsmiljön du använder i varje labb: din fork, Git och Claude Code."], "01": ["Ditt första lokala datalager med DuckDB", "Ladda en CSV i ett lokalt datalager och besvara affärsfrågor med SQL, utan molnkonto."], "02": ["Utforska riktig GA4-data för e-handel i BigQuery", "Ställ frågor mot GA4:s publika exempelexport och förstå dess nästlade eventschema."], "03": ["Sessioner och en köptratt med fönsterfunktioner", "Bygg en sessionstabell och en köptratt i fyra steg från råa GA4-event."], "04": ["Spåra ett e-handelsevent med GTM och verifiera i DevTools", "Skicka ett add_to_cart-event till dataLayer på en testsida, vidare till GA4 via GTM, och bevisa att det kommer fram rätt."], "05": ["Hämta data från ett REST-API med dlt", "Ladda data från ett publikt API till DuckDB med schemainferens och inkrementell laddning."], "06": ["Sätt upp Snowflake som ett team skulle", "Skapa databaser, warehouses och roller för en dev/prod-miljö med nyckelpar-autentisering."], "07": ["Hanterad datainhämtning med Fivetran", "Synka en källa till Snowflake RAW med Fivetran och förstå vad en färdig connector gör åt dig."], "08": ["Ditt första dbt-projekt: sources, staging och tester", "Gör om råa tabeller till rena, testade staging-modeller med dbt."], "09": ["Dimensionell modellering i dbt: fakta och dimensioner", "Bygg ett stjärnschema (fct_orders, dim_customers, dim_products) som BI-verktyg kan använda direkt."], "10": ["Inkrementella modeller och snapshots (SCD typ 2)", "Gör stora modeller billiga att bygga om och spara historik för dimensioner som ändras."], "11": ["dbt CI med GitHub Actions och Slim CI", "Kör dbt build automatiskt på varje pull request så att trasiga modeller aldrig når main."], "12": ["Datakvalitet: kontrakt, färskhet och avvikelser", "Gör dina marts pålitliga med kontrakt, färskhetskrav och volymkontroller."], "13": ["Orkestrera dlt och dbt med Dagster", "Kör inhämtning och transformering som en assetgraf med schema och omförsök."], "14": ["Inbyggd integritet: zoner, pseudonymisering och maskning", "Skilj persondata från analysdata så att analytiker aldrig ser identiteter de inte behöver."], "15": ["En beslutsfärdig dashboard i Looker Studio", "Bygg en dashboard på en sida för e-handeln som besvarar en verklig fråga."], "16": ["KPI-berättelse i Tableau Public", "Berätta en kort datahistoria med LOD-uttryck och en dashboard publicerad på din profil."], "17": ["Kundsegmentering: RFM och kundlivstidsvärde", "Segmentera kunder efter recency, frequency och monetary och uppskatta CLV för att styra marknadsföringen."], "18": ["Analysera ett A/B-test på rätt sätt", "Avgör om en variant vann, med rätt test, konfidensintervall och förbehåll."], "19": ["Aktivera segment i ett CRM (reverse ETL)", "Synka ett segment från datalagret till CRM-egenskaper så att marknad kan använda det i automation."], "20": ["Säker AI på dina marts: Claude + MCP, endast läsrätt", "Låt Claude besvara affärsfrågor från dokumenterade marts utan skrivrätt eller persondata."], "21": ["Python-skript som hämtar data pålitligt", "Skriv en liten, väluppfostrad extraktor: paginering, omförsök, rate limits och loggning."], "22": ["CSV, JSON och Parquet: format och partitionering", "Förstå varför kolumnformat och partitioner gör analys billig och snabb."], "23": ["Flytta GA4-exporten från BigQuery till Snowflake", "Ladda GA4-exportens tabeller till Snowflake RAW så att stacken har ett datalager."], "24": ["Docker och en Postgres-databas som källa", "Kör en applikationsdatabas lokalt och hämta data från den som från ett riktigt företagssystem."], "25": ["Change data capture och inkrementell extraktion", "Jämför cursor-baserad inkrementell laddning med loggbaserad CDC, och hantera raderingar."], "26": ["Partitioner, backfills och idempotenta pipelines", "Gör pipelines säkra att köra om för vilken dag som helst utan dubbletter."], "27": ["Data observability: larm för färskhet, volym och schema", "Upptäck trasig data innan intressenterna gör det."], "28": ["Infrastruktur som kod: Snowflake med Terraform", "Skapa warehouses, databaser och roller med kod i stället för klick."], "29": ["Kostnadskontroll: storlek, profilering och budget", "Gör frågor billigare och håll kostnaderna förutsägbara."], "30": ["Grunder i streaming: event i mikrobatcher", "Förstå streaming kontra batch genom att simulera en eventström in i datalagret."], "31": ["Granskning av åtkomst, hemligheter och minsta behörighet", "Se över vem som kan göra vad, rotera nycklar och ta bort onödig åtkomst."], "32": ["DE-examensprojekt: en pipeline hela vägen med runbook", "Leverera en produktionslik pipeline: källor till datalager, schemalagd, övervakad och dokumenterad."], "33": ["Jinja och makron i dbt", "Ta bort upprepning med Jinja-loopar och skriv egna makron."], "34": ["SQL-stil och refaktorering", "Gör en rörig fråga till läsbar SQL som går att granska."], "35": ["dbt-paket: dbt_utils, codegen och audit_helper", "Använd communityns paket i stället för att uppfinna hjulet."], "36": ["GA4 i dbt: sessioner och e-handelsmarts", "Modellera den råa GA4-exporten till testade marts för sessioner och köp."], "37": ["Semantiskt lager och mått med MetricFlow", "Definiera intäkt och konvertering en gång så att alla verktyg använder samma logik."], "38": ["Gör om en gammal SQL-rapport till dbt", "Flytta en lång lagrad fråga till lagerindelade modeller utan att siffrorna ändras."], "39": ["AE-examensprojekt: analysplattformen för Nordvik", "Bygg hela stacken för en påhittad butik och försvara varje designbeslut."], "40": ["Kalkylark för analytiker: pivot, XLOOKUP och validering", "Besvara affärsfrågor snabbt i ett kalkylark, verktyget alla intressenter kan."], "41": ["Explorativ analys i Python med pandas", "Profilera, städa och utforska ett dataset och skriv ner vad du hittar."], "42": ["KPI-design: ett måttträd för e-handel", "Bryt ner intäkten i drivare så att varje team vet vilken siffra det påverkar."], "43": ["Kohortanalys av återkommande kunder i SQL", "Mät hur många kunder som kommer tillbaka, per månad för första köp."], "44": ["Attribution och kanalavkastning", "Jämför attributionsmodeller och vad de betyder för budgetbeslut."], "45": ["Grunder i prognoser: trend och säsong", "Prognostisera nästa kvartals ordrar och förklara hur fel den kan bli."], "46": ["Churnprognos med logistisk regression", "Förutsäg vilka kunder som troligen slutar handla och vad som driver det."], "47": ["Kundenkät: design och analys (GDPR-säker)", "Utforma en kort enkät, samla in data lagligt och analysera den."], "48": ["Datastorytelling: en rekommendation på 5 bilder", "Gör en analys till en rekommendation som en chef agerar på."], "49": ["Produktanalys: användning av funktioner och trattar", "Mät om en funktion används och om den hjälper konverteringen."], "50": ["Stäm av siffror mellan källor", "Förklara varför GA4, butiken och ekonomi visar olika intäkt."], "51": ["DA-examensprojekt: kvartalsgenomgång för Nordvik", "Leverera en kvartalsgenomgång: resultat, kunder, experiment och rekommendationer."], "52": ["Kartlägg en kundresa med datapunkter", "Kartlägg hur en kund hittar, köper och kommer tillbaka, och var data skapas i varje steg."], "53": ["Skriv en spårningsplan för en webbutik", "Bestäm vilka event och egenskaper som ska spåras, varför, och vem som äger dem."], "54": ["Granska cookies och samtycke på en riktig sajt", "Kontrollera vad en sajt sätter och skickar före och efter samtycke."], "55": ["CRM-datamodell i HubSpot", "Sätt upp kontakter, företag, affärer och livscykelsteg som rapporteringen kan lita på."], "56": ["E-postautomation: välkomstflöde och övergiven varukorg", "Designa segmenterade flöden och bestäm hur de ska mätas."], "57": ["Lead scoring: från regler till data", "Poängsätt leads så att säljarna ringer rätt personer först."], "58": ["UTM-styrning och kampanjrapport", "Gör kampanjdatan ren och rapportera resultat per kampanj."], "59": ["Granskning av en MarTech-stack", "Kartlägg ett företags marknadsverktyg, dataflöden och överlapp."], "60": ["Utvärdera CDP: komponerbar eller färdigpaketerad", "Välj mellan en paketerad CDP och en lösning byggd kring datalagret."], "61": ["Affärsfall för ett dataprojekt", "Få ett datainitiativ godkänt: värde, kostnad, risker och intressenter."], "62": ["GDPR för en marknadskampanj", "Kontrollera rättslig grund, samtycke och dataminimering innan kampanjen startar."], "63": ["Examensprojekt: en datadriven tillväxtplan för Nordvik", "Presentera en tillväxtplan för 12 månader som bygger på kund- och kanaldata."], "64": ["Bygg en liten AI-assistent för analys, säkert", "Låt Claude skissa analyser från dina marts medan du kontrollerar varje siffra."]}}</script>
 <script>
 const CAT = JSON.parse(document.getElementById('catalog').textContent);
 const REPO = 'https://github.com/andersvlindberg/claude-data-academy';
 const HUB_URL = '';
+const VIEWS = ['tracks','track','progress','guide','about'];
+
+const S = {
+en: {
+  tabs:['Tracks','My track','Progress','Guide','About'],
+  hubOf:n => n + '’s hub', yourHub:'your hub',
+  heroH:'Learn data by doing <em>the job.</em>',
+  heroP:'Pick a track. Every step is a lecture here and a hands-on project in Claude Code, built on a real stack and saved to your GitHub portfolio.',
+  flow:[['Hub','Start here. Pick the next step.'],['Lecture','The theory, as slides or PDF.'],['Claude Code','Build it in a real tool.'],['GitHub','Commit, merge, tick it off.']],
+  choose:'Choose your track', chooseP:'20 steps each, from “what is the role?” to a capstone', focusTrack:'Focus track', track:'Track', current:'Current',
+  stackH:'The stack you’ll work in', stackP:r => 'Highlighted: where the ' + r.toLowerCase() + ' spends the most time',
+  everywhere:'<b>Everywhere:</b> Git + GitHub Actions', assistant:'<b>Your assistant:</b> Claude Code', data:'<b>Practice data:</b> fictional, created by Claude for each project', pattern:'<b>Pattern:</b> ELT',
+  forkP:'<b>Before step 1:</b> fork the academy repo on GitHub. Your fork is your workspace and your portfolio: every project goes in <span class="mono">my-work/</span>, one branch and pull request per step.', forkB:'Fork on GitHub ↗',
+  connectP:'<b>Connect this hub to Claude Code:</b> run <span class="mono">/academy &lt;this page’s link&gt;</span> once in Claude Code. After that, <span class="mono">/academy</span> opens your hub from any project.', connectB:'Copy the command', copiedCC:'Copied. Paste it in Claude Code.', copiedPh:'Copied. Replace the placeholder with this page’s link.',
+  myTrack:'My track', ofDone:(d) => d + ' of 20 done', progress:'Progress', cont:n => 'Continue · step ' + n + ' →', complete:'Track complete. Generate new steps below.',
+  areas:['Foundations','Core','Advanced'], extraH:'Your extra steps',
+  moreP:'<b style="color:var(--ink)">Finished the track?</b> Claude writes five new steps one level up, based on what you’ve done, and adds them here.', gen:'Generate 5 new steps', genCopy:'Copy request for Claude', genBusy:'Claude is writing five new steps…', genDone:n => n + ' new steps added.',
+  roleStep:r => (/^[AEIOU]/.test(r) ? 'What is an ' : 'What is a ') + r.toLowerCase() + '? The role, the stack and your workspace',
+  upNext:'Up next', st:{todo:'To do', doing:'In progress', done:'Done'},
+  c1:'Lecture', c1p:'Your lecture is made here. Copy the request, paste it in the Claude app and you get slides with speaker notes (PDF or PowerPoint). Then go on to step 2.', c1b:'Generate lecture', c1c:'Copied. Paste it in the Claude app to generate the lecture.',
+  c2:'Claude Code', c2p:'Work hands-on in Claude Code. Your Claude sets up the practice project from the lecture (fictional data, a real tool) and coaches you while you build it in your fork.', c2b:id => 'Copy LAB ' + id,
+  c3:'GitHub', c3p:'Finished project on GitHub: commit, push, pull request, merge. Claude updates PROGRESS.md in your fork. Mark the step done here and it shows up in Progress, where you can quiz yourself whenever you like.', c3b:'Lab instructions ↗',
+  markDone:'Mark as done', markUndo:'Mark as not done', started:'I’ve started', brief:'brief lab: Claude builds the steps',
+  progH:d => d ? 'You’ve done ' + d + ' of 20 steps.' : 'Nothing done yet.', progP:'Three areas per track. Quiz yourself on the steps you’ve finished to check that it stuck.', trackW:'Track',
+  steps:'steps', lastQuiz:(s,t,d) => 'Last quiz: ' + s + ' / ' + t + ' · ' + d, noQuiz:'No quiz yet', quizB:a => 'Quiz me on ' + a.toLowerCase(), quizLocked:'Finish a step to unlock the quiz',
+  logH:'Learning log', mdB:'Copy progress as Markdown', mdC:'Copied. Paste it into PROGRESS.md or your Claude project.', logP:'End a session with “add it to my hub”', logEmpty:'No sessions yet. When you finish a lecture or lab, say “add it to my hub” and Claude logs what you did and what to review.', next:'Next: ',
+  quiz:'Quiz', quizBusy:'Claude is writing five questions on what you’ve finished…', scored:(s,t) => 'You scored ' + s + ' of ' + t + '.', good:'Solid. Move on to the next step.', weak:'Worth a LEARN session on the questions you missed before moving on.', close:'Close', nextQ:'Next question', result:'See result', right:'Correct. ', wrong:'Not quite. ',
+  saveFail:'Could not save. You may only have view access.', copyFail:'Copy did not work. Type: ', needPerm:'Needs your permission. You can also ask Claude in chat.', genFail:'Could not generate right now. Ask Claude: “Give me 5 new labs for my track”.', quizFail:'Could not make a quiz right now. Ask Claude: “QUIZ me on my finished labs”.',
+  guideK:'Guide', guideH:'How to use the academy', guideP:'Set up once, then repeat the same loop for every step. Everything is free to start.',
+  guide:[
+    ['Fork the repo','Your fork of the academy repo on GitHub is your workspace and your portfolio. Clone it to your computer.','git clone https://github.com/<you>/claude-data-academy'],
+    ['Install the plugin and the mod','In Claude Code: the 30 learning skills and the practice display. In the Claude app: Customize → Plugins → Add marketplace → andersvlindberg/claude-data-academy.','claude plugin marketplace add andersvlindberg/claude-data-academy\nclaude plugin install data-academy@data-academy\nclaude plugin install academy-hud@data-academy'],
+    ['Connect this hub to Claude Code','Run once, with this page’s link. Then /academy opens the hub from any project.','/academy https://claude.ai/artifact/<your-hub-id>'],
+    ['Pick a track and open step 1','Step 1 is always the role: what the job is, the stack and your workspace.',''],
+    ['Generate the lecture','Press “Generate lecture” on the step and paste it in the Claude app. You get slides with speaker notes (PDF or PowerPoint) that end with a linked practice project.',''],
+    ['Build it in Claude Code','Make a branch, open the step’s folder and type LAB and the number. Your Claude sets up the practice project and coaches you while you write the code.','git checkout -b lab-08\nmkdir -p my-work/lab-08 && cd my-work/lab-08\nclaude\n> LAB 08'],
+    ['Save it to GitHub','Commit as you go, push, open a pull request in your fork, read your own diff and merge. That’s your portfolio growing, one step at a time.','git add .\ngit commit -m "lab 08: staging models with tests"\ngit push -u origin lab-08'],
+    ['Tick it off and quiz yourself','Mark the step done here. On Progress, quiz yourself per area whenever you like. Stuck on something? Ask in the Claude app: “LEARN: window functions”.',''],
+    ['Keep your Claude project in sync','Claude Code updates my-work/PROGRESS.md in your fork at the end of every lab. Add your fork to your Data Academy project in the Claude app (Add content → GitHub) so every chat there knows where you are. No GitHub link? Use “Copy progress as Markdown” on the Progress page and add it as a project file.',''],
+    ['Finish the track','When all 20 are done, generate new steps one level up, or start a second track.','']
+  ],
+  aboutK:'About', aboutH:'About Data Academy',
+  aboutP:'Data Academy is a free, open learning program for the whole data chain, built as Claude skills. It teaches three connected jobs, data engineer, analytics engineer and data analyst, plus the business and MarTech knowledge that makes data useful. The focus is learning by doing: every lecture leads to a practical project in a real tool, saved to your own GitHub portfolio.',
+  pillars:[['Learn','Lectures and one-step-at-a-time coaching. Claude explains, quizzes and never does the work for you.'],['Practise','Real tools from a modern stack, on fictional data your own Claude creates for each project.'],['Show','Every step ends as a pull request in your fork. After 20 steps you have a portfolio, not a certificate.']],
+  creatorK:'Made by', creatorP:'Anders Lindberg, a data student in Stockholm. Open source under MIT: fork it, change the stack, make it yours.',
+  repoB:'The repository ↗', meK:'About me'
+},
+sv: {
+  tabs:['Spår','Mitt spår','Framsteg','Guide','Om'],
+  hubOf:n => n + 's hubb', yourHub:'din hubb',
+  heroH:'Lär dig data genom att <em>göra jobbet.</em>',
+  heroP:'Välj ett spår. Varje steg är en föreläsning här och ett praktiskt projekt i Claude Code, byggt i en riktig stack och sparat i din portfolio på GitHub.',
+  flow:[['Hubben','Börja här. Välj nästa steg.'],['Föreläsning','Teorin, som bilder eller PDF.'],['Claude Code','Bygg det i ett riktigt verktyg.'],['GitHub','Commit, merge, bocka av.']],
+  choose:'Välj ditt spår', chooseP:'20 steg vardera, från ”vad är rollen?” till ett examensprojekt', focusTrack:'Fokusspår', track:'Spår', current:'Valt',
+  stackH:'Stacken du jobbar i', stackP:r => 'Markerat: där en ' + r.toLowerCase() + ' lägger mest tid',
+  everywhere:'<b>Överallt:</b> Git + GitHub Actions', assistant:'<b>Din assistent:</b> Claude Code', data:'<b>Övningsdata:</b> påhittad, skapas av Claude för varje projekt', pattern:'<b>Mönster:</b> ELT',
+  forkP:'<b>Före steg 1:</b> forka akademins repo på GitHub. Din fork är din arbetsyta och din portfolio: varje projekt hamnar i <span class="mono">my-work/</span>, en branch och en pull request per steg.', forkB:'Forka på GitHub ↗',
+  connectP:'<b>Koppla hubben till Claude Code:</b> kör <span class="mono">/academy &lt;länken till den här sidan&gt;</span> en gång i Claude Code. Sedan öppnar <span class="mono">/academy</span> hubben från vilket projekt som helst.', connectB:'Kopiera kommandot', copiedCC:'Kopierat. Klistra in i Claude Code.', copiedPh:'Kopierat. Byt platshållaren mot länken till den här sidan.',
+  myTrack:'Mitt spår', ofDone:(d) => d + ' av 20 klara', progress:'Framsteg', cont:n => 'Fortsätt · steg ' + n + ' →', complete:'Spåret är klart. Generera nya steg nedan.',
+  areas:['Grunder','Kärna','Avancerat'], extraH:'Dina extra steg',
+  moreP:'<b style="color:var(--ink)">Klar med spåret?</b> Claude skriver fem nya steg en nivå upp, utifrån det du gjort, och lägger till dem här.', gen:'Generera 5 nya steg', genCopy:'Kopiera beställning till Claude', genBusy:'Claude skriver fem nya steg…', genDone:n => n + ' nya steg tillagda.',
+  roleStep:r => 'Vad gör en ' + r.toLowerCase() + '? Rollen, stacken och din arbetsmiljö',
+  upNext:'Nästa', st:{todo:'Att göra', doing:'Pågår', done:'Klar'},
+  c1:'Föreläsning', c1p:'Här skapas din föreläsning. Kopiera beställningen, klistra in i Claude-appen så får du bilder med talarmanus (PDF eller PowerPoint). Gå sedan vidare till steg 2.', c1b:'Generera föreläsning', c1c:'Kopierat. Klistra in i Claude-appen så skapas föreläsningen.',
+  c2:'Claude Code', c2p:'Jobba praktiskt i Claude Code. Din Claude sätter upp övningsprojektet från föreläsningen (påhittad data, ett riktigt verktyg) och coachar dig medan du bygger det i din fork.', c2b:id => 'Kopiera LAB ' + id,
+  c3:'GitHub', c3p:'Klart projekt på GitHub: commit, push, pull request, merge. Claude uppdaterar PROGRESS.md i din fork. Markera steget som klart här så hamnar det i Framsteg, där du kan quizza dig när du vill.', c3b:'Labbinstruktioner ↗',
+  markDone:'Markera som klar', markUndo:'Markera som ej klar', started:'Jag har börjat', brief:'kortlabb: Claude bygger stegen',
+  progH:d => d ? 'Du har klarat ' + d + ' av 20 steg.' : 'Inget klart än.', progP:'Tre områden per spår. Quizza dig själv på klara steg för att se att det fastnat.', trackW:'Spår',
+  steps:'steg', lastQuiz:(s,t,d) => 'Senaste quiz: ' + s + ' / ' + t + ' · ' + d, noQuiz:'Inget quiz än', quizB:a => 'Quizza mig på ' + a.toLowerCase(), quizLocked:'Klara ett steg för att låsa upp quizet',
+  logH:'Lärlogg', mdB:'Kopiera framsteg som Markdown', mdC:'Kopierat. Klistra in i PROGRESS.md eller ditt Claude-projekt.', logP:'Avsluta ett pass med ”lägg till i min hubb”', logEmpty:'Inga pass än. När du är klar med en föreläsning eller labb, säg ”lägg till i min hubb” så loggar Claude vad du gjort och vad du ska repetera.', next:'Nästa: ',
+  quiz:'Quiz', quizBusy:'Claude skriver fem frågor om det du klarat…', scored:(s,t) => 'Du fick ' + s + ' av ' + t + '.', good:'Stabilt. Gå vidare till nästa steg.', weak:'Kör ett LEARN-pass på frågorna du missade innan du går vidare.', close:'Stäng', nextQ:'Nästa fråga', result:'Se resultat', right:'Rätt. ', wrong:'Inte riktigt. ',
+  saveFail:'Kunde inte spara. Du kanske bara har läsbehörighet.', copyFail:'Kopieringen fungerade inte. Skriv: ', needPerm:'Behöver ditt tillstånd. Du kan också fråga Claude i chatten.', genFail:'Kunde inte generera just nu. Fråga Claude: ”Ge mig 5 nya labbar för mitt spår”.', quizFail:'Kunde inte skapa ett quiz just nu. Fråga Claude: ”QUIZ me på mina klara labbar”.',
+  guideK:'Guide', guideH:'Så använder du akademin', guideP:'Sätt upp en gång, upprepa sedan samma loop för varje steg. Allt är gratis att börja med.',
+  guide:[
+    ['Forka repot','Din fork av akademins repo på GitHub är din arbetsyta och din portfolio. Klona den till datorn.','git clone https://github.com/<du>/claude-data-academy'],
+    ['Installera pluginet och modden','I Claude Code: de 30 lär-skillsen och praktikvyn. I Claude-appen: Customize → Plugins → Add marketplace → andersvlindberg/claude-data-academy.','claude plugin marketplace add andersvlindberg/claude-data-academy\nclaude plugin install data-academy@data-academy\nclaude plugin install academy-hud@data-academy'],
+    ['Koppla hubben till Claude Code','Kör en gång, med länken till den här sidan. Sedan öppnar /academy hubben från vilket projekt som helst.','/academy https://claude.ai/artifact/<ditt-hubb-id>'],
+    ['Välj spår och öppna steg 1','Steg 1 är alltid rollen: vad jobbet är, stacken och din arbetsmiljö.',''],
+    ['Generera föreläsningen','Tryck ”Generera föreläsning” på steget och klistra in i Claude-appen. Du får bilder med talarmanus (PDF eller PowerPoint) som slutar med ett länkat övningsprojekt.',''],
+    ['Bygg det i Claude Code','Skapa en branch, öppna stegets mapp och skriv LAB och numret. Din Claude sätter upp övningsprojektet och coachar dig medan du skriver koden.','git checkout -b lab-08\nmkdir -p my-work/lab-08 && cd my-work/lab-08\nclaude\n> LAB 08'],
+    ['Spara på GitHub','Gör commits löpande, pusha, öppna en pull request i din fork, läs din egen diff och merga. Så växer din portfolio, ett steg i taget.','git add .\ngit commit -m "lab 08: staging models with tests"\ngit push -u origin lab-08'],
+    ['Bocka av och quizza dig','Markera steget som klart här. Under Framsteg quizzar du dig per område när du vill. Fastnar du? Fråga i Claude-appen: ”LEARN: fönsterfunktioner”.',''],
+    ['Håll ditt Claude-projekt uppdaterat','Claude Code uppdaterar my-work/PROGRESS.md i din fork i slutet av varje labb. Lägg till din fork i ditt Data Academy-projekt i Claude-appen (Add content → GitHub) så vet varje chatt där var du är. Ingen GitHub-koppling? Använd ”Kopiera framsteg som Markdown” under Framsteg och lägg in det som projektfil.',''],
+    ['Gör klart spåret','När alla 20 är klara, generera nya steg en nivå upp, eller börja ett andra spår.','']
+  ],
+  aboutK:'Om', aboutH:'Om Data Academy',
+  aboutP:'Data Academy är ett gratis, öppet utbildningsprogram för hela datakedjan, byggt som Claude-skills. Det lär ut tre sammanhängande jobb, data engineer, analytics engineer och data analyst, plus den affärs- och MarTech-kunskap som gör data användbar. Fokus ligger på att lära sig genom att göra: varje föreläsning leder till ett praktiskt projekt i ett riktigt verktyg, sparat i din egen portfolio på GitHub.',
+  pillars:[['Lär dig','Föreläsningar och coachning ett steg i taget. Claude förklarar, quizzar och gör aldrig jobbet åt dig.'],['Öva','Riktiga verktyg från en modern stack, på påhittad data som din egen Claude skapar för varje projekt.'],['Visa upp','Varje steg slutar som en pull request i din fork. Efter 20 steg har du en portfolio, inte bara ett intyg.']],
+  creatorK:'Skapad av', creatorP:'Anders Lindberg, datastudent i Stockholm. Öppen källkod under MIT: forka, byt stack, gör den till din.',
+  repoB:'Repot ↗', meK:'Om mig'
+}};
 const ROLES = {
-  DE:{name:'Data engineer', short:'Get data in and keep it flowing.', desc:'Sources, ingestion with Python, dlt and Fivetran, the warehouse, orchestration with Dagster, reliability and privacy.', layers:[0,1,2,4]},
-  AE:{name:'Analytics engineer', short:'Turn raw data into trusted models.', desc:'SQL and dbt: staging, dimensional models, tests, CI and the semantic layer. The academy’s focus.', layers:[2,3,4]},
-  DA:{name:'Data analyst', short:'Answer business questions with data.', desc:'Analysis, statistics, experiments, dashboards in Looker Studio and Tableau, and recommendations people act on.', layers:[3,5,6]},
-  BIZ:{name:'Business / MarTech', short:'Use data to grow the business.', desc:'Tracking, CRM and automation, customer journeys, campaigns and strategy, with privacy built in.', layers:[0,5,6]}
+  DE:{en:['Data engineer','Get data in and keep it flowing.','Sources, ingestion with Python, dlt and Fivetran, the warehouse, orchestration with Dagster, reliability and privacy.'], sv:['Data engineer','Få in data och håll den flödande.','Källor, inhämtning med Python, dlt och Fivetran, datalagret, orkestrering med Dagster, driftsäkerhet och integritet.'], layers:[0,1,2,4]},
+  AE:{en:['Analytics engineer','Turn raw data into trusted models.','SQL and dbt: staging, dimensional models, tests, CI and the semantic layer. The academy’s focus.'], sv:['Analytics engineer','Gör rådata till pålitliga modeller.','SQL och dbt: staging, dimensionella modeller, tester, CI och det semantiska lagret. Akademins fokus.'], layers:[2,3,4]},
+  DA:{en:['Data analyst','Answer business questions with data.','Analysis, statistics, experiments, dashboards in Looker Studio and Tableau, and recommendations people act on.'], sv:['Data analyst','Besvara affärsfrågor med data.','Analys, statistik, experiment, dashboards i Looker Studio och Tableau, och rekommendationer som folk agerar på.'], layers:[3,5,6]},
+  BIZ:{en:['Business & MarTech','Use data to grow the business.','Business knowledge and marketing technology: customer journeys, tracking with GA4 and GTM, cookies and consent, CRM and automation, campaigns and strategy.'], sv:['Business & MarTech','Använd data för att få verksamheten att växa.','Affärskunskap och marknadsteknik: kundresor, spårning med GA4 och GTM, cookies och samtycke, CRM och automation, kampanjer och strategi.'], layers:[0,5,6]}
 };
-const STACK = [
-  ['Sources','Shop · GA4 + GTM · HubSpot','fictional data per project'],
-  ['Ingest','Fivetran · dlt','Python for custom APIs'],
-  ['Store','Snowflake','DuckDB and BigQuery sandbox to start'],
-  ['Transform','dbt','tests, docs, contracts'],
-  ['Orchestrate','Dagster','schedules, retries, lineage'],
-  ['Serve','Looker Studio · Tableau','reverse ETL to CRM'],
-  ['Decide','Analysis · strategy','the business question']
-];
-const AREAS = [['Foundations',0,7],['Core',7,14],['Advanced',14,20]];
-const state = {view:'tracks', focus:'AE', progress:{}, log:[], extra:[], quizzes:[], name:'', open:null, canWrite:false, quiz:null};
+const STACK = {en:[['Sources','Shop · GA4 + GTM · HubSpot','fictional data per project'],['Ingest','Fivetran · dlt','Python for custom APIs'],['Store','Snowflake','DuckDB and BigQuery sandbox to start'],['Transform','dbt','tests, docs, contracts'],['Orchestrate','Dagster','schedules, retries, lineage'],['Serve','Looker Studio · Tableau','reverse ETL to CRM'],['Decide','Analysis · strategy','the business question']],
+               sv:[['Källor','Butik · GA4 + GTM · HubSpot','påhittad data per projekt'],['Inhämtning','Fivetran · dlt','Python för egna API:er'],['Lagring','Snowflake','DuckDB och BigQuery sandbox att börja med'],['Transformering','dbt','tester, dokumentation, kontrakt'],['Orkestrering','Dagster','scheman, omförsök, lineage'],['Leverans','Looker Studio · Tableau','reverse ETL till CRM'],['Beslut','Analys · strategi','affärsfrågan']]};
+const AREAS = [0,7,14,20];
+const state = {view:'tracks', focus:'AE', lang:'en', progress:{}, log:[], extra:[], quizzes:[], name:'', bio:{}, open:null, canWrite:false, quiz:null};
 let db = null, sample = null, busy = false;
+try { const l = localStorage.getItem('da-lang'); if (l === 'sv' || l === 'en') state.lang = l; } catch {}
+const T = () => S[state.lang];
 const $ = s => document.querySelector(s);
 function el(tag, props = {}, ...kids){ const n = document.createElement(tag); for (const [k,v] of Object.entries(props)) { if (v == null || v === false) continue; if (k === 'class') n.className = v; else if (k === 'html') n.innerHTML = v; else if (k.startsWith('data-') || k.startsWith('aria-')) n.setAttribute(k, v); else n[k] = v; } for (const k of kids.flat()) if (k != null && k !== false) n.append(k); return n; }
-function toast(t){ const n = el('div',{class:'toast',textContent:t,role:'status'}); document.body.append(n); setTimeout(() => n.remove(), 2400); }
-async function copy(text, label){ try { await navigator.clipboard.writeText(text); toast(label); } catch { toast('Copy did not work. Type: ' + text); } }
+function toast(t){ const n = el('div',{class:'toast',textContent:t,role:'status'}); document.body.append(n); setTimeout(() => n.remove(), 2600); }
+async function copy(text, label){ try { await navigator.clipboard.writeText(text); toast(label); } catch { toast(T().copyFail + text); } }
 
+const roleName = (k = state.focus) => ROLES[k][state.lang][0];
 const track = () => CAT.tracks[state.focus];
 const statusOf = id => state.progress[id] || 'todo';
 const doneCount = role => CAT.tracks[role].filter(id => statusOf(id) === 'done').length;
 const nextId = () => track().find(id => statusOf(id) !== 'done');
 const lab = id => CAT.labs[id];
-const STATE_LBL = {todo:'To do', doing:'In progress', done:'Done'};
+const title = id => id === '00' ? T().roleStep(roleName()) : (state.lang === 'sv' && CAT.sv[id] ? CAT.sv[id][0] : lab(id).title);
+const goal = id => state.lang === 'sv' && CAT.sv[id] ? CAT.sv[id][1] : lab(id).goal;
+const inSv = () => state.lang === 'sv' ? ' Write it in Swedish (keep technical terms in English).' : '';
 
+async function saveProfile(patch){
+  if (!db || !state.canWrite) return;
+  try { await db.doc('hub/profile').update({...patch, updatedAt:new Date().toISOString()}); }
+  catch { try { await db.doc('hub/profile').set({focus:state.focus, name:state.name, lang:state.lang, ...patch, updatedAt:new Date().toISOString()}); } catch {} }
+}
 async function setStatus(id, s){
   const prev = statusOf(id); state.progress[id] = s; render();
   if (!db) return;
   try { await db.collection('progress').doc(id).set({status:s, updatedAt:new Date().toISOString()}); }
-  catch { state.progress[id] = prev; render(); toast('Could not save. You may only have view access.'); }
+  catch { state.progress[id] = prev; render(); toast(T().saveFail); }
 }
-async function setFocus(r){
-  state.focus = r; state.open = null; go('track');
-  if (db && state.canWrite) { try { await db.doc('hub/profile').update({focus:r, updatedAt:new Date().toISOString()}); } catch { try { await db.doc('hub/profile').set({focus:r, name:state.name, updatedAt:new Date().toISOString()}); } catch {} } }
-}
+function setFocus(r){ state.focus = r; state.open = null; go('track'); saveProfile({focus:r}); }
+function setLang(l){ state.lang = l; try { localStorage.setItem('da-lang', l); } catch {} render(); saveProfile({lang:l}); }
 function go(v){ state.view = v; render(); window.scrollTo({top:0}); }
 
 function lecturePrompt(id, n){
-  const r = ROLES[state.focus].name, l = lab(id);
-  if (id === '00') return 'LECTURE: What a ' + r.toLowerCase() + ' does: the job, the stack and how I will work (step 1 of the ' + r + ' track, before LAB 00). End with a linked practice project for Claude Code: a fictional scenario, the data to generate and what to build.';
-  return 'LECTURE: ' + l.title + ' (step ' + n + ' of the ' + r + ' track, before LAB ' + id + '). End with a linked practice project for Claude Code: a fictional scenario, the data to generate and what to build.';
+  const r = ROLES[state.focus].en[0];
+  const what = id === '00' ? 'What a ' + r.toLowerCase() + ' does: the job, the stack and how I will work' : lab(id).title;
+  return 'LECTURE: ' + what + ' (step ' + n + ' of the ' + r + ' track, before LAB ' + id + '). End with a linked practice project for Claude Code: a fictional scenario, the data to generate and what to build.' + inSv();
 }
 
-/* ---------- view 1: tracks ---------- */
+/* ---------- tracks ---------- */
 function viewTracks(){
-  const v = $('#v-tracks'); v.replaceChildren();
+  const t = T(), v = $('#v-tracks'); v.replaceChildren();
   v.append(el('section',{class:'hero'},
-    el('div',{class:'kicker',html:'Claude Data Academy · <b>' + (state.name ? state.name + '’s hub' : 'your hub') + '</b>'}),
-    el('h1',{html:'Learn data by doing <em>the job.</em>'}),
-    el('p',{textContent:'Pick a track. Every step is a lecture here and a hands-on lab in Claude Code, built on a real stack and saved to your GitHub portfolio.'}),
-    el('div',{class:'flow'},
-      [['Hub','Start here. Pick the next step.'],['Lecture','The theory, as slides or PDF.'],['Claude Code','Do it in a real tool.'],['GitHub','Commit, merge, tick it off.']].map(([a,b]) => el('div',{}, el('b',{textContent:a}), el('span',{textContent:b}))))));
-
+    el('div',{class:'kicker',html:'Data Academy · <b>' + (state.name ? t.hubOf(state.name) : t.yourHub) + '</b>'}),
+    el('h1',{html:t.heroH}), el('p',{textContent:t.heroP}),
+    el('div',{class:'flow'}, t.flow.map(([a,b]) => el('div',{}, el('b',{textContent:a}), el('span',{textContent:b}))))));
   v.append(el('section',{},
-    el('div',{class:'sec-h'}, el('h2',{textContent:'Choose your track'}), el('p',{textContent:'20 steps each, from “what is the role?” to a capstone'})),
-    el('div',{class:'tracks'}, Object.entries(ROLES).map(([k, r]) => {
-      const d = doneCount(k);
+    el('div',{class:'sec-h'}, el('h2',{textContent:t.choose}), el('p',{textContent:t.chooseP})),
+    el('div',{class:'tracks'}, Object.keys(ROLES).map(k => {
+      const d = doneCount(k), [nm, sh, ds] = ROLES[k][state.lang];
       return el('button',{class:'track','aria-pressed':String(k === state.focus),onclick:() => setFocus(k)},
-        el('div',{class:'top'}, el('span',{class:'kicker',textContent:k === 'AE' ? 'Focus track' : 'Track'}), k === state.focus ? el('span',{class:'chip hot',textContent:'Current'}) : null),
-        el('h3',{textContent:r.name}), el('p',{textContent:r.short + ' ' + r.desc}),
+        el('div',{class:'top'}, el('span',{class:'kicker',textContent:k === 'AE' ? t.focusTrack : t.track}), k === state.focus ? el('span',{class:'chip hot',textContent:t.current}) : null),
+        el('h3',{textContent:nm}), el('p',{textContent:sh + ' ' + ds}),
         el('div',{class:'foot'}, el('div',{class:'bar'}, el('i',{style:'width:' + (d / 20 * 100) + '%'})), el('span',{class:'chip',textContent:d + ' / 20'})));
     }))));
-
   const me = ROLES[state.focus].layers;
   v.append(el('section',{},
-    el('div',{class:'sec-h'}, el('h2',{textContent:'The stack you’ll work in'}), el('p',{textContent:'Highlighted: where the ' + ROLES[state.focus].name.toLowerCase() + ' spends the most time'})),
+    el('div',{class:'sec-h'}, el('h2',{textContent:t.stackH}), el('p',{textContent:t.stackP(roleName())})),
     el('div',{class:'stack'},
-      el('div',{class:'stack-row'}, STACK.map(([a,b,c], i) => el('div',{class:'layer' + (me.includes(i) ? ' me' : '')}, el('span',{class:'kicker',textContent:String(i + 1).padStart(2,'0') + ' ' + a}), el('b',{textContent:b}), el('span',{textContent:c})))),
-      el('div',{class:'stack-foot'}, el('span',{html:'<b>Everywhere:</b> Git + GitHub Actions'}), el('span',{html:'<b>Your assistant:</b> Claude Code'}), el('span',{html:'<b>Practice data:</b> fictional, created by Claude for each project'}), el('span',{html:'<b>Pattern:</b> ELT'})))));
-
+      el('div',{class:'stack-row'}, STACK[state.lang].map(([a,b,c], i) => el('div',{class:'layer' + (me.includes(i) ? ' me' : '')}, el('span',{class:'kicker',textContent:String(i + 1).padStart(2,'0') + ' ' + a}), el('b',{textContent:b}), el('span',{textContent:c})))),
+      el('div',{class:'stack-foot'}, el('span',{html:t.everywhere}), el('span',{html:t.assistant}), el('span',{html:t.data}), el('span',{html:t.pattern})))));
   v.append(el('section',{},
-    el('div',{class:'callout'},
-      el('p',{html:'<b>Before step 1:</b> fork the academy repo on GitHub. Your fork is your workspace and your portfolio: every lab goes in <span class="mono">my-work/</span>, one branch and pull request per lab.'}),
-      el('a',{class:'btn',href:REPO + '/fork',target:'_blank',rel:'noopener',textContent:'Fork on GitHub ↗'})),
-    el('div',{class:'callout',style:'margin-top:12px'},
-      el('p',{html:'<b>Connect this hub to Claude Code:</b> copy this page’s link, then run <span class="mono">/academy &lt;link&gt;</span> once in Claude Code. After that, <span class="mono">/academy</span> opens your hub from any project.'}),
-      el('button',{class:'btn',textContent:'Copy the command',onclick:() => copy('/academy ' + (HUB_URL || '<paste this hub’s link>'), HUB_URL ? 'Copied. Paste it in Claude Code.' : 'Copied. Replace the placeholder with this page’s link.')}))));
+    el('div',{class:'callout'}, el('p',{html:t.forkP}), el('a',{class:'btn',href:REPO + '/fork',target:'_blank',rel:'noopener',textContent:t.forkB})),
+    el('div',{class:'callout',style:'margin-top:12px'}, el('p',{html:t.connectP}),
+      el('button',{class:'btn',textContent:t.connectB,onclick:() => copy('/academy ' + (HUB_URL || '<link>'), HUB_URL ? t.copiedCC : t.copiedPh)}))));
 }
 
-/* ---------- view 2: my track ---------- */
+/* ---------- my track ---------- */
 function viewTrack(){
-  const v = $('#v-track'); v.replaceChildren();
-  const r = ROLES[state.focus], ids = track(), d = doneCount(state.focus), nx = nextId();
+  const t = T(), v = $('#v-track'); v.replaceChildren();
+  const ids = track(), d = doneCount(state.focus), nx = nextId();
   if (state.open == null) state.open = nx || null;
   v.append(el('section',{class:'head'},
-    el('div',{}, el('div',{class:'kicker',html:'My track · <b>' + d + ' of 20 done</b>'}), el('h1',{textContent:r.name}), el('p',{textContent:r.desc})),
-    el('div',{class:'meter'}, el('div',{class:'num'}, el('span',{textContent:'Progress'}), el('b',{textContent:Math.round(d / 20 * 100) + '%'})), el('div',{class:'bar'}, el('i',{style:'width:' + (d / 20 * 100) + '%'})),
-      nx ? el('button',{class:'btn primary',onclick:() => { state.open = nx; render(); document.getElementById('s-' + nx)?.scrollIntoView({block:'center'}); },textContent:'Continue · step ' + (ids.indexOf(nx) + 1) + ' →'}) : el('span',{class:'note',textContent:'Track complete. Generate new steps below.'}))));
-
+    el('div',{}, el('div',{class:'kicker',html:t.myTrack + ' · <b>' + t.ofDone(d) + '</b>'}), el('h1',{textContent:roleName()}), el('p',{textContent:ROLES[state.focus][state.lang][2]})),
+    el('div',{class:'meter'}, el('div',{class:'num'}, el('span',{textContent:t.progress}), el('b',{textContent:Math.round(d / 20 * 100) + '%'})), el('div',{class:'bar'}, el('i',{style:'width:' + (d / 20 * 100) + '%'})),
+      nx ? el('button',{class:'btn primary',onclick:() => { state.open = nx; render(); document.getElementById('s-' + nx)?.scrollIntoView({block:'center'}); },textContent:t.cont(ids.indexOf(nx) + 1)}) : el('span',{class:'note',textContent:t.complete}))));
   const list = el('div',{class:'steps'});
-  for (const [name, a, b] of AREAS) {
-    const dd = ids.slice(a, b).filter(id => statusOf(id) === 'done').length;
+  t.areas.forEach((name, k) => {
+    const a = AREAS[k], b = AREAS[k + 1], dd = ids.slice(a, b).filter(id => statusOf(id) === 'done').length;
     list.append(el('div',{class:'stage-lbl'}, el('span',{class:'kicker',textContent:name}), el('span',{class:'note mono',textContent:dd + ' / ' + (b - a)})));
     ids.slice(a, b).forEach((id, i) => list.append(stepRow(id, a + i + 1, id === nx)));
-  }
+  });
   v.append(list);
-
   const extra = state.extra.filter(x => x.role === state.focus);
-  if (extra.length) {
-    const ex = el('div',{class:'steps'}, el('div',{class:'stage-lbl'}, el('span',{class:'kicker',textContent:'Your extra steps'})));
-    extra.forEach((x, i) => ex.append(extraRow(x, i)));
-    v.append(ex);
-  }
-  v.append(el('div',{class:'more'},
-    el('p',{html:'<b style="color:var(--ink)">Finished the track?</b> Claude writes five new steps one level up, based on what you’ve done, and adds them here.'}),
-    el('div',{class:'row'}, el('button',{class:'btn',id:'gen',onclick:generateSteps,textContent:sample ? 'Generate 5 new steps' : 'Copy request for Claude'}), el('span',{class:'note',id:'gen-status'}))));
+  if (extra.length) v.append(el('div',{class:'steps'}, el('div',{class:'stage-lbl'}, el('span',{class:'kicker',textContent:t.extraH})), extra.map((x, i) => extraRow(x, i))));
+  v.append(el('div',{class:'more'}, el('p',{html:t.moreP}),
+    el('div',{class:'row'}, el('button',{class:'btn',id:'gen',onclick:generateSteps,textContent:sample ? t.gen : t.genCopy}), el('span',{class:'note',id:'gen-status'}))));
 }
+const dis = () => !!db && !state.canWrite;
 function stepRow(id, n, isNext){
-  const l = lab(id), s = statusOf(id), open = state.open === id;
-  const title = id === '00' ? (/^[AEIOU]/.test(ROLES[state.focus].name) ? 'What is an ' : 'What is a ') + ROLES[state.focus].name.toLowerCase() + '? Your role, the stack and your workspace' : l.title;
+  const t = T(), l = lab(id), s = statusOf(id), open = state.open === id;
   const row = el('div',{class:'step' + (s === 'done' ? ' done' : '') + (isNext ? ' next' : ''),id:'s-' + id},
     el('button',{'aria-expanded':String(open),onclick:() => { state.open = open ? '' : id; render(); }},
       el('span',{class:'n',textContent:String(n).padStart(2,'0')}),
-      el('span',{class:'t'}, title, el('small',{textContent:'LAB ' + id + ' · ' + l.level + ' · ' + l.time + ' · ' + l.cost})),
-      el('span',{class:'state ' + s,textContent:isNext && s === 'todo' ? 'Up next' : STATE_LBL[s]})));
+      el('span',{class:'t'}, title(id), el('small',{textContent:'LAB ' + id + ' · ' + l.level + ' · ' + l.time + ' · ' + l.cost})),
+      el('span',{class:'state ' + s,textContent:isNext && s === 'todo' ? t.upNext : t.st[s]})));
   if (open) {
     const folder = 'my-work/lab-' + id + '-' + l.slug;
     row.append(el('div',{class:'detail'},
-      el('p',{class:'goal',textContent:l.goal}),
-      el('div',{class:'tools'}, l.tools.split(/,\s*/).map(t => el('span',{class:'chip',textContent:t})), l.brief ? el('span',{class:'chip',textContent:'brief lab: coach builds the steps'}) : null),
+      el('p',{class:'goal',textContent:goal(id)}),
+      el('div',{class:'tools'}, l.tools.split(/,\s*/).map(x => el('span',{class:'chip',textContent:x})), l.brief ? el('span',{class:'chip',textContent:t.brief}) : null),
       el('div',{class:'do'},
-        el('div',{}, el('span',{class:'kicker',html:'<b>1</b> · Lecture'}), el('p',{textContent:'The theory as slides with speaker notes (PDF or PowerPoint). It ends with your practice project.'}), el('button',{class:'btn',textContent:'Copy lecture request',onclick:() => copy(lecturePrompt(id, n), 'Copied. Paste it in the Claude app.')})),
-        el('div',{}, el('span',{class:'kicker',html:'<b>2</b> · Claude Code'}), el('p',{textContent:'Claude sets up a practice project for this step: fictional data, a real tool. You build it in your fork.'}), el('code',{textContent:'git checkout -b lab-' + id + '\nmkdir -p ' + folder + '\ncd ' + folder + ' && claude\n> LAB ' + id}), el('button',{class:'btn',textContent:'Copy LAB ' + id,onclick:() => copy('LAB ' + id, 'Copied. Paste it in Claude Code.')})),
-        el('div',{}, el('span',{class:'kicker',html:'<b>3</b> · GitHub'}), el('p',{textContent:'Commit, push, open a pull request, review your diff, merge.'}), el('code',{textContent:'git add .\ngit commit -m "lab ' + id + ': ..."\ngit push -u origin lab-' + id}), el('a',{class:'btn',href:REPO + '/blob/main/labs/lab-' + id + '-' + l.slug + '.md',target:'_blank',rel:'noopener',textContent:'Lab instructions ↗'}))),
+        el('div',{}, el('span',{class:'kicker',html:'<b>1</b> · ' + t.c1}), el('p',{textContent:t.c1p}), el('button',{class:'btn primary',textContent:t.c1b,onclick:() => copy(lecturePrompt(id, n), t.c1c)})),
+        el('div',{}, el('span',{class:'kicker',html:'<b>2</b> · ' + t.c2}), el('p',{textContent:t.c2p}), el('code',{textContent:'git checkout -b lab-' + id + '\nmkdir -p ' + folder + '\ncd ' + folder + ' && claude\n> LAB ' + id}), el('button',{class:'btn',textContent:t.c2b(id),onclick:() => copy('LAB ' + id, t.copiedCC)})),
+        el('div',{}, el('span',{class:'kicker',html:'<b>3</b> · ' + t.c3}), el('p',{textContent:t.c3p}), el('code',{textContent:'git add .\ngit commit -m "lab ' + id + ': ..."\ngit push -u origin lab-' + id}), el('a',{class:'btn',href:REPO + '/blob/main/labs/lab-' + id + '-' + l.slug + '.md',target:'_blank',rel:'noopener',textContent:t.c3b}))),
       el('div',{class:'row'},
-        s !== 'done' ? el('button',{class:'btn primary',textContent:'Mark as done',onclick:() => setStatus(id,'done'),disabled:!!db && !state.canWrite}) : el('button',{class:'btn',textContent:'Mark as not done',onclick:() => setStatus(id,'todo'),disabled:!!db && !state.canWrite}),
-        s === 'todo' ? el('button',{class:'btn',textContent:'I’ve started',onclick:() => setStatus(id,'doing'),disabled:!!db && !state.canWrite}) : null)));
+        s !== 'done' ? el('button',{class:'btn primary',textContent:t.markDone,onclick:() => setStatus(id,'done'),disabled:dis()}) : el('button',{class:'btn',textContent:t.markUndo,onclick:() => setStatus(id,'todo'),disabled:dis()}),
+        s === 'todo' ? el('button',{class:'btn',textContent:t.started,onclick:() => setStatus(id,'doing'),disabled:dis()}) : null)));
   }
   return row;
 }
 function extraRow(x, i){
-  const key = 'x-' + x.id, s = statusOf(key), open = state.open === key;
+  const t = T(), key = 'x-' + x.id, s = statusOf(key), open = state.open === key;
   const row = el('div',{class:'step' + (s === 'done' ? ' done' : '')},
     el('button',{'aria-expanded':String(open),onclick:() => { state.open = open ? '' : key; render(); }},
-      el('span',{class:'n',textContent:'+' + (i + 1)}), el('span',{class:'t'}, x.title, el('small',{textContent:[x.level, x.time, x.tools].filter(Boolean).join(' · ')})), el('span',{class:'state ' + s,textContent:STATE_LBL[s]})));
+      el('span',{class:'n',textContent:'+' + (i + 1)}), el('span',{class:'t'}, x.title, el('small',{textContent:[x.level, x.time, x.tools].filter(Boolean).join(' · ')})), el('span',{class:'state ' + s,textContent:t.st[s]})));
   if (open) {
     const prompt = 'LAB (custom): ' + x.title + '. Goal: ' + x.goal + ' Milestones: ' + (x.milestones || []).join('; ');
     row.append(el('div',{class:'detail'}, el('p',{class:'goal',textContent:x.goal}),
-      el('div',{class:'row'}, el('button',{class:'btn',textContent:'Copy lecture request',onclick:() => copy('LECTURE: ' + x.title + ' (extra step on the ' + ROLES[state.focus].name + ' track). End with a linked practice project for Claude Code: a fictional scenario, the data to generate and what to build.', 'Copied. Paste it in the Claude app.')}), el('button',{class:'btn',textContent:'Copy lab for Claude Code',onclick:() => copy(prompt, 'Copied. Paste it in Claude Code.')}),
-        s !== 'done' ? el('button',{class:'btn primary',textContent:'Mark as done',onclick:() => setStatus(key,'done')}) : el('button',{class:'btn',textContent:'Mark as not done',onclick:() => setStatus(key,'todo')}))));
+      el('div',{class:'row'}, el('button',{class:'btn primary',textContent:t.c1b,onclick:() => copy('LECTURE: ' + x.title + ' (extra step on the ' + ROLES[state.focus].en[0] + ' track). End with a linked practice project for Claude Code.' + inSv(), t.c1c)}), el('button',{class:'btn',textContent:t.c2b(''),onclick:() => copy(prompt, t.copiedCC)}),
+        s !== 'done' ? el('button',{class:'btn',textContent:t.markDone,onclick:() => setStatus(key,'done')}) : el('button',{class:'btn',textContent:t.markUndo,onclick:() => setStatus(key,'todo')}))));
   }
   return row;
 }
 
-/* ---------- view 3: progress ---------- */
+/* ---------- progress ---------- */
 function viewProgress(){
-  const v = $('#v-progress'); v.replaceChildren();
-  const r = ROLES[state.focus], ids = track(), d = doneCount(state.focus);
+  const t = T(), v = $('#v-progress'); v.replaceChildren();
+  const ids = track(), d = doneCount(state.focus);
   v.append(el('section',{class:'head'},
-    el('div',{}, el('div',{class:'kicker',html:'Progress · <b>' + r.name + '</b>'}), el('h1',{textContent:d ? 'You’ve done ' + d + ' of 20 steps.' : 'Nothing done yet.'}), el('p',{textContent:'Three areas per track. Quiz yourself on the steps you’ve finished to check that it stuck.'})),
-    el('div',{class:'meter'}, el('div',{class:'num'}, el('span',{textContent:'Track'}), el('b',{textContent:Math.round(d / 20 * 100) + '%'})), el('div',{class:'bar'}, el('i',{style:'width:' + (d / 20 * 100) + '%'})))));
+    el('div',{}, el('div',{class:'kicker',html:t.progress + ' · <b>' + roleName() + '</b>'}), el('h1',{textContent:t.progH(d)}), el('p',{textContent:t.progP})),
+    el('div',{class:'meter'}, el('div',{class:'num'}, el('span',{textContent:t.trackW}), el('b',{textContent:Math.round(d / 20 * 100) + '%'})), el('div',{class:'bar'}, el('i',{style:'width:' + (d / 20 * 100) + '%'})))));
   const grid = el('div',{class:'areas'});
-  AREAS.forEach(([name, a, b]) => {
-    const part = ids.slice(a, b), done = part.filter(id => statusOf(id) === 'done');
-    const last = state.quizzes.filter(q => q.role === state.focus && q.area === name).sort((x, y) => String(y.date).localeCompare(String(x.date)))[0];
+  t.areas.forEach((name, k) => {
+    const key = S.en.areas[k], part = ids.slice(AREAS[k], AREAS[k + 1]), done = part.filter(id => statusOf(id) === 'done');
+    const last = state.quizzes.filter(q => q.role === state.focus && q.area === key).sort((x, y) => String(y.date).localeCompare(String(x.date)))[0];
     grid.append(el('div',{class:'area'},
       el('span',{class:'kicker',textContent:name}),
-      el('div',{class:'big',html:done.length + ' <small>/ ' + part.length + ' steps</small>'}),
+      el('div',{class:'big',html:done.length + ' <small>/ ' + part.length + ' ' + t.steps + '</small>'}),
       el('div',{class:'bar'}, el('i',{style:'width:' + (done.length / part.length * 100) + '%'})),
-      el('ul',{}, part.map(id => el('li',{class:statusOf(id) === 'done' ? 'ok' : '',textContent:id === '00' ? 'The role, the stack and your workspace' : lab(id).title}))),
-      el('div',{class:'score',textContent:last ? 'Last quiz: ' + last.score + ' / ' + last.total + ' · ' + String(last.date).slice(0,10) : 'No quiz yet'}),
-      el('button',{class:'btn' + (done.length ? ' primary' : ''),disabled:!done.length,textContent:done.length ? 'Quiz me on ' + name.toLowerCase() : 'Finish a step to unlock the quiz',onclick:() => startQuiz(name, done)})));
+      el('ul',{}, part.map(id => el('li',{class:statusOf(id) === 'done' ? 'ok' : '',textContent:title(id)}))),
+      el('div',{class:'score',textContent:last ? t.lastQuiz(last.score, last.total, String(last.date).slice(0,10)) : t.noQuiz}),
+      el('button',{class:'btn' + (done.length ? ' primary' : ''),disabled:!done.length,textContent:done.length ? t.quizB(name) : t.quizLocked,onclick:() => startQuiz(key, name, done)})));
   });
   v.append(grid);
   if (state.quiz) v.append(quizView());
   v.append(el('section',{style:'margin-top:72px'},
-    el('div',{class:'sec-h'}, el('h2',{textContent:'Learning log'}), el('p',{textContent:'End a session with “add it to my hub”'})),
-    state.log.length ? el('div',{class:'log'}, state.log.map(e => el('div',{class:'entry'}, el('div',{}, el('div',{class:'d',textContent:String(e.date || '').slice(0,10)}), el('span',{class:'chip',textContent:e.way || 'LEARN'})), el('div',{}, el('b',{textContent:e.topic || 'Session',style:'font-weight:600'}), e.result ? el('p',{textContent:e.result}) : null, e.review ? el('p',{textContent:'Next: ' + e.review}) : null))))
-      : el('div',{class:'empty',textContent:'No sessions yet. When you finish a lecture or lab, say “add it to my hub” and Claude logs what you did and what to review.'})));
+    el('div',{class:'sec-h'}, el('h2',{textContent:t.logH}), el('div',{class:'row',style:'display:flex;gap:12px;align-items:center;flex-wrap:wrap'}, el('p',{textContent:t.logP}), el('button',{class:'btn',textContent:t.mdB,onclick:() => copy(progressMd(), t.mdC)}))),
+    state.log.length ? el('div',{class:'log'}, state.log.map(e => el('div',{class:'entry'}, el('div',{}, el('div',{class:'d',textContent:String(e.date || '').slice(0,10)}), el('span',{class:'chip',textContent:e.way || 'LEARN'})), el('div',{}, el('b',{textContent:e.topic || 'Session',style:'font-weight:600'}), e.result ? el('p',{textContent:e.result}) : null, e.review ? el('p',{textContent:t.next + e.review}) : null))))
+      : el('div',{class:'empty',textContent:t.logEmpty})));
 }
-
-async function startQuiz(area, done){
-  const titles = done.map(id => id === '00' ? 'The ' + ROLES[state.focus].name + ' role, the modern data stack and the Git workflow' : lab(id).title + ': ' + lab(id).goal);
-  if (!sample) { copy('QUIZ me on: ' + titles.join('; '), 'Quiz request copied. Paste it in the Claude app.'); return; }
+async function startQuiz(key, label, done){
+  const t = T();
+  const topics = done.map(id => id === '00' ? 'The ' + ROLES[state.focus].en[0] + ' role, the modern data stack and the Git workflow' : lab(id).title + ': ' + lab(id).goal);
+  if (!sample) { copy('QUIZ me on: ' + topics.join('; '), t.copiedPh); return; }
   if (busy) return; busy = true;
-  state.quiz = {area, loading:true, i:0, score:0, picked:null, items:[]}; render();
+  state.quiz = {key, label, loading:true, i:0, score:0, picked:null, items:[]}; render();
   try {
-    const prompt = 'Write a 5-question multiple-choice quiz for a student on the ' + ROLES[state.focus].name + ' track who has just finished these hands-on labs: ' + titles.join(' | ') + '. Test understanding and application, not trivia; use the stack GA4, dlt, Fivetran, Snowflake or BigQuery, dbt, Dagster, Looker Studio, Git where relevant. Return only JSON: an array of 5 objects with keys q (the question), options (array of 4 short strings), answer (index 0-3 of the correct option), why (one sentence explaining the correct answer).';
+    const prompt = 'Write a 5-question multiple-choice quiz for a student on the ' + ROLES[state.focus].en[0] + ' track who has just finished these hands-on labs: ' + topics.join(' | ') + '. Test understanding and application, not trivia; use the stack GA4, dlt, Fivetran, Snowflake or BigQuery, dbt, Dagster, Looker Studio, Git where relevant.' + inSv() + ' Return only JSON: an array of 5 objects with keys q (the question), options (array of 4 short strings), answer (index 0-3 of the correct option), why (one sentence explaining the correct answer).';
     let items = await sample.json(prompt, {modelTier:'default'});
     if (!Array.isArray(items)) items = items && Array.isArray(items.questions) ? items.questions : [];
     items = items.filter(x => x && x.q && Array.isArray(x.options) && x.options.length >= 2 && Number.isInteger(x.answer)).slice(0, 5);
     if (!items.length) throw new Error('empty');
-    state.quiz = {area, loading:false, i:0, score:0, picked:null, items};
-  } catch (err) {
-    state.quiz = null;
-    toast(err && err.code === 'not_granted' ? 'The quiz needs your permission. Or ask Claude: “QUIZ me on my finished labs”.' : 'Could not make a quiz right now. Ask Claude: “QUIZ me on my finished labs”.');
-  } finally { busy = false; render(); }
+    state.quiz = {key, label, loading:false, i:0, score:0, picked:null, items};
+  } catch (err) { state.quiz = null; toast(err && err.code === 'not_granted' ? t.needPerm : t.quizFail); }
+  finally { busy = false; render(); }
 }
 function quizView(){
-  const q = state.quiz;
-  if (q.loading) return el('div',{class:'quiz'}, el('span',{class:'kicker',textContent:'Quiz · ' + q.area}), el('p',{class:'note',textContent:'Claude is writing five questions on what you’ve finished…'}));
-  if (q.i >= q.items.length) return el('div',{class:'quiz'}, el('span',{class:'kicker',textContent:'Quiz · ' + q.area}), el('h3',{textContent:'You scored ' + q.score + ' of ' + q.items.length + '.'}),
-    el('p',{class:'why',textContent:q.score / q.items.length >= 0.8 ? 'Solid. Move on to the next step.' : 'Worth a LEARN session on the questions you missed before moving on.'}),
-    el('div',{class:'detail row',style:'padding:0'}, el('button',{class:'btn',textContent:'Close',onclick:() => { state.quiz = null; render(); }})));
+  const t = T(), q = state.quiz;
+  const head = el('span',{class:'kicker',textContent:t.quiz + ' · ' + q.label + (q.loading || q.i >= q.items.length ? '' : ' · ' + (q.i + 1) + ' / ' + q.items.length)});
+  if (q.loading) return el('div',{class:'quiz'}, head, el('p',{class:'note',textContent:t.quizBusy}));
+  if (q.i >= q.items.length) return el('div',{class:'quiz'}, head, el('h3',{textContent:t.scored(q.score, q.items.length)}), el('p',{class:'why',textContent:q.score / q.items.length >= 0.8 ? t.good : t.weak}), el('div',{}, el('button',{class:'btn',textContent:t.close,onclick:() => { state.quiz = null; render(); }})));
   const it = q.items[q.i];
-  return el('div',{class:'quiz'},
-    el('span',{class:'kicker',textContent:'Quiz · ' + q.area + ' · ' + (q.i + 1) + ' / ' + q.items.length}),
-    el('h3',{textContent:it.q}),
+  return el('div',{class:'quiz'}, head, el('h3',{textContent:it.q}),
     el('div',{class:'opts'}, it.options.map((o, k) => el('button',{disabled:q.picked != null,class:q.picked == null ? '' : (k === it.answer ? 'right' : (k === q.picked ? 'wrong' : '')),textContent:o,onclick:() => { q.picked = k; if (k === it.answer) q.score++; render(); }}))),
-    q.picked != null ? el('p',{class:'why',textContent:(q.picked === it.answer ? 'Correct. ' : 'Not quite. ') + (it.why || '')}) : null,
-    q.picked != null ? el('div',{}, el('button',{class:'btn primary',textContent:q.i + 1 < q.items.length ? 'Next question' : 'See result',onclick:async () => { q.i++; q.picked = null; if (q.i >= q.items.length) await saveQuiz(q); render(); }})) : null);
+    q.picked != null ? el('p',{class:'why',textContent:(q.picked === it.answer ? t.right : t.wrong) + (it.why || '')}) : null,
+    q.picked != null ? el('div',{}, el('button',{class:'btn primary',textContent:q.i + 1 < q.items.length ? t.nextQ : t.result,onclick:async () => { q.i++; q.picked = null; if (q.i >= q.items.length) await saveQuiz(q); render(); }})) : null);
 }
 async function saveQuiz(q){
-  const rec = {role:state.focus, area:q.area, score:q.score, total:q.items.length, date:new Date().toISOString()};
-  if (db && state.canWrite) { try { await db.collection('quizzes').add(rec); } catch { state.quizzes.push(rec); } } else state.quizzes.push(rec);
+  const rec = {role:state.focus, area:q.key, score:q.score, total:q.items.length, date:new Date().toISOString()};
+  if (db && state.canWrite) { try { await db.collection('quizzes').add(rec); return; } catch {} }
+  state.quizzes.push(rec);
 }
-
 async function generateSteps(){
-  if (busy) return;
-  const r = ROLES[state.focus], ids = track();
+  const t = T(); if (busy) return;
+  const r = ROLES[state.focus].en[0], ids = track();
   const done = ids.filter(id => statusOf(id) === 'done').map(id => lab(id).title);
   const existing = ids.map(id => lab(id).title).concat(state.extra.filter(x => x.role === state.focus).map(x => x.title));
-  if (!sample) { copy('Give me 5 new labs for my ' + r.name + ' track. I have finished: ' + (done.join('; ') || 'none yet') + '.', 'Request copied. Paste it in the Claude app.'); return; }
-  busy = true; const st = $('#gen-status'); if (st) st.textContent = 'Claude is writing five new steps…';
+  if (!sample) { copy('Give me 5 new labs for my ' + r + ' track. I have finished: ' + (done.join('; ') || 'none yet') + '.' + inSv(), t.copiedPh); return; }
+  busy = true; const st = $('#gen-status'); if (st) st.textContent = t.genBusy;
   try {
-    const prompt = 'You design hands-on labs for a student on the ' + r.name + ' track. Stack: GA4 + GTM, Fivetran and dlt, Snowflake (DuckDB and BigQuery sandbox to start), dbt, Dagster, Looker Studio or Tableau, Git and GitHub Actions, HubSpot. Practice data: a fictional dataset Claude generates for each lab. Finished labs: ' + (done.join('; ') || 'none yet') + '. Existing labs (do not repeat): ' + existing.join('; ') + '. Write 5 new labs, each one step beyond what they have done, free tools or trials only. Return only JSON: an array of 5 objects with keys title (max 70 chars), goal (one sentence), tools, level (L2, L3 or L4), time (like "2–3 h"), milestones (array of 4 short strings).';
+    const prompt = 'You design hands-on labs for a student on the ' + r + ' track. Stack: GA4 + GTM, Fivetran and dlt, Snowflake (DuckDB and BigQuery sandbox to start), dbt, Dagster, Looker Studio or Tableau, Git and GitHub Actions, HubSpot. Practice data: a fictional dataset Claude generates for each lab. Finished labs: ' + (done.join('; ') || 'none yet') + '. Existing labs (do not repeat): ' + existing.join('; ') + '. Write 5 new labs, each one step beyond what they have done, free tools or trials only.' + inSv() + ' Return only JSON: an array of 5 objects with keys title (max 70 chars), goal (one sentence), tools, level (L2, L3 or L4), time (like "2–3 h"), milestones (array of 4 short strings).';
     let labs = await sample.json(prompt, {modelTier:'default'});
     if (!Array.isArray(labs)) labs = labs && Array.isArray(labs.labs) ? labs.labs : [];
     labs = labs.filter(x => x && x.title && x.goal).slice(0, 5);
@@ -410,20 +502,61 @@ async function generateSteps(){
       const rec = {role:state.focus, title:String(x.title).slice(0,90), goal:String(x.goal).slice(0,300), tools:String(x.tools || '').slice(0,120), level:String(x.level || ''), time:String(x.time || ''), milestones:(Array.isArray(x.milestones) ? x.milestones : []).slice(0,6).map(m => String(m).slice(0,160)), createdAt:new Date().toISOString()};
       if (db && state.canWrite) await db.collection('extraLabs').add(rec); else state.extra.push({id:String(Math.random()).slice(2,8), ...rec});
     }
-    toast(labs.length + ' new steps added.'); render();
-  } catch (err) {
-    const t = err && err.code === 'not_granted' ? 'Needs your permission. You can also ask Claude in chat.' : 'Could not generate right now. Ask Claude: “Give me 5 new labs for my track”.';
-    const s2 = $('#gen-status'); if (s2) s2.textContent = t; else toast(t);
-  } finally { busy = false; }
+    toast(t.genDone(labs.length)); render();
+  } catch (err) { const m = err && err.code === 'not_granted' ? t.needPerm : t.genFail; const s2 = $('#gen-status'); if (s2) s2.textContent = m; else toast(m); }
+  finally { busy = false; }
+}
+
+
+function progressMd(){
+  const ids = track(), d = doneCount(state.focus), en = S.en;
+  const lines = ['# Data Academy progress', '', '- Track: ' + ROLES[state.focus].en[0], '- Done: ' + d + ' of 20 steps', '- Updated: ' + new Date().toISOString().slice(0,10), ''];
+  en.areas.forEach((name, k) => {
+    lines.push('## ' + name);
+    ids.slice(AREAS[k], AREAS[k + 1]).forEach((id, i) => { const s = statusOf(id); lines.push('- [' + (s === 'done' ? 'x' : ' ') + '] ' + String(AREAS[k] + i + 1).padStart(2,'0') + ' LAB ' + id + ': ' + (id === '00' ? 'The role, the stack and your workspace' : lab(id).title) + (s === 'doing' ? ' (in progress)' : '')); });
+    const q = state.quizzes.filter(x => x.role === state.focus && x.area === name).sort((a, b) => String(b.date).localeCompare(String(a.date)))[0];
+    if (q) lines.push('- Last quiz: ' + q.score + '/' + q.total + ' (' + String(q.date).slice(0,10) + ')');
+    lines.push('');
+  });
+  if (state.log.length) { lines.push('## Recent sessions'); state.log.slice(0, 10).forEach(e => lines.push('- ' + String(e.date || '').slice(0,10) + ' ' + (e.way || '') + ': ' + (e.topic || '') + (e.review ? ' (next: ' + e.review + ')' : ''))); }
+  return lines.join('\n');
+}
+
+/* ---------- guide ---------- */
+function viewGuide(){
+  const t = T(), v = $('#v-guide'); v.replaceChildren();
+  v.append(el('section',{class:'head',style:'grid-template-columns:1fr'}, el('div',{}, el('div',{class:'kicker',html:'<b>' + t.guideK + '</b>'}), el('h1',{textContent:t.guideH}), el('p',{textContent:t.guideP}))));
+  v.append(el('div',{class:'guide',style:'margin-top:36px'}, t.guide.map(([h, p, c], i) => {
+    const code = i === 2 && HUB_URL ? '/academy ' + HUB_URL : c;
+    return el('div',{class:'g-step'}, el('span',{class:'n',textContent:String(i).padStart(2,'0')}),
+      el('div',{}, el('h3',{textContent:h}), el('p',{textContent:p}), code ? el('code',{textContent:code}) : null,
+        i === 2 && HUB_URL ? el('div',{class:'row'}, el('button',{class:'btn',textContent:t.connectB,onclick:() => copy(code, t.copiedCC)})) : null,
+        i === 0 ? el('div',{class:'row'}, el('a',{class:'btn',href:REPO + '/fork',target:'_blank',rel:'noopener',textContent:t.forkB})) : null,
+        i === 3 ? el('div',{class:'row'}, el('button',{class:'btn primary',textContent:t.tabs[0] + ' →',onclick:() => go('tracks')})) : null));
+  })));
+}
+
+/* ---------- about ---------- */
+function viewAbout(){
+  const t = T(), v = $('#v-about'); v.replaceChildren();
+  const bio = state.bio[state.lang] || state.bio.en || state.bio.sv;
+  v.append(el('section',{class:'head',style:'grid-template-columns:1fr'}, el('div',{}, el('div',{class:'kicker',html:'<b>' + t.aboutK + '</b>'}), el('h1',{textContent:t.aboutH}))));
+  if (bio) v.append(el('section',{style:'margin-top:36px'}, el('div',{class:'me'}, el('div',{class:'avatar',textContent:(state.name || '?').slice(0,1).toUpperCase()}), el('div',{class:'prose'}, el('span',{class:'kicker',textContent:t.meK}), el('b',{textContent:state.name,style:'font-size:20px'}), ...String(bio).split(/\n\n+/).map(x => el('p',{textContent:x}))))));
+  v.append(el('section',{}, el('div',{class:'prose'}, el('p',{textContent:t.aboutP}))));
+  v.append(el('section',{style:'margin-top:40px'}, el('div',{class:'pillars'}, t.pillars.map(([a,b]) => el('div',{class:'pillar'}, el('b',{textContent:a}), el('p',{textContent:b}))))));
+  v.append(el('section',{}, el('div',{class:'callout'}, el('p',{html:'<b>' + t.creatorK + ':</b> ' + t.creatorP}), el('a',{class:'btn',href:REPO,target:'_blank',rel:'noopener',textContent:t.repoB}))));
 }
 
 function render(){
-  document.querySelectorAll('.tabs button').forEach(b => { if (b.dataset.view === state.view) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
-  ['tracks','track','progress'].forEach(x => { $('#v-' + x).hidden = x !== state.view; });
-  if (state.view === 'tracks') viewTracks(); else if (state.view === 'track') viewTrack(); else viewProgress();
+  const t = T();
+  document.documentElement.lang = state.lang;
+  $('#tabs').replaceChildren(...VIEWS.map((x, i) => el('button',{textContent:t.tabs[i],'aria-current':x === state.view ? 'page' : null,onclick:() => go(x)})));
+  $('#lang').textContent = state.lang === 'en' ? 'SV' : 'EN';
+  VIEWS.forEach(x => { $('#v-' + x).hidden = x !== state.view; });
+  ({tracks:viewTracks, track:viewTrack, progress:viewProgress, guide:viewGuide, about:viewAbout})[state.view]();
 }
-document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => go(b.dataset.view)));
-const h = location.hash.slice(1); if (['tracks','track','progress'].includes(h)) state.view = h;
+$('#lang').addEventListener('click', () => setLang(state.lang === 'en' ? 'sv' : 'en'));
+const h = location.hash.slice(1); if (VIEWS.includes(h)) state.view = h;
 render();
 
 (async () => {
@@ -432,9 +565,9 @@ render();
   db = d; sample = s;
   if (!db) { render(); return; }
   state.canWrite = u ? (u.can('data.write') !== false) : true;
-  $('#dot').classList.add('on'); $('#dot').title = state.canWrite ? 'Progress saves automatically' : 'View only';
+  $('#dot').classList.add('on');
   let first = true;
-  db.doc('hub/profile').onSnapshot(snap => { const p = snap.data() || {}; if (p.focus && ROLES[p.focus]) state.focus = p.focus; state.name = p.name || ''; if (first && p.focus && !h) { state.view = 'track'; } first = false; render(); }, () => {});
+  db.doc('hub/profile').onSnapshot(snap => { const p = snap.data() || {}; if (p.focus && ROLES[p.focus]) state.focus = p.focus; if (p.lang === 'sv' || p.lang === 'en') state.lang = p.lang; state.name = p.name || ''; state.bio = {en:p.bio_en || '', sv:p.bio_sv || ''}; if (first && p.focus && !h) state.view = 'track'; first = false; render(); }, () => {});
   db.collection('progress').onSnapshot(snap => { state.progress = {}; snap.docs.forEach(x => { state.progress[x.id] = x.data()?.status || 'todo'; }); render(); }, () => {});
   db.collection('log').orderBy('date','desc').limit(50).onSnapshot(snap => { state.log = snap.docs.map(x => x.data() || {}); render(); }, () => {});
   db.collection('extraLabs').orderBy('createdAt','asc').onSnapshot(snap => { state.extra = snap.docs.map(x => ({id:x.id, ...(x.data() || {})})); render(); }, () => {});

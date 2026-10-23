@@ -123,7 +123,7 @@ Every role has its own track of **20 labs**, from foundations to a capstone. Som
 | 19 | [Lab 50: Reconcile numbers across sources](lab-50-reconcile-numbers.md) | L2 | 2 h | Free |
 | 20 | [Lab 51: DA capstone: quarterly business review for Nordvik](lab-51-da-capstone.md) | L3–L4 | 8–10 h | Free |
 
-## Business / MarTech track
+## Business & MarTech track
 
 **Foundations**
 

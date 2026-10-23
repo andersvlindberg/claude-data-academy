@@ -53,7 +53,7 @@ git add .
 git commit -m "lab 03: <what you built>"
 git push -u origin lab-03
 ```
-Open a pull request in your fork, read your own diff like a reviewer, merge it, and mark the lab *Done* in your hub. Add a short `README.md` in the lab folder: what you built, how to run it, what you learned.
+Before the last commit, Claude updates `my-work/PROGRESS.md` (step, date, what you built, what to review). Open a pull request in your fork, read your own diff like a reviewer, merge it, and mark the lab *Done* in your hub. Add a short `README.md` in the lab folder: what you built, how to run it, what you learned.
 
 ## Portfolio
 `ga4-funnel` repo with SQL and a one-page insight summary.

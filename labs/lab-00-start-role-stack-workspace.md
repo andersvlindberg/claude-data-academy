@@ -2,7 +2,7 @@
 
 | Role | Level | Time | Tools | Cost | Builds on |
 |---|---|---|---|---|---|
-| Data engineer · Analytics engineer · Data analyst · Business / MarTech | L1 | 1–2 h | GitHub, Git, Claude Code, Python, DuckDB | Free | Nothing |
+| Data engineer · Analytics engineer · Data analyst · Business & MarTech | L1 | 1–2 h | GitHub, Git, Claude Code, Python, DuckDB | Free | Nothing |
 
 **Goal:** Understand what your role does, see the whole stack, and set up the workspace you will use for every lab: your fork, Git and Claude Code.
 
@@ -58,7 +58,7 @@ git add .
 git commit -m "lab 00: <what you built>"
 git push -u origin lab-00
 ```
-Open a pull request in your fork, read your own diff like a reviewer, merge it, and mark the lab *Done* in your hub. Add a short `README.md` in the lab folder: what you built, how to run it, what you learned.
+Before the last commit, Claude updates `my-work/PROGRESS.md` (step, date, what you built, what to review). Open a pull request in your fork, read your own diff like a reviewer, merge it, and mark the lab *Done* in your hub. Add a short `README.md` in the lab folder: what you built, how to run it, what you learned.
 
 ## Portfolio
 Your fork is the portfolio. Recruiters will see the commit history from day one.

@@ -93,7 +93,7 @@ Ask a normal AI how a LEFT JOIN works and you get an essay you'll forget by tomo
   start     the theory    the practice      your portfolio
 ```
 
-Start in your private [study hub](hub): pick a track (data engineer, analytics engineer, data analyst or business / MarTech) and walk its **20 steps**, from *what is the role?* to a capstone. Each step is a **lecture** in the Claude app (slides + PDF) that ends with a linked practice project, which you build in **Claude Code** in a real tool of the stack and commit to **your fork on GitHub**. Quiz yourself on what you've finished. See [LEARNING-PATHS.md](LEARNING-PATHS.md).
+Start in your private [study hub](hub): pick a track (data engineer, analytics engineer, data analyst or business & MarTech) and walk its **20 steps**, from *what is the role?* to a capstone. Each step is a **lecture** in the Claude app (slides + PDF) that ends with a linked practice project, which you build in **Claude Code** in a real tool of the stack and commit to **your fork on GitHub**. Quiz yourself on what you've finished. See [LEARNING-PATHS.md](LEARNING-PATHS.md).
 
 ## Install in 60 seconds
 
