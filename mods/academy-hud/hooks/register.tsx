@@ -7,9 +7,11 @@ const PANE = 'academy'
 const ORANGE = '#E8752A'
 const GREY = '#2B2B2B'
 
-const MODES: Mode[] = ['LEARN', 'BUILD', 'QUIZ', 'REVIEW', 'INTERVIEW']
+const MODES: Mode[] = ['LEARN', 'LECTURE', 'LAB', 'BUILD', 'QUIZ', 'REVIEW', 'INTERVIEW']
 const MODE_HINT: Record<Mode, string> = {
   LEARN: 'one step at a time',
+  LECTURE: 'slides + PDF in the Claude app',
+  LAB: 'hands-on in the real stack',
   BUILD: 'you write, Claude reviews',
   QUIZ: 'prove it, ~80% to pass',
   REVIEW: 'senior feedback on your work',
@@ -36,6 +38,8 @@ const TIPS = [
   'Never paste passwords, keys or real customer data.',
   'ELT: load raw first, transform in the warehouse with dbt.',
   'Claude asks before anything you cannot undo.',
+  'LECTURE for the theory, LEARN for what was unclear, LAB to build it.',
+  'End with "add it to my hub" to log the session.',
 ]
 
 const EMPTY: Study = { mode: null, topic: '', layer: -1, startedAt: 0, turns: 0 }
@@ -102,7 +106,7 @@ export const register: Register = on => {
         `Mode: ${s.mode ?? 'not started'}${s.topic ? ` · ${s.topic}` : ''}`,
         `Chain: ${chain}`,
         `Streak: ${st.days} days · ${st.sessions} sessions`,
-        'Start with: LEARN: <topic>, BUILD: <task>, QUIZ, REVIEW or INTERVIEW',
+        'Three ways: LEARN: <topic> (chat) · LECTURE: <topic> (slides) · LAB 01-20 (Claude Code)',
       ].join('\n'),
     }
   })
@@ -116,7 +120,7 @@ export const register: Register = on => {
   on('prompt.submit', async ($, e, next) => {
     const text = typeof e.text === 'string' ? e.text : ''
     const now = await $.clock.now()
-    const match = /^\s*(LEARN|BUILD|QUIZ|REVIEW|INTERVIEW)\b[:\s-]*(.*)$/is.exec(text)
+    const match = /^\s*(LEARN|LECTURE|LAB|BUILD|QUIZ|REVIEW|INTERVIEW)\b[:\s-]*(.*)$/is.exec(text)
     const layer = detectLayer(text)
 
     await update($, study, s => {
@@ -171,7 +175,7 @@ export const register: Register = on => {
     const tip = TIPS[Math.floor(now / 3600000) % TIPS.length]
 
     const startMode = (mode: Mode) => () =>
-      void $.prompt.fill({ text: `${mode}: `, mode: 'replace' })
+      void $.prompt.fill({ text: mode === 'LAB' ? 'LAB ' : `${mode}: `, mode: 'replace' })
 
     return (
       <Box flexDirection="column" gap={1} padding={1}>

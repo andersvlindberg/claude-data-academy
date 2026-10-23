@@ -1,4 +1,4 @@
-export type Mode = 'LEARN' | 'BUILD' | 'QUIZ' | 'REVIEW' | 'INTERVIEW'
+export type Mode = 'LEARN' | 'LECTURE' | 'LAB' | 'BUILD' | 'QUIZ' | 'REVIEW' | 'INTERVIEW'
 export type Study = {
   mode: Mode | null
   topic: string

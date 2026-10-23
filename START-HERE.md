@@ -54,6 +54,8 @@ claude plugin install data-academy@data-academy
 
 ## Step 3: How to work
 
+There are three ways to learn: **LEARN** (talk it through in the app), **LECTURE** (a slide deck with notes, as PDF or PowerPoint) and **LAB** (hands-on in Claude Code). See [LEARNING-PATHS.md](LEARNING-PATHS.md) for which to use when and which job each one trains. Want a dashboard of your progress? Set up your [study hub](hub/README.md).
+
 ### The daily loop (30–90 minutes)
 
 | Step | Say this | What happens |

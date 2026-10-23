@@ -1,0 +1,258 @@
+<title>Data Academy Hub</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a study console. Header strip, three ways to learn, the data chain as a progress rail, then tabbed catalogues and the log. */
+:root{
+  --bg:#F6F5F3; --surface:#FFFFFF; --ink:#1F1D1B; --muted:#6B655F; --line:#E4E0DB;
+  --accent:#E8752A; --accent-ink:#FFFFFF; --accent-soft:#FBE7D8; --chip:#EFECE8;
+  --good:#2F8A57; --good-soft:#DDF0E4; --doing:#B5650F; --doing-soft:#FBEBD5;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif; --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1C1B1A; --surface:#262422; --ink:#F1EEEA; --muted:#A39C94; --line:#3A3734;
+  --accent:#F08A45; --accent-ink:#1C1B1A; --accent-soft:#3D2A1C; --chip:#302E2B;
+  --good:#5CC38A; --good-soft:#1F3328; --doing:#F0A955; --doing-soft:#3A2C18; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1C1B1A; --surface:#262422; --ink:#F1EEEA; --muted:#A39C94; --line:#3A3734;
+  --accent:#F08A45; --accent-ink:#1C1B1A; --accent-soft:#3D2A1C; --chip:#302E2B;
+  --good:#5CC38A; --good-soft:#1F3328; --doing:#F0A955; --doing-soft:#3A2C18; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(26px,4vw,36px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:20px;font-weight:700}
+.eyebrow{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.mono{font-family:var(--mono)}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.badge{background:var(--accent);color:var(--accent-ink);font-family:var(--display);font-weight:800;font-size:18px;padding:6px 10px;border-radius:6px;letter-spacing:.02em}
+.focus{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:5px 12px;font:500 13px var(--body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip:focus-visible,.btn:focus-visible,.status:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.way{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.way h3{font-size:22px;letter-spacing:.02em}
+.way .where{font-size:12.5px;color:var(--accent);font-weight:600}
+.way p{margin:0;color:var(--muted);font-size:14px}
+.prompt{display:flex;gap:8px;align-items:center;margin-top:auto;background:var(--chip);border-radius:6px;padding:6px 6px 6px 10px}
+.prompt code{font-family:var(--mono);font-size:13px;flex:1;min-width:0;overflow-wrap:anywhere}
+.btn{border:0;background:var(--accent);color:var(--accent-ink);font:600 12.5px var(--body);padding:6px 10px;border-radius:5px;cursor:pointer;white-space:nowrap}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat{padding:4px 0;border-top:2px solid var(--ink)}
+.stat b{display:block;font-family:var(--display);font-size:30px;font-weight:800;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted)}
+.chain{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.layer{display:flex;flex-direction:column;gap:6px;min-width:0}
+.bar{height:10px;background:var(--chip);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .4s}
+.layer small{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layer strong{font-size:12.5px;font-weight:600}
+.roles-line{display:grid;grid-template-columns:3fr 4fr 2fr;gap:4px;font-size:11.5px;color:var(--muted);text-align:center}
+.roles-line div{border-top:1px solid var(--line);padding-top:4px}
+@media (max-width:620px){.chain{grid-template-columns:repeat(4,minmax(0,1fr))}.roles-line{display:none}}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{border:0;background:none;color:var(--muted);font:600 14px var(--body);padding:10px 12px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+.list{display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 4px;border-bottom:1px solid var(--line)}
+.row .num{font-family:var(--mono);font-size:14px;color:var(--muted)}
+.row .t{font-weight:600}
+.row .meta{font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:2px}
+.tag{font-size:11px;font-weight:600;padding:1px 6px;border-radius:4px;background:var(--chip);color:var(--ink)}
+.tag.focus{background:var(--accent-soft);color:var(--accent)}
+.acts{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.status{border:1px solid var(--line);background:var(--surface);color:var(--muted);font:600 12px var(--body);border-radius:999px;padding:4px 10px;cursor:pointer;min-width:74px}
+.status[data-s="doing"]{background:var(--doing-soft);color:var(--doing);border-color:transparent}
+.status[data-s="done"]{background:var(--good-soft);color:var(--good);border-color:transparent}
+.status:disabled{cursor:default;opacity:.8}
+a{color:var(--accent)}
+.rolegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+.role{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.role p{margin:0;font-size:14px;color:var(--muted)}
+.log{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.entry{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px}
+.entry .d{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.entry p{margin:2px 0 0;font-size:14px}
+.empty{padding:20px;border:1px dashed var(--line);border-radius:10px;color:var(--muted);font-size:14px;margin-top:14px}
+.note{font-size:12.5px;color:var(--muted)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:13px}
+@media (max-width:560px){.row{grid-template-columns:34px minmax(0,1fr)}.acts{grid-column:2;justify-content:flex-start}.entry{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="badge">DA</span><div><div class="eyebrow">Claude Data Academy</div><h1 id="hello">Your study hub</h1></div></div>
+    <div class="focus" role="group" aria-label="Focus role">
+      <span class="eyebrow" style="margin-right:4px">Focus</span>
+      <button class="chip" data-role="DE" aria-pressed="false">Data engineer</button>
+      <button class="chip" data-role="AE" aria-pressed="false">Analytics engineer</button>
+      <button class="chip" data-role="DA" aria-pressed="false">Data analyst</button>
+      <button class="chip" data-role="BIZ" aria-pressed="false">Business</button>
+    </div>
+  </header>
+
+  <section aria-labelledby="ways-h">
+    <div class="eyebrow" id="ways-h" style="margin-bottom:10px">Three ways to learn</div>
+    <div class="ways">
+      <div class="way"><h3>LEARN</h3><div class="where">Claude app · chat</div><p>Talk a concept through one step at a time. Best for "I don't get it", quick questions and exam prep.</p><div class="prompt"><code>LEARN: window functions</code><button class="btn" data-copy="LEARN: ">Copy</button></div></div>
+      <div class="way"><h3>LECTURE</h3><div class="where">Claude app · slides + PDF</div><p>A full lecture with speaker notes, downloadable as PDF or PowerPoint. Best for theory, overviews and business topics.</p><div class="prompt"><code>LECTURE: dbt fundamentals</code><button class="btn" data-copy="LECTURE: ">Copy</button></div></div>
+      <div class="way"><h3>LAB</h3><div class="where">Claude Code · your repo</div><p>Hands-on work in the real stack. You type the code, Claude reviews. Every lab is a portfolio piece.</p><div class="prompt"><code>LAB 08</code><button class="btn" data-copy="LAB ">Copy</button></div></div>
+    </div>
+  </section>
+
+  <section aria-label="Progress">
+    <div class="stats">
+      <div class="stat"><b id="s-labs">0/20</b><span>labs done</span></div>
+      <div class="stat"><b id="s-lects">0/24</b><span>lectures done</span></div>
+      <div class="stat"><b id="s-sessions">0</b><span>logged sessions</span></div>
+      <div class="stat"><b id="s-next">LAB 01</b><span>next on your route</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="chain-h">
+    <div class="eyebrow" id="chain-h" style="margin-bottom:10px">Where you are in the data chain (labs done per layer)</div>
+    <div class="chain" id="chain"></div>
+    <div class="roles-line" aria-hidden="true"><div>data engineer</div><div>analytics engineer</div><div>data analyst · business</div></div>
+  </section>
+
+  <section>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-tab="labs">Labs</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="lectures">Lectures</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="roles">Which job is which</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="log">Learning log</button>
+    </div>
+    <div id="p-labs" role="tabpanel">
+      <div class="filters" id="f-labs"></div>
+      <div class="list" id="labs"></div>
+    </div>
+    <div id="p-lectures" role="tabpanel" hidden>
+      <div class="filters" id="f-lects"></div>
+      <div class="list" id="lects"></div>
+    </div>
+    <div id="p-roles" role="tabpanel" hidden>
+      <div class="rolegrid">
+        <div class="role"><h3>Data engineer</h3><p>Gets data in and keeps it flowing: sources, tracking, ingestion with Fivetran and dlt, the warehouse, orchestration with Dagster, reliability and privacy zones.</p></div>
+        <div class="role"><h3>Analytics engineer</h3><p>Turns raw data into trusted, documented models: SQL, dbt, dimensional modelling, tests and contracts, CI, the semantic layer. The academy's focus.</p></div>
+        <div class="role"><h3>Data analyst</h3><p>Answers business questions with data: analysis, statistics and A/B tests, dashboards in Looker Studio or Tableau, recommendations people act on.</p></div>
+        <div class="role"><h3>Business / MarTech</h3><p>Uses data to grow the business: GA4 and GTM, CRM and marketing automation, customer journeys, segmentation and strategy.</p></div>
+      </div>
+    </div>
+    <div id="p-log" role="tabpanel" hidden>
+      <div class="log" id="log"></div>
+    </div>
+  </section>
+
+  <p class="note" id="sync">Connecting to your saved progress…</p>
+</div>
+
+<script id="catalog" type="application/json">{"labs": [{"id": "01", "slug": "duckdb-sql-basics", "title": "Your first local warehouse with DuckDB", "roles": ["AE", "DA"], "level": "L1", "time": "1\u20132 h", "tools": "DuckDB, VS Code", "cost": "Free", "layer": "Store"}, {"id": "02", "slug": "ga4-bigquery-explore", "title": "Explore real GA4 e-commerce data in BigQuery", "roles": ["DA", "AE"], "level": "L1\u2013L2", "time": "2 h", "tools": "BigQuery sandbox", "cost": "Free (sandbox, no card)", "layer": "Sources"}, {"id": "03", "slug": "ga4-funnel-window-functions", "title": "Sessions and a purchase funnel with window functions", "roles": ["AE", "DA"], "level": "L2", "time": "2\u20133 h", "tools": "BigQuery sandbox", "cost": "Free", "layer": "Transform"}, {"id": "04", "slug": "gtm-ga4-tracking", "title": "Track an e-commerce event with GTM and verify it in DevTools", "roles": ["DE", "BIZ"], "level": "L2", "time": "2\u20133 h", "tools": "Google Tag Manager, GA4, Chrome DevTools", "cost": "Free", "layer": "Sources"}, {"id": "05", "slug": "dlt-api-ingestion", "title": "Ingest a REST API with dlt", "roles": ["DE"], "level": "L2", "time": "2\u20133 h", "tools": "Python, dlt, DuckDB", "cost": "Free", "layer": "Ingest"}, {"id": "06", "slug": "snowflake-setup", "title": "Set up Snowflake like a team would", "roles": ["DE", "AE"], "level": "L2", "time": "2 h", "tools": "Snowflake", "cost": "Trial (30 days)", "layer": "Store"}, {"id": "07", "slug": "fivetran-to-snowflake", "title": "Managed ingestion with Fivetran", "roles": ["DE"], "level": "L2", "time": "1\u20132 h", "tools": "Fivetran, Snowflake, Google Sheets", "cost": "Fivetran free plan / trial", "layer": "Ingest"}, {"id": "08", "slug": "dbt-first-project", "title": "Your first dbt project: sources, staging and tests", "roles": ["AE"], "level": "L2", "time": "3 h", "tools": "dbt (Core or platform), BigQuery or Snowflake or DuckDB", "cost": "Free", "layer": "Transform"}, {"id": "09", "slug": "dbt-dimensional-modeling", "title": "Dimensional modelling in dbt: facts and dimensions", "roles": ["AE"], "level": "L2\u2013L3", "time": "3\u20134 h", "tools": "dbt", "cost": "Free", "layer": "Transform"}, {"id": "10", "slug": "dbt-incremental-snapshots", "title": "Incremental models and snapshots (SCD type 2)", "roles": ["AE"], "level": "L3", "time": "3 h", "tools": "dbt", "cost": "Free", "layer": "Transform"}, {"id": "11", "slug": "dbt-ci-github-actions", "title": "dbt CI with GitHub Actions and Slim CI", "roles": ["AE", "DE"], "level": "L3", "time": "2\u20133 h", "tools": "dbt, GitHub Actions", "cost": "Free", "layer": "Transform"}, {"id": "12", "slug": "data-quality-contracts", "title": "Data quality: contracts, freshness and anomaly checks", "roles": ["AE"], "level": "L3", "time": "2\u20133 h", "tools": "dbt", "cost": "Free", "layer": "Transform"}, {"id": "13", "slug": "dagster-orchestration", "title": "Orchestrate dlt and dbt with Dagster", "roles": ["DE", "AE"], "level": "L3", "time": "3\u20134 h", "tools": "Dagster, dagster-dbt, dagster-dlt", "cost": "Free (local)", "layer": "Ingest"}, {"id": "14", "slug": "privacy-zones-masking", "title": "Privacy by design: zones, pseudonymisation and masking", "roles": ["DE", "AE"], "level": "L3", "time": "3 h", "tools": "Snowflake (or BigQuery policy tags), dbt", "cost": "Trial / free", "layer": "Store"}, {"id": "15", "slug": "looker-studio-dashboard", "title": "A decision-ready dashboard in Looker Studio", "roles": ["DA"], "level": "L2", "time": "2\u20133 h", "tools": "Looker Studio, BigQuery", "cost": "Free", "layer": "Serve"}, {"id": "16", "slug": "tableau-public-kpi", "title": "KPI story in Tableau Public", "roles": ["DA"], "level": "L2", "time": "3 h", "tools": "Tableau Public", "cost": "Free (public)", "layer": "Serve"}, {"id": "17", "slug": "rfm-clv-segmentation", "title": "Customer segmentation: RFM and lifetime value", "roles": ["DA", "BIZ"], "level": "L2\u2013L3", "time": "3 h", "tools": "SQL (any warehouse), optional Python", "cost": "Free", "layer": "Analyse"}, {"id": "18", "slug": "ab-test-analysis", "title": "Analyse an A/B test properly", "roles": ["DA"], "level": "L3", "time": "2\u20133 h", "tools": "Python (pandas, scipy) or SQL", "cost": "Free", "layer": "Analyse"}, {"id": "19", "slug": "reverse-etl-crm", "title": "Activate segments in a CRM (reverse ETL)", "roles": ["AE", "BIZ"], "level": "L3", "time": "2\u20133 h", "tools": "HubSpot (free CRM), Python or a reverse ETL tool", "cost": "Free", "layer": "Decide"}, {"id": "20", "slug": "claude-mcp-warehouse", "title": "Safe AI on your marts: Claude + MCP, read-only", "roles": ["AE", "DA"], "level": "L3", "time": "2 h", "tools": "Claude Code, an MCP server for your warehouse or dbt", "cost": "Free / trial", "layer": "Analyse"}], "lectures": [{"id": "1", "title": "The modern data stack and ELT", "roles": ["DE", "AE", "DA", "BIZ"], "level": "L1", "labs": "01, 05, 08"}, {"id": "2", "title": "SQL that analysts and engineers actually use", "roles": ["AE", "DA"], "level": "L1\u2013L2", "labs": "01, 03"}, {"id": "3", "title": "GA4, GTM and the dataLayer", "roles": ["DE", "BIZ"], "level": "L1\u2013L2", "labs": "02, 04"}, {"id": "4", "title": "Ingestion: connectors, APIs and dlt", "roles": ["DE"], "level": "L2", "labs": "05, 07"}, {"id": "5", "title": "Cloud warehouses: Snowflake and BigQuery", "roles": ["DE", "AE"], "level": "L2", "labs": "06"}, {"id": "6", "title": "dbt fundamentals", "roles": ["AE"], "level": "L1\u2013L2", "labs": "08"}, {"id": "7", "title": "Dimensional modelling (Kimball)", "roles": ["AE"], "level": "L2", "labs": "09"}, {"id": "8", "title": "Incremental models, snapshots and scale", "roles": ["AE"], "level": "L3", "labs": "10"}, {"id": "9", "title": "Testing, contracts and data quality", "roles": ["AE"], "level": "L2\u2013L3", "labs": "12"}, {"id": "10", "title": "Git, CI/CD and working in a data team", "roles": ["DE", "AE"], "level": "L2", "labs": "11"}, {"id": "11", "title": "Orchestration with Dagster", "roles": ["DE", "AE"], "level": "L2\u2013L3", "labs": "13"}, {"id": "12", "title": "GDPR, cookies and privacy by design", "roles": ["DE", "AE", "DA", "BIZ"], "level": "L1\u2013L2", "labs": "04, 14"}, {"id": "13", "title": "Dashboards that drive decisions", "roles": ["DA"], "level": "L1\u2013L2", "labs": "15, 16"}, {"id": "14", "title": "Statistics and A/B testing for analysts", "roles": ["DA"], "level": "L2", "labs": "18"}, {"id": "15", "title": "Digital analytics: attribution and funnels", "roles": ["DA", "BIZ"], "level": "L2", "labs": "03"}, {"id": "16", "title": "Customer value: RFM, CLV and segmentation", "roles": ["DA", "BIZ"], "level": "L2", "labs": "17"}, {"id": "17", "title": "CRM and marketing automation data", "roles": ["AE", "BIZ"], "level": "L1\u2013L2", "labs": "19"}, {"id": "18", "title": "Customer data platforms and reverse ETL", "roles": ["AE", "BIZ"], "level": "L2", "labs": "19"}, {"id": "19", "title": "MarTech landscape and customer journeys", "roles": ["BIZ"], "level": "L1", "labs": "04"}, {"id": "20", "title": "Business strategy for data people", "roles": ["BIZ"], "level": "L1", "labs": "17"}, {"id": "21", "title": "Python for data work", "roles": ["DE", "DA"], "level": "L1\u2013L2", "labs": "05, 18"}, {"id": "22", "title": "AI, ML and MCP on your data", "roles": ["AE", "DA"], "level": "L2", "labs": "20"}, {"id": "23", "title": "Presenting data to stakeholders", "roles": ["DE", "AE", "DA", "BIZ"], "level": "L1", "labs": "15"}, {"id": "24", "title": "Your career as an analytics engineer", "roles": ["DE", "AE", "DA", "BIZ"], "level": "L1", "labs": "All"}]}</script>
+<script>
+const CAT = JSON.parse(document.getElementById('catalog').textContent);
+const REPO = 'https://github.com/andersvlindberg/claude-data-academy/blob/main/labs/';
+const ROLE_NAMES = {DE:'Data engineer',AE:'Analytics engineer',DA:'Data analyst',BIZ:'Business'};
+const LAYERS = ['Sources','Ingest','Store','Transform','Serve','Analyse','Decide'];
+const ROUTES = {AE:['01','02','03','08','09','10','11','12','13','14','20'],DE:['01','05','06','07','04','13','14','11'],DA:['01','02','03','15','16','17','18'],BIZ:['02','04','15','17','19']};
+const state = {progress:{}, focus:'AE', log:[], filterLabs:'all', filterLects:'all', canWrite:false};
+let db = null;
+const $ = s => document.querySelector(s);
+const el = (tag, props={}, ...kids) => { const n=document.createElement(tag); for (const [k,v] of Object.entries(props)) { if (k==='class') n.className=v; else if (k.startsWith('data-')||k.startsWith('aria-')) n.setAttribute(k,v); else n[k]=v; } for (const k of kids) n.append(k); return n; };
+
+function toast(t){ const n=el('div',{class:'toast',textContent:t}); document.body.append(n); setTimeout(()=>n.remove(),1600); }
+async function copy(text){ try{ await navigator.clipboard.writeText(text); toast('Copied: '+text); } catch { toast('Copy failed, select the text instead'); } }
+
+const statusOf = id => state.progress[id] || 'todo';
+const LABEL = {todo:'To do', doing:'Doing', done:'Done'};
+const NEXT = {todo:'doing', doing:'done', done:'todo'};
+
+async function setStatus(id){
+  const s = NEXT[statusOf(id)];
+  const prev = statusOf(id);
+  state.progress[id] = s; render();
+  if (!db) return;
+  try { await db.collection('progress').doc(id).set({status:s, updatedAt:new Date().toISOString()}); }
+  catch { state.progress[id] = prev; render(); toast('Could not save. You may not have edit access.'); }
+}
+async function setFocus(r){
+  state.focus = r; render();
+  if (db) { try { await db.doc('hub/profile').set({focus:r, updatedAt:new Date().toISOString()}); } catch {} }
+}
+
+function filterChips(container, key){
+  container.replaceChildren(...['all','DE','AE','DA','BIZ'].map(r => el('button',{class:'chip','aria-pressed':String(state[key]===r),textContent:r==='all'?'All':ROLE_NAMES[r],onclick:()=>{state[key]=r;render();}})));
+}
+function statusBtn(id){
+  const s = statusOf(id);
+  return el('button',{class:'status','data-s':s,textContent:LABEL[s],disabled:!!db && !state.canWrite,title:'Click to change status',onclick:()=>setStatus(id)});
+}
+function roleTags(roles){ return roles.map(r => el('span',{class:'tag'+(r===state.focus?' focus':''),textContent:ROLE_NAMES[r]})); }
+
+function render(){
+  document.querySelectorAll('.focus .chip').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.role===state.focus)));
+  const labsDone = CAT.labs.filter(l => statusOf('lab-'+l.id)==='done').length;
+  const lectsDone = CAT.lectures.filter(l => statusOf('lecture-'+l.id)==='done').length;
+  $('#s-labs').textContent = labsDone+'/'+CAT.labs.length;
+  $('#s-lects').textContent = lectsDone+'/'+CAT.lectures.length;
+  $('#s-sessions').textContent = state.log.length;
+  const route = ROUTES[state.focus];
+  const next = route.find(id => statusOf('lab-'+id)!=='done');
+  $('#s-next').textContent = next ? 'LAB '+next : 'Route done';
+
+  $('#chain').replaceChildren(...LAYERS.map(L => {
+    const ls = CAT.labs.filter(l => l.layer===L); const d = ls.filter(l => statusOf('lab-'+l.id)==='done').length;
+    const pct = ls.length ? Math.round(d/ls.length*100) : 0;
+    const bar = el('div',{class:'bar'}, el('i')); bar.firstChild.style.width = pct+'%';
+    return el('div',{class:'layer'}, bar, el('strong',{textContent:L}), el('small',{textContent:d+'/'+ls.length+' labs'}));
+  }));
+
+  filterChips($('#f-labs'),'filterLabs'); filterChips($('#f-lects'),'filterLects');
+  const fl = state.filterLabs;
+  $('#labs').replaceChildren(...CAT.labs.filter(l => fl==='all' || l.roles.includes(fl)).map(l =>
+    el('div',{class:'row'},
+      el('div',{class:'num',textContent:l.id}),
+      el('div',{}, el('div',{class:'t'}, el('a',{href:REPO+'lab-'+l.id+'-'+l.slug+'.md',target:'_blank',rel:'noopener',textContent:l.title})),
+        el('div',{class:'meta'}, ...roleTags(l.roles), el('span',{textContent:l.level+' · '+l.time+' · '+l.cost}))),
+      el('div',{class:'acts'}, el('button',{class:'btn ghost',textContent:'Copy LAB '+l.id,onclick:()=>copy('LAB '+l.id)}), statusBtn('lab-'+l.id)))));
+
+  const fx = state.filterLects;
+  $('#lects').replaceChildren(...CAT.lectures.filter(l => fx==='all' || l.roles.includes(fx)).map(l =>
+    el('div',{class:'row'},
+      el('div',{class:'num',textContent:l.id}),
+      el('div',{}, el('div',{class:'t',textContent:l.title}), el('div',{class:'meta'}, ...roleTags(l.roles), el('span',{textContent:l.level+' · labs '+l.labs}))),
+      el('div',{class:'acts'}, el('button',{class:'btn ghost',textContent:'Copy prompt',onclick:()=>copy('LECTURE: '+l.title)}), statusBtn('lecture-'+l.id)))));
+
+  const log = $('#log');
+  if (!state.log.length) log.replaceChildren(el('div',{class:'empty',textContent:'No sessions logged yet. End a session with "Close the session" and ask Claude to add it to your hub. Each entry shows what you did, the result and when to review it.'}));
+  else log.replaceChildren(...state.log.map(e => el('div',{class:'entry'},
+    el('div',{}, el('div',{class:'d',textContent:(e.date||'').slice(0,10)}), el('span',{class:'tag focus',textContent:e.way||'LEARN'})),
+    el('div',{}, el('div',{class:'t',textContent:e.topic||'Session'}), e.result?el('p',{textContent:e.result}):'', e.unsure?el('p',{class:'note',textContent:'Still unsure: '+e.unsure}):'', e.review?el('p',{class:'note',textContent:'Review on '+e.review}):''))));
+}
+
+document.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', () => copy(b.dataset.copy)));
+document.querySelectorAll('.focus .chip').forEach(b => b.addEventListener('click', () => setFocus(b.dataset.role)));
+const TABS = ['labs','lectures','roles','log'];
+function showTab(t){ document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab===t))); TABS.forEach(x => { $('#p-'+x).hidden = x!==t; }); }
+document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab)));
+if (TABS.includes(location.hash.slice(1))) showTab(location.hash.slice(1));
+render();
+
+(async () => {
+  if (!window.claude?.use) { $('#sync').textContent = 'Progress saving is not available in this view.'; return; }
+  db = await window.claude.use('db');
+  const user = await window.claude.use('user');
+  if (!db) { $('#sync').textContent = 'Sign in to see and save your progress.'; return; }
+  state.canWrite = user ? (user.can('data.write') !== false) : true;
+  db.collection('progress').onSnapshot(snap => { state.progress = {}; snap.docs.forEach(d => { state.progress[d.id] = d.data()?.status || 'todo'; }); render(); }, () => {});
+  db.doc('hub/profile').onSnapshot(snap => { const f = snap.data()?.focus; if (f && ROLE_NAMES[f]) state.focus = f; const n = snap.data()?.name; if (n) $('#hello').textContent = n+"'s study hub"; render(); }, () => {});
+  db.collection('log').orderBy('date','desc').limit(50).onSnapshot(snap => { state.log = snap.docs.map(d => d.data()||{}); render(); }, () => {});
+  $('#sync').textContent = state.canWrite ? 'Progress saves automatically. Click a status to change it; Claude adds sessions to your log.' : 'View only: you can see this hub but not change it.';
+  render();
+})();
+</script>
