@@ -4,6 +4,8 @@
 
 <h1 align="center">Claude Data Academy</h1>
 
+<p align="center"><em>From source to decision</em></p>
+
 <p align="center">
   <strong>Complete Claude skills for learning data: from your first <code>SELECT</code> to the boardroom.</strong><br>
   Make your AI better than everyone else's.

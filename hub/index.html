@@ -206,7 +206,7 @@ const VIEWS = ['tracks','track','progress','guide','about'];
 const S = {
 en: {
   tabs:['Tracks','My track','Progress','Guide','About'],
-  hubOf:n => n + '’s hub', yourHub:'your hub',
+  hubOf:n => n + '’s hub', yourHub:'your hub', tagline:'From source to decision',
   heroH:'Learn data by doing <em>the job.</em>',
   heroP:'Pick a track. Every step is a lecture here and a hands-on project in Claude Code, built on a real stack and saved to your GitHub portfolio.',
   flow:[['Hub','Start here. Pick the next step.'],['Lecture','The theory, as slides or PDF.'],['Claude Code','Build it in a real tool.'],['GitHub','Commit, merge, tick it off.']],
@@ -242,7 +242,7 @@ en: {
     ['Keep your Claude project in sync','Claude Code updates my-work/PROGRESS.md in your fork at the end of every lab. Add your fork to your Data Academy project in the Claude app (Add content → GitHub) so every chat there knows where you are. No GitHub link? Use “Copy progress as Markdown” on the Progress page and add it as a project file.',''],
     ['Finish the track','When all 20 are done, generate new steps one level up, or start a second track.','']
   ],
-  aboutK:'About', aboutH:'About Data Academy',
+  aboutK:'About', aboutH:'Data Academy: from source to decision',
   aboutP:'Data Academy is a free, open learning program for the whole data chain, built as Claude skills. It teaches three connected jobs, data engineer, analytics engineer and data analyst, plus the business and MarTech knowledge that makes data useful. The focus is learning by doing: every lecture leads to a practical project in a real tool, saved to your own GitHub portfolio.',
   pillars:[['Learn','Lectures and one-step-at-a-time coaching. Claude explains, quizzes and never does the work for you.'],['Practise','Real tools from a modern stack, on fictional data your own Claude creates for each project.'],['Show','Every step ends as a pull request in your fork. After 20 steps you have a portfolio, not a certificate.']],
   creatorK:'Made by', creatorP:'Anders Lindberg, a data student in Stockholm. Open source under MIT: fork it, change the stack, make it yours.',
@@ -250,7 +250,7 @@ en: {
 },
 sv: {
   tabs:['Spår','Mitt spår','Framsteg','Guide','Om'],
-  hubOf:n => n + 's hubb', yourHub:'din hubb',
+  hubOf:n => n + 's hubb', yourHub:'din hubb', tagline:'Från källa till beslut',
   heroH:'Lär dig data genom att <em>göra jobbet.</em>',
   heroP:'Välj ett spår. Varje steg är en föreläsning här och ett praktiskt projekt i Claude Code, byggt i en riktig stack och sparat i din portfolio på GitHub.',
   flow:[['Hubben','Börja här. Välj nästa steg.'],['Föreläsning','Teorin, som bilder eller PDF.'],['Claude Code','Bygg det i ett riktigt verktyg.'],['GitHub','Commit, merge, bocka av.']],
@@ -286,7 +286,7 @@ sv: {
     ['Håll ditt Claude-projekt uppdaterat','Claude Code uppdaterar my-work/PROGRESS.md i din fork i slutet av varje labb. Lägg till din fork i ditt Data Academy-projekt i Claude-appen (Add content → GitHub) så vet varje chatt där var du är. Ingen GitHub-koppling? Använd ”Kopiera framsteg som Markdown” under Framsteg och lägg in det som projektfil.',''],
     ['Gör klart spåret','När alla 20 är klara, generera nya steg en nivå upp, eller börja ett andra spår.','']
   ],
-  aboutK:'Om', aboutH:'Om Data Academy',
+  aboutK:'Om', aboutH:'Data Academy: från källa till beslut',
   aboutP:'Data Academy är ett gratis, öppet utbildningsprogram för hela datakedjan, byggt som Claude-skills. Det lär ut tre sammanhängande jobb, data engineer, analytics engineer och data analyst, plus den affärs- och MarTech-kunskap som gör data användbar. Fokus ligger på att lära sig genom att göra: varje föreläsning leder till ett praktiskt projekt i ett riktigt verktyg, sparat i din egen portfolio på GitHub.',
   pillars:[['Lär dig','Föreläsningar och coachning ett steg i taget. Claude förklarar, quizzar och gör aldrig jobbet åt dig.'],['Öva','Riktiga verktyg från en modern stack, på påhittad data som din egen Claude skapar för varje projekt.'],['Visa upp','Varje steg slutar som en pull request i din fork. Efter 20 steg har du en portfolio, inte bara ett intyg.']],
   creatorK:'Skapad av', creatorP:'Anders Lindberg, datastudent i Stockholm. Öppen källkod under MIT: forka, byt stack, gör den till din.',
@@ -345,7 +345,7 @@ function lecturePrompt(id, n){
 function viewTracks(){
   const t = T(), v = $('#v-tracks'); v.replaceChildren();
   v.append(el('section',{class:'hero'},
-    el('div',{class:'kicker',html:'Data Academy · <b>' + (state.name ? t.hubOf(state.name) : t.yourHub) + '</b>'}),
+    el('div',{class:'kicker',html:'Data Academy · ' + t.tagline + ' · <b>' + (state.name ? t.hubOf(state.name) : t.yourHub) + '</b>'}),
     el('h1',{html:t.heroH}), el('p',{textContent:t.heroP}),
     el('div',{class:'flow'}, t.flow.map(([a,b]) => el('div',{}, el('b',{textContent:a}), el('span',{textContent:b}))))));
   v.append(el('section',{},
