@@ -123,7 +123,7 @@ Then just ask. Skills load automatically when your question matches:
 | 04 | [`ae-data-engineering`](skills/ae-data-engineering) | Ingestion with Fivetran and Python, ELT, idempotency, backfills, Dagster/Airflow, Docker, migration |
 | 06 | [`ae-warehouses`](skills/ae-warehouses) | Snowflake, BigQuery, DuckDB, cloud platforms, cost control, roles, key pair auth |
 | 13 | [`ae-apis`](skills/ae-apis) | REST, auth, pagination, retries, webhooks, integration patterns, reverse ETL |
-| 14 | [`ae-python`](skills/ae-python) | Python for data, pandas, classes and OOP, testing with pytest, Python ↔ C# |
+| 14 | [`ae-python`](skills/ae-python) | Python for data, pandas, object-oriented programming (classes), testing with pytest, Python ↔ C# |
 | 16 | [`ae-git-devops`](skills/ae-git-devops) | Git, GitHub, pull requests, CI/CD for dbt, linting |
 | 26 | [`ae-systems-processes`](skills/ae-systems-processes) | ERP, OMS, WMS, PIM, CMS, order to cash, master data, migration |
 
