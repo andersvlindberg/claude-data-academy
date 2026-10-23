@@ -14,6 +14,7 @@
 ## Setup
 - A GitHub account (apply for the Student Developer Pack)
 - Git, Python 3.12+, VS Code and Claude Code installed (see START-HERE.md)
+- The data-academy plugin and the academy-hud mod installed in Claude Code
 
 ## How this lab works
 1. **Hub:** open this step in your study hub and take the lecture (*Lecture*), or skip it if you know the theory.
@@ -29,13 +30,14 @@ claude
 Type `LAB 00`. The coach walks you through the steps below one at a time; you write the code and it reviews.
 
 ## Steps
-1. Take the lecture first: in your study hub, press *Lecture* on step 1. It covers the role, a day in the job and the stack.
-2. Fork `andersvlindberg/claude-data-academy` on GitHub. Your fork is your portfolio: everything you build goes in `my-work/`.
-3. Clone your fork (GitHub Desktop or `git clone`), open the folder in a terminal and run `claude`.
-4. Ask Claude to create a tiny fictional dataset for your first practice project (or use the ready-made example: `python datasets/nordvik/generate.py`). Open one table and say in one sentence what a row is.
-5. Run your first query in DuckDB (for example orders per month). Save it as `first-query.sql` in your lab folder.
-6. Write `my-work/README.md`: who you are, which track you chose and why (three sentences).
-7. Create a branch `lab-00`, commit, push, open a pull request in your fork and merge it. This is the loop for every lab.
+1. Set up your study hub if you haven't (see `hub/README.md`), and connect it to Claude Code once: `/academy https://claude.ai/artifact/<your-hub-id>`. From now on `/academy` opens it.
+2. Take the lecture first: in your study hub, open step 1 and copy the lecture request. It covers the role, a day in the job and the stack.
+3. Fork `andersvlindberg/claude-data-academy` on GitHub. Your fork is your portfolio: everything you build goes in `my-work/`.
+4. Clone your fork (GitHub Desktop or `git clone`), open the folder in a terminal and run `claude`.
+5. Ask Claude to create a tiny fictional dataset for your first practice project (or use the ready-made example: `python datasets/nordvik/generate.py`). Open one table and say in one sentence what a row is.
+6. Run your first query in DuckDB (for example orders per month). Save it as `first-query.sql` in your lab folder.
+7. Write `my-work/README.md`: who you are, which track you chose and why (three sentences).
+8. Create a branch `lab-00`, commit, push, open a pull request in your fork and merge it. This is the loop for every lab.
 
 ## Done when
 - [ ] Your fork has `my-work/README.md` and your lab-00 folder on main

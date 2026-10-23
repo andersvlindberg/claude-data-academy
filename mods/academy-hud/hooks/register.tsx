@@ -97,7 +97,7 @@ export const register: Register = on => {
   })
 
   on('command.run', { command: 'academy' }, async ($, e) => {
-    const arg = typeof e.args === 'string' ? e.args.trim() : ''
+    const arg = (typeof e.args === 'string' ? e.args : '').trim().replace(/^[@<"']+|[>"']+$/g, '')
     if (HUB_RE.test(arg)) {
       await $.store.set('hubUrl', arg)
       await openUrl($, arg)

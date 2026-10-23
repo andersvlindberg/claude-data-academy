@@ -180,6 +180,7 @@ a{color:var(--accent-2);text-underline-offset:3px}
 <script>
 const CAT = JSON.parse(document.getElementById('catalog').textContent);
 const REPO = 'https://github.com/andersvlindberg/claude-data-academy';
+const HUB_URL = '';
 const ROLES = {
   DE:{name:'Data engineer', short:'Get data in and keep it flowing.', desc:'Sources, ingestion with Python, dlt and Fivetran, the warehouse, orchestration with Dagster, reliability and privacy.', layers:[0,1,2,4]},
   AE:{name:'Analytics engineer', short:'Turn raw data into trusted models.', desc:'SQL and dbt: staging, dimensional models, tests, CI and the semantic layer. The academy’s focus.', layers:[2,3,4]},
@@ -258,7 +259,10 @@ function viewTracks(){
   v.append(el('section',{},
     el('div',{class:'callout'},
       el('p',{html:'<b>Before step 1:</b> fork the academy repo on GitHub. Your fork is your workspace and your portfolio: every lab goes in <span class="mono">my-work/</span>, one branch and pull request per lab.'}),
-      el('a',{class:'btn',href:REPO + '/fork',target:'_blank',rel:'noopener',textContent:'Fork on GitHub ↗'}))));
+      el('a',{class:'btn',href:REPO + '/fork',target:'_blank',rel:'noopener',textContent:'Fork on GitHub ↗'})),
+    el('div',{class:'callout',style:'margin-top:12px'},
+      el('p',{html:'<b>Connect this hub to Claude Code:</b> copy this page’s link, then run <span class="mono">/academy &lt;link&gt;</span> once in Claude Code. After that, <span class="mono">/academy</span> opens your hub from any project.'}),
+      el('button',{class:'btn',textContent:'Copy the command',onclick:() => copy('/academy ' + (HUB_URL || '<paste this hub’s link>'), HUB_URL ? 'Copied. Paste it in Claude Code.' : 'Copied. Replace the placeholder with this page’s link.')}))));
 }
 
 /* ---------- view 2: my track ---------- */

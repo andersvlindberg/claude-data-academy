@@ -56,6 +56,14 @@ claude plugin install data-academy@data-academy
 
 ---
 
+### Connect your hub (2 minutes)
+
+1. **Create your study hub** in the Claude app: follow [hub/README.md](hub/README.md) (one prompt).
+2. **Install the mod** in Claude Code: `claude plugin install academy-hud@data-academy`
+3. **Link them once** in Claude Code: `/academy https://claude.ai/artifact/<your-hub-id>`
+
+After that, `/academy` opens your hub from any project, and the band above the prompt shows the lab you're on.
+
 ## Step 3: How to work
 
 **Always start in your [study hub](hub/README.md).** Pick a track, open the next step, take the lecture in the Claude app, then do the practice project in Claude Code and commit it to your fork. See [LEARNING-PATHS.md](LEARNING-PATHS.md) for the whole loop.

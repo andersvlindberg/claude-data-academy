@@ -34,3 +34,17 @@ test('before any session the pane invites you to start', async ($, on) => {
   expect((await ui.find({ type: 'Text', text: /Nothing running/ }))?.text).toBe('Nothing running')
   await ui.unmount()
 })
+
+test('/academy @<hub link> saves the hub, with or without the @', async ($, on) => {
+  const saved: Record<string, unknown> = {}
+  on('command.register', (_, e) => ({ value: { command: e.name } }))
+  on('session.start', (_, e) => ({ cwd: e.cwd }))
+  on('store.get', (_, e) => ({ value: saved[e.key] }))
+  on('store.set', (_, e) => { saved[e.key] = e.value; return { value: undefined } })
+  on('process.run', () => ({ value: { exitCode: 0, stdout: '', stderr: '' } }))
+  on('clock.now', () => ({ value: 1_800_000_000_000 }))
+  await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: true })
+  const r = await $.command.run({ command: 'academy', args: '@https://claude.ai/artifact/abc123' })
+  expect(saved['hubUrl']).toBe('https://claude.ai/artifact/abc123')
+  expect(String((r as { text?: string }).text)).toContain('Hub saved')
+})
