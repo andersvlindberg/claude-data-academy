@@ -173,7 +173,11 @@ The [program map](docs/program-map.md) shows how the skills cover typical course
 
 ## The reference stack
 
-Concepts work with any tools, but examples and the capstone default to the most common analytics engineering stack, built on **ELT** (load raw, transform in the warehouse with dbt): **GA4 + GTM → Fivetran (+ Python/dlt) → Snowflake → dbt → Dagster → Looker Studio (or Tableau) → reverse ETL to CRM**, versioned in GitHub with GitHub Actions,, with Claude and MCP on top and DuckDB for free local practice. **Adjust it freely:** this is a sensible default, not a rule. Tell the coach your stack once and it adapts, or fork the repo and change [STACK.md](STACK.md) to match the niche you're going for and the stack the companies you want to work for actually use.
+Concepts work with any tools, but examples and the capstone default to the most common analytics engineering stack, built on **ELT** (load raw, transform in the warehouse with dbt):
+
+**Sources** (e-commerce platform such as Shopify, GA4 + GTM, CRM) → **Fivetran / dlt** → **Snowflake** → **dbt** → **Looker Studio / Tableau** + **reverse ETL to CRM**. **Dagster** orchestrates the whole flow; Git and GitHub Actions guard the code. DuckDB covers free local practice.
+
+**Adjust it freely:** this is a sensible default, not a rule. Tell the coach your stack once and it adapts, or fork the repo and change [STACK.md](STACK.md) to match the niche you're going for and the stack the companies you want to work for actually use.
 
 ## The capstone
 

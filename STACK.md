@@ -1,6 +1,8 @@
 # The reference stack
 
-**In one line:** GA4 + GTM → **Fivetran** (+ Python/dlt) → **Snowflake** → **dbt** → **Dagster** → **Looker Studio** (or Tableau) → reverse ETL to CRM, versioned in GitHub with GitHub Actions.
+**In one line:** **Sources** (e-commerce platform such as Shopify, GA4 + GTM, CRM) → **Fivetran / dlt** → **Snowflake** → **dbt** → **Looker Studio / Tableau** + **reverse ETL to CRM**. **Dagster** orchestrates the whole flow; Git and GitHub Actions guard the code.
+
+GA4 is the exception at ingestion: it exports natively to BigQuery, so either model it there or move it into Snowflake. Fivetran handles the other sources (shop, CRM, ad platforms, databases).
 
 **Pattern: ELT, not ETL.** Fivetran (and Python/dlt) extract and load raw data untouched into Snowflake; all transformation happens inside the warehouse with dbt. Raw data stays available, logic is versioned and tested, and models can be rebuilt at any time.
 
@@ -8,6 +10,7 @@ The academy teaches concepts that work with any tools, but every example, exerci
 
 | Layer | Reference tool | Why |
 |---|---|---|
+| Sources | E-commerce platform (e.g. Shopify), CRM, ad platforms, payment and support systems | Where business events are created |
 | Source tracking | **Google stack:** Google Tag Manager + GA4 (with the BigQuery export) | Most widely used web analytics setup |
 | Ingestion | **Fivetran** for standard sources (Shopify, CRM, ad platforms, databases); Python with dlt for custom APIs; Airbyte as open-source alternative | The most common managed ELT tool; code only where no connector exists |
 | Warehouse | **Snowflake** (key pair auth, roles, dev/prod) | Very common in analytics engineering job ads |
