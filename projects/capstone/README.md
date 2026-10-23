@@ -4,7 +4,7 @@ One project that grows through the whole curriculum and becomes the portfolio. E
 
 ## Reference stack
 
-GA4 + GTM (tracking) · **Fivetran** (standard sources; free tier or trial, verify current terms) + Python/dlt (custom ingestion) · **Snowflake** (warehouse, key pair auth, dev/prod) · **dbt** (transformation, tests, docs) · **Dagster** (orchestration) · GitHub + GitHub Actions (CI) · Power BI or Looker Studio (BI) · reverse ETL concept for CRM sync · Claude + MCP (read-only agent). DuckDB is fine for early practice. See [STACK.md](../../STACK.md) to adapt it.
+GA4 + GTM (tracking) · **Fivetran** (standard sources; free tier or trial, verify current terms) + Python/dlt (custom ingestion) · **Snowflake** (warehouse, key pair auth, dev/prod) · **dbt** (transformation, tests, docs) · **Dagster** (orchestration) · GitHub + GitHub Actions (CI) · Looker Studio or Tableau (BI) · reverse ETL concept for CRM sync · Claude + MCP (read-only agent). DuckDB is fine for early practice. See [STACK.md](../../STACK.md) to adapt it.
 
 The project is analytics engineering focused: milestone 4 (the tested dbt project with CI and a customer layer) is the core, and every other milestone feeds or uses it.
 

@@ -1,18 +1,18 @@
 # The reference stack
 
-**In one line:** GA4 + GTM → **Fivetran** (+ Python/dlt) → **Snowflake** → **dbt** → **Dagster** → Power BI / Looker Studio → reverse ETL to CRM, versioned in GitHub with GitHub Actions.
+**In one line:** GA4 + GTM → **Fivetran** (+ Python/dlt) → **Snowflake** → **dbt** → **Dagster** → **Looker Studio** (or Tableau) → reverse ETL to CRM, versioned in GitHub with GitHub Actions.
 
 The academy teaches concepts that work with any tools, but every example, exercise and the capstone default to **one modern analytics engineering stack**: the most common setup in product companies hiring analytics engineers.
 
 | Layer | Reference tool | Why |
 |---|---|---|
-| Source tracking | Google Tag Manager + GA4 | Most widely used web analytics setup |
+| Source tracking | **Google stack:** Google Tag Manager + GA4 (with the BigQuery export) | Most widely used web analytics setup |
 | Ingestion | **Fivetran** for standard sources (Shopify, CRM, ad platforms, databases); Python with dlt for custom APIs; Airbyte as open-source alternative | The most common managed ELT tool; code only where no connector exists |
 | Warehouse | **Snowflake** (key pair auth, roles, dev/prod) | Very common in analytics engineering job ads |
 | Transformation | **dbt** (dbt Cloud or dbt Core) | The standard transformation layer |
 | Version control and CI | Git, GitHub, GitHub Actions | Standard developer workflow |
-| Orchestration | **Dagster** (asset-based, strong dbt integration); Airflow as the widely used alternative; dbt Cloud jobs for simple setups | Runs ingestion and dbt in the right order, with retries and monitoring |
-| BI | Power BI or Looker Studio | Power BI dominates many Nordic companies; Looker Studio is free with Google data |
+| Orchestration | **Dagster** (asset-based, modern, strong dbt integration). Airflow is still the most common in job ads; the concepts (DAGs, schedules, retries, backfills) transfer directly, so learning Dagster prepares you for Airflow |  Runs ingestion and dbt in the right order, with retries and monitoring |
+| BI | **Looker Studio** (Google stack, free, native with GA4 and BigQuery); **Tableau** as the alternative | Stays in the Google ecosystem with GA4; Tableau is common in product and tech companies |
 | Activation | Reverse ETL (Hightouch/Census) to CRM and marketing automation | Composable customer data stack |
 | AI | Claude + MCP (read-only warehouse access) | Safe AI on documented marts |
 | Local practice | DuckDB | Free, no cloud cost |
