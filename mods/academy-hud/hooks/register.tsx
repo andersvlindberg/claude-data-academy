@@ -90,8 +90,21 @@ export const register: Register = on => {
   })
 
   on('command.run', { command: 'academy' }, async $ => {
-    await $.ui.open({ id: PANE, title: 'Data Academy' })
-    return { text: 'Data Academy pane opened.' }
+    const { isPlaced } = await $.ui.open({ id: PANE, title: 'Data Academy' })
+    if (isPlaced) return { text: 'Data Academy pane opened.' }
+
+    const s = await read($, study)
+    const st = await read($, streak)
+    const chain = LAYERS.map((name, i) => (i === s.layer ? `[${name}]` : name)).join(' → ')
+    return {
+      text: [
+        'DATA ACADEMY (this app does not show side panes here, so here is the text view)',
+        `Mode: ${s.mode ?? 'not started'}${s.topic ? ` · ${s.topic}` : ''}`,
+        `Chain: ${chain}`,
+        `Streak: ${st.days} days · ${st.sessions} sessions`,
+        'Start with: LEARN: <topic>, BUILD: <task>, QUIZ, REVIEW or INTERVIEW',
+      ].join('\n'),
+    }
   })
 
   on('command.run', { command: 'academy-band' }, async $ => {
