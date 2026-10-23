@@ -85,16 +85,18 @@ Ask a normal AI how a LEFT JOIN works and you get an essay you'll forget by tomo
 
 ## Install in 60 seconds
 
-**Claude apps (claude.ai, desktop, mobile)**
-1. Download the zips from the [latest release](https://github.com/andersvlindberg/claude-data-academy/releases/latest), or build them with `python scripts/package_skills.py`.
-2. Upload each zip under **Customize → Skills**. Start with `ae-coach` plus the modules you need.
+**Claude apps (claude.ai, desktop): all 30 skills at once**
+1. Go to **Customize → Plugins → Add → Add marketplace → Add from a repository**.
+2. Enter `andersvlindberg/claude-data-academy`.
+3. Install the **claude-data-academy** plugin. Done.
 
-**Claude Code**
+**Claude Code: two commands**
 ```bash
-git clone https://github.com/andersvlindberg/claude-data-academy.git
-cp -r claude-data-academy/skills/* ~/.claude/skills/        # personal
-# or: cp -r claude-data-academy/skills/* .claude/skills/     # one project
+claude plugin marketplace add andersvlindberg/claude-data-academy
+claude plugin install claude-data-academy@claude-data-academy
 ```
+
+**Prefer single skills?** Download individual zips from the [latest release](https://github.com/andersvlindberg/claude-data-academy/releases/latest) and upload them under **Customize → Skills**, or copy folders from `skills/` into `~/.claude/skills/`.
 
 Then just ask. Skills load automatically when your question matches:
 
