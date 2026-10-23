@@ -15,6 +15,9 @@
 4. Draft a data contract for GA4 purchase events consumed by your dbt project.
 5. Find dark data in a sample warehouse inventory and propose keep, repurpose or delete with reasons.
 
+6. Run the 15-minute cookie audit on a real Swedish website and present the result as an evidence chain: what happens before choice, after reject, after accept, after withdrawal.
+7. Run the data collection checklist on a newsletter signup form and fix every gap.
+
 ## Quiz bank
 
 1. Name the six legal bases.
@@ -23,6 +26,10 @@
 4. What does Art. 30 require?
 5. Data owner, steward, custodian: who does what?
 6. Name the six data quality dimensions.
+7. Which Swedish law and authority govern cookies? *(LEK 9 kap. 28 §, PTS; GDPR and IMY for the personal data)*
+8. Is a pre-ticked consent box valid? *(No, Planet49)*
+9. Can analytics cookies be classed as strictly necessary? *(As a rule no in Sweden)*
+10. When may you email marketing to an individual without prior consent? *(Existing customer, own similar products, opt-out offered at collection and in every message; check MFL 19 §)*
 
 ## Interview questions
 

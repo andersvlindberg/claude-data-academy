@@ -1,6 +1,6 @@
 ---
 name: ae-governance-gdpr
-description: Data governance, GDPR and data quality for the Analytics Engineering Academy. Use for questions about GDPR principles, legal bases, consent, legitimate interest, data subject rights, records of processing, DPIA, processors and data processing agreements, international transfers, cookie and tracking law, the Swedish data protection authority IMY, the EU AI Act at a high level, personal data in warehouses, pseudonymisation versus anonymisation, PII tagging, retention and deletion, access control, data quality dimensions, data contracts, ownership, catalogs and lineage, dark data, and the GDPR and law course.
+description: Data governance, GDPR, cookies and data quality for the Analytics Engineering Academy. Use for any question about collecting or using personal data correctly - the whole GDPR article by article, cookies and tracking consent under ePrivacy and the Swedish Electronic Communications Act, consent banners and dark patterns, email and SMS marketing law, GDPR principles, legal bases, consent, legitimate interest, data subject rights, records of processing, DPIA, processors and data processing agreements, international transfers, cookie and tracking law, the Swedish data protection authority IMY, the EU AI Act at a high level, personal data in warehouses, pseudonymisation versus anonymisation, PII tagging, retention and deletion, access control, data quality dimensions, data contracts, ownership, catalogs and lineage, dark data, and the GDPR and law course.
 ---
 
 # Module 12: Governance, GDPR and data quality
@@ -8,6 +8,9 @@ description: Data governance, GDPR and data quality for the Analytics Engineerin
 Trust is the product. Data that is wrong, or collected without a lawful basis, is a liability. This module makes the analytics engineer the person who can prove both quality and compliance.
 
 ## How to use this skill
+
+**Data collection rule:** before any new collection (form, tracking event, survey, import, new source, AI feature), walk through [references/data-collection-checklist.md](references/data-collection-checklist.md) with the learner and stop on every "no" or "unsure". Never help implement collection that lacks a purpose and legal basis.
+
 
 Follow `ae-coach` for mode. Without it: explain → LEARN, implement → BUILD, graded work → LEARN only.
 
@@ -94,6 +97,10 @@ Dimensions: **accuracy, completeness, consistency, timeliness, validity, uniquen
 
 ## References
 
+- [references/gdpr-handbook.md](references/gdpr-handbook.md): the whole GDPR article by article with data-team implications, Swedish supplements (Data Protection Act, LEK, marketing law) and key cases.
+- [references/data-collection-checklist.md](references/data-collection-checklist.md): collecting data correctly, step by step, with red flags.
+- [references/cookies-and-tracking.md](references/cookies-and-tracking.md): cookies, consent banners, dark patterns, Consent Mode, server-side, DevTools audit procedure, Swedish cases.
+- [references/ai-and-personal-data.md](references/ai-and-personal-data.md): safe-use protocol for AI on personal data.
 - [references/gdpr-playbook.md](references/gdpr-playbook.md): data mapping template, legitimate interest test, deletion runbook, scraping checklist.
 - [references/data-quality.md](references/data-quality.md): tests per quality dimension and a data contract template.
 - [references/course-notes-gdpr-surveys.md](references/course-notes-gdpr-surveys.md): GDPR in surveys and customer research, data minimisation exercise pattern.

@@ -53,3 +53,12 @@ document.cookie = "consent=analytics; max-age=31536000; path=/; SameSite=Lax";
 
 ## Debugging habits
 `console.log` the object, read the first red error in Console and click its file:line, check Network for the request, and test one change at a time.
+
+## CSS selectors (for tag triggers)
+GTM click and visibility triggers use CSS selectors: `#id`, `.class`, `button[data-action="add-to-cart"]`, `form#signup input[type="email"]`. Prefer stable `data-*` attributes agreed with developers over classes that designers change. Better still: have the site push business events to the data layer, so tracking does not depend on page layout.
+
+## HTTPS and security basics (data perspective)
+- **HTTPS** encrypts traffic between browser and server (TLS); without it, cookies and form data can be read in transit. All tracking endpoints should be HTTPS.
+- Cookie flags: `Secure` (HTTPS only), `HttpOnly` (not readable by JavaScript), `SameSite` (`Lax`/`Strict`/`None`) controls cross-site sending.
+- **First-party versus third-party** cookies: set by the site you visit versus another domain; browsers increasingly restrict third-party cookies.
+- Never put personal data (email, name, phone) in URLs or query strings: they end up in logs, analytics and referrers.

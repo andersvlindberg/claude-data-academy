@@ -7,6 +7,8 @@ Working in public: what's next for Claude Data Academy.
 - [ ] Test the coach against real course scenarios from five example data programs (learn, quiz, exam prep, graded-work boundaries)
 - [ ] Stack-specific notes in every core skill (Fivetran, Snowflake, dbt, Dagster, Looker Studio)
 - [ ] Spark/Databricks and Microsoft Fabric/Power BI as optional stack profiles
+- [x] GDPR handbook, data collection checklist, cookies and tracking guide, AI safety protocol
+- [x] Confirm-before-acting safety protocol in the coach
 - [ ] Dictation-friendly workflow: how to learn and build by voice (speech-to-text tools) with the coach
 
 ## Later
