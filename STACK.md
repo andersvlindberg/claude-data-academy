@@ -1,15 +1,17 @@
 # The reference stack
 
+**In one line:** GA4 + GTM → **Fivetran** (+ Python/dlt) → **Snowflake** → **dbt** → **Dagster** → Power BI / Looker Studio → reverse ETL to CRM, versioned in GitHub with GitHub Actions.
+
 The academy teaches concepts that work with any tools, but every example, exercise and the capstone default to **one modern analytics engineering stack**: the most common setup in product companies hiring analytics engineers.
 
 | Layer | Reference tool | Why |
 |---|---|---|
 | Source tracking | Google Tag Manager + GA4 | Most widely used web analytics setup |
-| Ingestion | Python (requests, dlt) + a managed connector (Fivetran/Airbyte) where it fits | Code for custom sources, buy for standard SaaS |
+| Ingestion | **Fivetran** for standard sources (Shopify, CRM, ad platforms, databases); Python with dlt for custom APIs; Airbyte as open-source alternative | The most common managed ELT tool; code only where no connector exists |
 | Warehouse | **Snowflake** (key pair auth, roles, dev/prod) | Very common in analytics engineering job ads |
 | Transformation | **dbt** (dbt Cloud or dbt Core) | The standard transformation layer |
 | Version control and CI | Git, GitHub, GitHub Actions | Standard developer workflow |
-| Orchestration | dbt Cloud jobs (Airflow or Dagster when needed) | Simplest that works |
+| Orchestration | **Dagster** (asset-based, strong dbt integration); Airflow as the widely used alternative; dbt Cloud jobs for simple setups | Runs ingestion and dbt in the right order, with retries and monitoring |
 | BI | Power BI or Looker Studio | Power BI dominates many Nordic companies; Looker Studio is free with Google data |
 | Activation | Reverse ETL (Hightouch/Census) to CRM and marketing automation | Composable customer data stack |
 | AI | Claude + MCP (read-only warehouse access) | Safe AI on documented marts |
