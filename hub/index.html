@@ -123,7 +123,11 @@ a{color:var(--accent-2);text-underline-offset:3px}
 .do .kicker{font-size:11px}
 .do p{font-size:13.5px;color:var(--ink-2)}
 .do code{font:12.5px var(--mono);background:var(--raise);border:1px solid var(--line);border-radius:6px;padding:6px 8px;display:block;overflow-x:auto;white-space:pre;color:var(--ink)}
-.do .btn{align-self:flex-start;margin-top:auto}
+.do .btn{align-self:flex-start}
+.do .row{margin-top:auto}
+.do a.btn{text-decoration:none;color:var(--ink)}
+.how{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:2px;font-size:13px;color:var(--ink-2)}
+.how li::marker{color:var(--accent);font-family:var(--mono)}
 .detail .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .more{margin-top:40px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--bg-2)}
 .more p{color:var(--ink-2);font-size:14px;max-width:60ch}
@@ -220,7 +224,7 @@ en: {
   moreP:'<b style="color:var(--ink)">Finished the track?</b> Claude writes five new steps one level up, based on what you’ve done, and adds them here.', gen:'Generate 5 new steps', genCopy:'Copy request for Claude', genBusy:'Claude is writing five new steps…', genDone:n => n + ' new steps added.',
   roleStep:r => (/^[AEIOU]/.test(r) ? 'What is an ' : 'What is a ') + r.toLowerCase() + '? The role, the stack and your workspace',
   upNext:'Up next', st:{todo:'To do', doing:'In progress', done:'Done'},
-  c1:'Lecture', c1p:'Your lecture is made here. Copy the request, paste it in the Claude app and you get slides with speaker notes (PDF or PowerPoint). Then go on to step 2.', c1b:'Generate lecture', c1c:'Copied. Paste it in the Claude app to generate the lecture.',
+  c1:'Lecture', c1p:'Made in the Claude app, not in the hub: it saves usage, keeps the whole lecture in one chat and gives you slides you can download as PDF.', c1how:['Copy the lecture','Open Claude and paste','Download the slides as PDF'], c1b:'Copy lecture', c1o:'Open Claude ↗', c1c:'Copied. Open Claude and paste: you get slides you can download as PDF.',
   c2:'Claude Code', c2p:'Work hands-on in Claude Code. Your Claude sets up the practice project from the lecture (fictional data, a real tool) and coaches you while you build it in your fork.', c2b:id => 'Copy LAB ' + id,
   c3:'GitHub', c3p:'Finished project on GitHub: commit, push, pull request, merge. Claude updates PROGRESS.md in your fork. Mark the step done here and it shows up in Progress, where you can quiz yourself whenever you like.', c3b:'Lab instructions ↗',
   markDone:'Mark as done', markUndo:'Mark as not done', started:'I’ve started', brief:'brief lab: Claude builds the steps',
@@ -264,7 +268,7 @@ sv: {
   moreP:'<b style="color:var(--ink)">Klar med spåret?</b> Claude skriver fem nya steg en nivå upp, utifrån det du gjort, och lägger till dem här.', gen:'Generera 5 nya steg', genCopy:'Kopiera beställning till Claude', genBusy:'Claude skriver fem nya steg…', genDone:n => n + ' nya steg tillagda.',
   roleStep:r => 'Vad gör en ' + r.toLowerCase() + '? Rollen, stacken och din arbetsmiljö',
   upNext:'Nästa', st:{todo:'Att göra', doing:'Pågår', done:'Klar'},
-  c1:'Föreläsning', c1p:'Här skapas din föreläsning. Kopiera beställningen, klistra in i Claude-appen så får du bilder med talarmanus (PDF eller PowerPoint). Gå sedan vidare till steg 2.', c1b:'Generera föreläsning', c1c:'Kopierat. Klistra in i Claude-appen så skapas föreläsningen.',
+  c1:'Föreläsning', c1p:'Görs i Claude-appen, inte i huben: det sparar usage, hela föreläsningen hamnar i en chatt och du får slides som går att ladda ner som PDF.', c1how:['Kopiera föreläsningen','Öppna Claude och klistra in','Ladda ner slidsen som PDF'], c1b:'Kopiera föreläsning', c1o:'Öppna Claude ↗', c1c:'Kopierat. Öppna Claude och klistra in, så får du slides att ladda ner som PDF.',
   c2:'Claude Code', c2p:'Jobba praktiskt i Claude Code. Din Claude sätter upp övningsprojektet från föreläsningen (påhittad data, ett riktigt verktyg) och coachar dig medan du bygger det i din fork.', c2b:id => 'Kopiera LAB ' + id,
   c3:'GitHub', c3p:'Klart projekt på GitHub: commit, push, pull request, merge. Claude uppdaterar PROGRESS.md i din fork. Markera steget som klart här så hamnar det i Framsteg, där du kan quizza dig när du vill.', c3b:'Labbinstruktioner ↗',
   markDone:'Markera som klar', markUndo:'Markera som ej klar', started:'Jag har börjat', brief:'kortlabb: Claude bygger stegen',
@@ -335,10 +339,11 @@ function setFocus(r){ state.focus = r; state.open = null; go('track'); saveProfi
 function setLang(l){ state.lang = l; try { localStorage.setItem('da-lang', l); } catch {} render(); saveProfile({lang:l}); }
 function go(v){ state.view = v; render(); window.scrollTo({top:0}); }
 
+const LEC_TAIL = ' Make it a slide deck with speaker notes that I can download as PDF.';
 function lecturePrompt(id, n){
   const r = ROLES[state.focus].en[0];
   const what = id === '00' ? 'What a ' + r.toLowerCase() + ' does: the job, the stack and how I will work' : lab(id).title;
-  return 'LECTURE: ' + what + ' (step ' + n + ' of the ' + r + ' track, before LAB ' + id + '). End with a linked practice project for Claude Code: a fictional scenario, the data to generate and what to build.' + inSv();
+  return 'LECTURE: ' + what + ' (step ' + n + ' of the ' + r + ' track, before LAB ' + id + '). End with a linked practice project for Claude Code: a fictional scenario, the data to generate and what to build.' + LEC_TAIL + inSv();
 }
 
 /* ---------- tracks ---------- */
@@ -404,7 +409,7 @@ function stepRow(id, n, isNext){
       el('p',{class:'goal',textContent:goal(id)}),
       el('div',{class:'tools'}, l.tools.split(/,\s*/).map(x => el('span',{class:'chip',textContent:x})), l.brief ? el('span',{class:'chip',textContent:t.brief}) : null),
       el('div',{class:'do'},
-        el('div',{}, el('span',{class:'kicker',html:'<b>1</b> · ' + t.c1}), el('p',{textContent:t.c1p}), el('button',{class:'btn primary',textContent:t.c1b,onclick:() => copy(lecturePrompt(id, n), t.c1c)})),
+        el('div',{}, el('span',{class:'kicker',html:'<b>1</b> · ' + t.c1}), el('p',{textContent:t.c1p}), el('ol',{class:'how'}, ...t.c1how.map(s => el('li',{textContent:s}))), el('div',{class:'row'}, el('button',{class:'btn primary',textContent:t.c1b,onclick:() => copy(lecturePrompt(id, n), t.c1c)}), el('a',{class:'btn',href:'https://claude.ai/new',target:'_blank',rel:'noopener',textContent:t.c1o}))),
         el('div',{}, el('span',{class:'kicker',html:'<b>2</b> · ' + t.c2}), el('p',{textContent:t.c2p}), el('code',{textContent:'git checkout -b lab-' + id + '\nmkdir -p ' + folder + '\ncd ' + folder + ' && claude\n> LAB ' + id}), el('button',{class:'btn',textContent:t.c2b(id),onclick:() => copy('LAB ' + id, t.copiedCC)})),
         el('div',{}, el('span',{class:'kicker',html:'<b>3</b> · ' + t.c3}), el('p',{textContent:t.c3p}), el('code',{textContent:'git add .\ngit commit -m "lab ' + id + ': ..."\ngit push -u origin lab-' + id}), el('a',{class:'btn',href:REPO + '/blob/main/labs/lab-' + id + '-' + l.slug + '.md',target:'_blank',rel:'noopener',textContent:t.c3b}))),
       el('div',{class:'row'},
@@ -421,7 +426,7 @@ function extraRow(x, i){
   if (open) {
     const prompt = 'LAB (custom): ' + x.title + '. Goal: ' + x.goal + ' Milestones: ' + (x.milestones || []).join('; ');
     row.append(el('div',{class:'detail'}, el('p',{class:'goal',textContent:x.goal}),
-      el('div',{class:'row'}, el('button',{class:'btn primary',textContent:t.c1b,onclick:() => copy('LECTURE: ' + x.title + ' (extra step on the ' + ROLES[state.focus].en[0] + ' track). End with a linked practice project for Claude Code.' + inSv(), t.c1c)}), el('button',{class:'btn',textContent:t.c2b(''),onclick:() => copy(prompt, t.copiedCC)}),
+      el('div',{class:'row'}, el('button',{class:'btn primary',textContent:t.c1b,onclick:() => copy('LECTURE: ' + x.title + ' (extra step on the ' + ROLES[state.focus].en[0] + ' track). End with a linked practice project for Claude Code.' + LEC_TAIL + inSv(), t.c1c)}), el('a',{class:'btn',href:'https://claude.ai/new',target:'_blank',rel:'noopener',textContent:t.c1o}), el('button',{class:'btn',textContent:t.c2b(''),onclick:() => copy(prompt, t.copiedCC)}),
         s !== 'done' ? el('button',{class:'btn',textContent:t.markDone,onclick:() => setStatus(key,'done')}) : el('button',{class:'btn',textContent:t.markUndo,onclick:() => setStatus(key,'todo')}))));
   }
   return row;
